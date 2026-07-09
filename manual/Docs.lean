@@ -97,58 +97,58 @@ def itp26 : InProceedings where
   year := 2026
   booktitle := inlines!"ITP"
 
+/-! ## Section 2 -/
+
+def def'monoid := Def "2.1"
+def exm'3_2 := Exm "2.2"
+def def'module := Def "2.4"
+def exm'3_4 := Exm "2.4"
+def exm'3_5 := Exm "2.5"
+def def'naturally_ordered_module := Def "2.6"
+def exm'3_7 := Exm "2.7"
+def def'cont_module := Def "2.8"
+def lem'countable_sums := Lem "2.9"
+
 /-! ## Section 3 -/
 
-def def'monoid := Def "3.1"
-def exm'3_2 := Exm "3.2"
-def def'module := Def "3.4"
-def exm'3_4 := Exm "3.4"
-def exm'3_5 := Exm "3.5"
-def def'naturally_ordered_module := Def "3.6"
-def exm'3_7 := Exm "3.7"
-def def'cont_module := Def "3.8"
-def lem'countable_sums := Lem "3.9"
+def def'weighted_reward_module := Def "3.1"
+def exm'4_2 := Exm "3.2"
+def def'wGCL := Def "3.3"
+def exm'4_4 := Exm "3.4"
+def exm'4_5 := Exm "3.5"
+def def'scoring := Def "3.6"
+def lem'wp_mono := Lem "3.8"
+def thm'knaster_tarski := Thm "3.9"
+def cor'knaster_tarski_park := Cor "3.10"
 
 /-! ## Section 4 -/
 
-def def'weighted_reward_module := Def "4.1"
-def exm'4_2 := Exm "4.2"
-def def'wGCL := Def "4.3"
-def exm'4_4 := Exm "4.4"
-def exm'4_5 := Exm "4.5"
-def def'scoring := Def "4.6"
-def lem'wp_mono := Lem "4.8"
-def thm'knaster_tarski := Thm "4.9"
-def cor'knaster_tarski_park := Cor "4.10"
+def def'wdp := Def "4.1"
+def exm'mpd_is_wdp := Exm "4.2"
+def def'toWDP := Def "4.3"
+def def'schedulers := Def "4.5"
+def def'h_schedulers := Def "A.16"
+def def'paths := Def "4.6"
+def def'weights := Def "4.7"
+def def'wrew := Def "4.8"
+def def'op := Def "4.9"
+def def'sound_wp_eq_op := Def "4.11"
+def def'T_T' := Def "4.12"
+def thm'wp_eq_lp := Thm "4.13"
 
 /-! ## Section 5 -/
 
-def def'wdp := Def "5.1"
-def exm'mpd_is_wdp := Exm "5.2"
-def def'toWDP := Def "5.3"
-def def'schedulers := Def "5.5"
-def def'h_schedulers := Def "A.16"
-def def'paths := Def "5.6"
-def def'weights := Def "5.7"
-def def'wrew := Def "5.8"
-def def'op := Def "5.9"
-def def'sound_wp_eq_op := Def "5.11"
-def def'T_T' := Def "5.12"
-def thm'wp_eq_lp := Thm "5.13"
-
-/-! ## Section 6 -/
-
-def lem'T_MinWRew_le_MinWRew := Lem "6.1"
-def def'k_inf_distrib := Def "6.4"
-def lem'no_lfp_prop := Lem "6.6"
-def lem'T_MinWRew_eq_MinWRew := Lem "6.7"
-def def'wdp_well_behaved := Def "6.8"
-def exm'mdp_wellBehaved := Exm "6.9"
-def thm'lfp_T_eq_MinWRew := Thm "6.10"
-def thm'WellBehavedModule_pi := Thm "6.12"
-def cor'wp_eq_op_of_isProb := Cor "6.24"
-def cor'actic_wb := Cor "6.25"
-def cor'formal_languages := Cor "6.26"
+def lem'T_MinWRew_le_MinWRew := Lem "5.1"
+def def'k_inf_distrib := Def "5.4"
+def lem'no_lfp_prop := Lem "5.6"
+def lem'T_MinWRew_eq_MinWRew := Lem "5.7"
+def def'wdp_well_behaved := Def "5.8"
+def exm'mdp_wellBehaved := Exm "5.9"
+def thm'lfp_T_eq_MinWRew := Thm "5.10"
+def thm'WellBehavedModule_pi := Thm "5.12"
+def cor'wp_eq_op_of_isProb := Cor "5.24"
+def cor'actic_wb := Cor "5.25"
+def cor'formal_languages := Cor "5.26"
 
 end Labels
 
@@ -156,15 +156,15 @@ open Labels
 
 open OmegaCompletePartialOrder
 
-#doc (Manual) "Weighted Programming with Unbounded Demonic Nondeterminism in Lean (Lean documentation)" =>
+#doc (Manual) "Countable Nondeterminism in Weighted Programming with an Application to Mechanized Foundations for Probabilistic Program Verification (Lean manual)" =>
 %%%
 authors := []
-shortTitle := "Weighted Programming with Unbounded Demonic Nondeterminism in Lean"
+shortTitle := "Countable Nondeterminism in Weighted Programming with an Application to Mechanized Foundations for Probabilistic Program Verification"
 %%%
 
 {index}[example]
 
-This is the accompanying Lean manual to the paper _Weighted Programming with Unbounded Demonic Nondeterminism in Lean_ submitted to POPL'27. The manual is built using [Verso](https://verso.lean-lang.org/), which enabled hoverable code excerpts and generally allows us to integrate the paper and the mechanization.
+This is the accompanying Lean manual to the paper _Countable Nondeterminism in Weighted Programming with an Application to Mechanized Foundations for Probabilistic Program Verification_ submitted to POPL'27. The manual is built using [Verso](https://verso.lean-lang.org/), which enabled hoverable code excerpts and generally allows us to integrate the paper and the mechanization.
 
 The source code for the mechanization, which is described in this manual, can be found hosted online anonymously at:
 
@@ -173,10 +173,6 @@ The source code for the mechanization, which is described in this manual, can be
 The mechanization and this manual was produced and written without the use of LLM's.
 
 # Introduction
-
-_No definitions in this section._
-
-# Related Work
 
 _No definitions in this section._
 
@@ -388,7 +384,7 @@ The objective of this section is to characterize the connection between {name}`T
 
 ## Module Level: A Necessary Condition for the LFP Property
 
-As we introduced ω-continuity for addition and scaling with {lean}`ωScottContinuousAdd` and {lean}`ωScottContinuousSMul`, we need a similar, but slightly stronger concept for infimums, namely 𝓀-inf-distributivity as described in {paper}`def'k_inf_distrib`. We need to describe distributivity with respect to {name}`iInf`, that is with respect to a index of certain shapes. The paper classifies this property by way of cadinality, however, in the mechanization we chose to require this on the specific type(s) that we take infimums over, formalized by the typeclasse {name}`SMulCocontinuousOn`.
+As we introduced ω-continuity for addition and scaling with {lean}`ωScottContinuousAdd` and {lean}`ωScottContinuousSMul`, we need a similar, but slightly stronger concept for infimums, namely 𝓀-inf-distributivity as described in {paper}`def'k_inf_distrib`. We need to describe distributivity with respect to {name}`iInf`, that is with respect to a index of certain shapes. The paper classifies this property by way of cadinality, however, in the mechanization we chose to require this on the specific type(s) that we take infimums over, formalized by the type class {name}`SMulCocontinuousOn`, most importantly over {name}`Sched`.
 
 {docstring WDP.SMulCocontinuousOn}
 
@@ -435,6 +431,10 @@ _{paper}`cor'actic_wb` and {paper}`cor'formal_languages` concerning the Arctic s
 # Case Studies
 
 _This section has not been mechanized in Lean._
+
+# Related Work
+
+_No definitions in this section._
 
 {name}`HSched`
 
