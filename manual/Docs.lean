@@ -83,6 +83,20 @@ def Cor (n : String) := s!"Corollary {n}"
 open Verso.Genre
 open Verso.Doc.Concrete
 
+/-! ## Papers -/
+
+def pldi26 : InProceedings where
+  title := inlines!"Weighted NetKAT: A Programming Language for Quantitative Network Verification"
+  authors := #[inlines!"Emmanuel Suárez Acevedo", inlines!"Tiago Ferreira", inlines!"Kevin Batz", inlines!"Oliver Bøving", inlines!"Nate Foster", inlines!"Alexandra Silva"]
+  year := 2026
+  booktitle := inlines!"PLDI"
+
+def itp26 : InProceedings where
+  title := inlines!"Securing the Foundations of an Intermediate Language for Probabilistic Program Verification"
+  authors := #[inlines!"Oliver Bøving", inlines!"Christoph Matheja"]
+  year := 2026
+  booktitle := inlines!"ITP"
+
 /-! ## Section 3 -/
 
 def def'monoid := Def "3.1"
@@ -93,7 +107,7 @@ def exm'3_5 := Exm "3.5"
 def def'naturally_ordered_module := Def "3.6"
 def exm'3_7 := Exm "3.7"
 def def'cont_module := Def "3.8"
-def lem'countable_sums := Lem "3.8"
+def lem'countable_sums := Lem "3.9"
 
 /-! ## Section 4 -/
 
@@ -111,6 +125,30 @@ def cor'knaster_tarski_park := Cor "4.10"
 
 def def'wdp := Def "5.1"
 def exm'mpd_is_wdp := Exm "5.2"
+def def'toWDP := Def "5.3"
+def def'schedulers := Def "5.5"
+def def'h_schedulers := Def "A.16"
+def def'paths := Def "5.6"
+def def'weights := Def "5.7"
+def def'wrew := Def "5.8"
+def def'op := Def "5.9"
+def def'sound_wp_eq_op := Def "5.11"
+def def'T_T' := Def "5.12"
+def thm'wp_eq_lp := Thm "5.13"
+
+/-! ## Section 6 -/
+
+def lem'T_MinWRew_le_MinWRew := Lem "6.1"
+def def'k_inf_distrib := Def "6.4"
+def lem'no_lfp_prop := Lem "6.6"
+def lem'T_MinWRew_eq_MinWRew := Lem "6.7"
+def def'wdp_well_behaved := Def "6.8"
+def exm'mdp_wellBehaved := Exm "6.9"
+def thm'lfp_T_eq_MinWRew := Thm "6.10"
+def thm'WellBehavedModule_pi := Thm "6.12"
+def cor'wp_eq_op_of_isProb := Cor "6.24"
+def cor'actic_wb := Cor "6.25"
+def cor'formal_languages := Cor "6.26"
 
 end Labels
 
@@ -126,7 +164,13 @@ shortTitle := "Weighted Programming with Unbounded Demonic Nondeterminism in Lea
 
 {index}[example]
 
-This is the accompanying Lean manual to the paper _Weighted Programming with Unbounded Demonic Nondeterminism in Lean_ submitted to POPL'27. The manual is built using [Verso](https://verso.lean-lang.org/), which enabled hoverable code excerpts.
+This is the accompanying Lean manual to the paper _Weighted Programming with Unbounded Demonic Nondeterminism in Lean_ submitted to POPL'27. The manual is built using [Verso](https://verso.lean-lang.org/), which enabled hoverable code excerpts and generally allows us to integrate the paper and the mechanization.
+
+The source code for the mechanization, which is described in this manual, can be found hosted online anonymously at:
+
+> [https://anonymous.4open.science/r/WeightedProgramming-C43C/](https://anonymous.4open.science/r/WeightedProgramming-C43C/)
+
+The mechanization and this manual was produced and written without the use of LLM's.
 
 # Introduction
 
@@ -166,7 +210,7 @@ variable [CompleteLattice ℛ] [CanonicallyOrderedAdd ℛ]
 
 {paper}`def'cont_module` defines ω-continuity which we formalize as two type classes {name}`ωScottContinuousAdd` and {name}`ωScottContinuousSMul`. These build on the notion of {name}`ωScottContinuous` from the {name}`OmegaCompletePartialOrder` module (a weaker order than {name}`CompleteLattice` and this we have an instance {inst}`OmegaCompletePartialOrder ℛ`). This bears a connection to continuity in the Scott topology {name}`Topology.scott`, but the only property we rely on is preservation of {name}`ωSup`, the chain/countable analouge of {name}`iSup`.
 
-{paper}`lem'countable_sums` introduces _countable sums_. There is not, at the time of writing, a direct correspondence to this notion of a countable sum defined for {name}`CompleteLattice`'s with {name}`AddCommMonoid` and {name}`CanonicallyOrderedAdd`. The closest is {name}`tsum`, short for topological sum and defined as a topological limit. However, since we do not impose a topological space on our structure, we use an alternative definition based on {name}`ωSup` namely {name}`ωSum`, heavily inspired by Weighted NetKAT's definition under the same name.
+{paper}`lem'countable_sums` introduces _countable sums_. There is not, at the time of writing, a direct correspondence to this notion of a countable sum defined for {name}`CompleteLattice`'s with {name}`AddCommMonoid` and {name}`CanonicallyOrderedAdd`. The closest is {name}`tsum`, short for topological sum and defined as a topological limit. However, since we do not impose a topological space on our structure, we use an alternative definition based on {name}`ωSup` namely {name}`ωSum`, heavily inspired by Weighted NetKAT's {citep pldi26}[] definition under the same name.
 
 {docstring ωSum}
 
@@ -268,74 +312,125 @@ For the purpose of proofs, it turned out to be easier _not_ to bundle the reward
 ```lean
 variable {S A : Type} {M : WDP 𝒲 S A}
 ```
+
 ## The Operational Weighted Decision Process
 
-definition 5.3
+We need to induce a operational {name}`WDP` for {name}`wGCL` where the state space is defined by _configurations_ {name}`Conf`.
 
-{name}`Conf`
+{docstring wGCL.Conf}
 
-{name}`Conf.τ`
+Along side the configurations, we need to introduce a small-step execution relation {name}`Step` as an inductive data type.
 
-{name}`ρ` and {name}`ρ'`
+{docstring wGCL.Step}
+
+In addition to this definition, we also introduce {name}`Conf.succs` and {name}`Conf.succsₐ` which rephrase the semantics using a more explicit set construction of successors, shown equivalent by {name}`Conf.succs_agree`. This other formulation helps Lean's automation better identify the complete set of successors, crucial for showing properties such as _countable successors_ {name}`Conf.succs_countable`.
+
+These define a {name}`Conf.τ` a transition function for the {name}`WDP` that is induced by {name}`Step` refered to as {name}`wGCL.toWDP` as per {paper}`def'toWDP`. In these we also define {name}`ρ` and {name}`ρ'` as the scoring functions parametric over postweighting.
 
 ## Minimal Weighted Rewards
 
-definition 5.5 {name}`Sched` {name}`MSched`
+Following the path of `MDP`'s, we introduce a notion of _schedulers_ as per {paper}`def'schedulers`. This includes two schedulers, {name}`Sched`, and memoryless {name}`MSched`. Additionally we make use of _history length dependent schedulers_ defined in {paper}`def'h_schedulers` named {name}`HSched` that only considers the current state and length of the history.
 
-definition 5.6 {name}`WDP.Path`
-definition 5.7 {name}`WDP.Path.Weight`
+```lean
+variable {𝔖 : M.Sched} {ℒ : M.MSched}
+```
 
-definition 5.8 {name}`WRew` {name}`WRew'` {name}`MinWRew`
+```lean -show
+variable {n : ℕ} {s₀ : S}
+```
 
-definition 5.9 {name}`op`
+From {paper}`def'paths` we define {name}`WDP.Path` as nonempty lists of states. We define {lean}`Path.of n s₀` as the set of parths starting in state {lean}`s₀` with length {lean}`n`, mirroring the syntax $`\text{Paths}^{=n}(s₀)`.
 
-definition 5.11 sound iff wp = op {name}`wp_eq_op`
+```lean
+variable {π : Path S}
+```
+
+From {paper}`def'weights` we define {name}`WDP.Path.Weight` computing the product of transition weights between successive states of a given path {lean}`π` and a scheduler {lean}`𝔖`. Since our product is not necessarily commutative we can't use {name}`Finset.prod` and have to resort to {name}`List.prod` with {name}`List.pairs`, however, since we store the latest state in a path as the head, we have to compute this product in reverse and thus rely on {name}`List.rprod`.
+
+We call {lean}`Path.of₀ n s₀ 𝔖` the set of paths of length {lean}`n` starting in state {lean}`s₀` with non-zero weight according to {lean}`𝔖`. The set {name}`Path.of₀`, as opposed to {name}`Path.of` which doesn't consider weights, is _countable_ as shown by {name}`Path.of₀_countable`.
+
+{paper}`def'wrew` defines three notions of _weighted reward_ on {lean}`WDP`'s:
+
+```lean -show
+open OrderHom
+variable {ρ : S → ℛ}
+```
+
+- {name}`WRew`: _weighted reward_ given a length {lean}`n`, an initial state {lean}`s₀`, and, a scheduler {lean}`𝔖`
+
+    {lean}`∑ i ≤ n, ω∑ π : Path.of₀ i s₀ 𝔖, π.val.Weight 𝔖 • ρ π.val.head`
+
+- {name}`WRew'`: weighted _total_ reward given an initial state {lean}`s₀` and a scheduler {lean}`𝔖`
+
+    {lean}`⨆ n : ℕ, M.WRew ρ n 𝔖 s₀`
+
+- {name}`MinWRew`: _minimal_ weighted total reward given an initial state {lean}`s₀`
+
+    {lean}`⨅ 𝔖 : M.Sched, M.WRew' ρ 𝔖 s₀`
+
+{paper}`def'op` phrases {name}`op` the minimal weighted total reward in the shape of an prescoring transformer like {name}`wp`. This definition allows us to compare exactly {name}`op` with {name}`wp`, namely stating that operational and denotational semantics agree, as per {paper}`def'sound_wp_eq_op`. Ultimatly this is shown later with {name}`wp_eq_op`.
+
+{docstring wGCL.op}
 
 ## Recursive Characterization of Minimal Weighted Rewards
 
-definition 5.12 {name}`T` {name}`T'`
+To show {name}`wp_eq_op` we first show a relation on the level of {name}`WDP`'s, relating {name}`MinWRew` to the _least fixed point_ of the _Bellman_ operator as defined in {paper}`def'T_T'`, defining the minimizing Bellman operator {name}`T` and a variant {name}`T'` the uses a fixed memory scheduler {lean}`ℒ`.
 
-{name}`lp` as a short hand for `lfp T`
+To bring {name}`T` into the land of prescoring transformer {name}`lp` is defined as a short hand for {name}`lfp` {name}`T`.
 
-theorem 5.13 {name}`wp_eq_lp`
+Thus, {paper}`thm'wp_eq_lp` shows {name}`wp_eq_lp`. A lot of grunt work goes into showing this theorem with core definitions being {name}`ξ` and {name}`Φ'` insipred by the mechanization efforts of {citep itp26}[].
 
 # When are minimal weighted rewards (not) equal to least fixed points?
 
-lemma 6.1 {name}`T_MinWRew_le_MinWRew`
+The objective of this section is to characterize the connection between {name}`T` and {name}`MinWRew`, ultimatly showing that {name}`lfp` {name}`T` is equal to {name}`MinWRew`. To this end, {paper}`lem'T_MinWRew_le_MinWRew` shows that {name}`MinWRew` is a prefixed of {name}`T`.
+
+{docstring WDP.T_MinWRew_le_MinWRew}
 
 ## Module Level: A Necessary Condition for the LFP Property
 
-definition 6.4 𝓀-inf-distrib
+As we introduced ω-continuity for addition and scaling with {lean}`ωScottContinuousAdd` and {lean}`ωScottContinuousSMul`, we need a similar, but slightly stronger concept for infimums, namely 𝓀-inf-distributivity as described in {paper}`def'k_inf_distrib`. We need to describe distributivity with respect to {name}`iInf`, that is with respect to a index of certain shapes. The paper classifies this property by way of cadinality, however, in the mechanization we chose to require this on the specific type(s) that we take infimums over, formalized by the typeclasse {name}`SMulCocontinuousOn`.
 
-leamm 6.6 we did not formalize
+{docstring WDP.SMulCocontinuousOn}
 
-leamm 6.7 {name}`T_MinWRew_eq_MinWRew`
+_We did not formalize the statement of {paper}`lem'no_lfp_prop`._
+
+{paper}`lem'T_MinWRew_eq_MinWRew` strengthens {paper}`lem'T_MinWRew_le_MinWRew` to show that {name}`MinWRew` is a true fixed point of {name}`T`, {name}`T_MinWRew_eq_MinWRew`, with extra constraints on the module.
+
+{docstring WDP.T_MinWRew_eq_MinWRew}
 
 ## WDP Level: A Sufficient Condition for the LFP property
 
-definition 6.8 {name}`WDP.WellBehaved`
+What remains to show is that {name}`MinWRew` is not only a fixed point, but also the _least_. This requires the introduction of _well-behaved {name}`WDP`'s_ as per {paper}`def'wdp_well_behaved`.
 
 {docstring WDP.WellBehaved}
 
-example 6.9 {name}`mdp_wellBehaved`
+```lean -show
+variable {v ρ : S → ℛ} {h : M.T ρ v ≤ v}
+```
 
-theorem 6.10 {name}`lfp_T_eq_MinWRew`
+The above definition is the _structure of a well-behaved {name}`WDP`_ with respect to a specific prefixed point {lean}`v`. The more general type class is {name}`IsWellBehaved` which states that a {name}`WellBehaved` exists for every prefixed point of a given {name}`WDP`.
 
-{name}`WellBehavedModule`
+{docstring WDP.WellBehaved}
 
-theorem 6.12 {name}`WellBehavedModule.pi`
+{paper}`exm'mdp_wellBehaved` establishes that {name}`WDP`'s with a module of {name}`PReal` scalars over {name}`ENNReal` and sum of successor weight bounded by {lean}`1`, exactly those {name}`WDP`'s that `MDP`'s embed into, are well-behaved as shown with {name}`mdp_wellBehaved`.
+
+Crucially, we can show in {paper}`thm'lfp_T_eq_MinWRew` that {name}`WellBehaved` {name}`WDP`'s satisfy the lfp-property, as shown in {name}`lfp_T_eq_MinWRew`.
+
+Extending the class of {name}`WDP`'s from specific to _all those with a specific module_ we introduce the concept of a {name}`WellBehavedModule`.
+
+{docstring WDP.WellBehavedModule}
+
+The notion of well-behaved modules extends to arbitrary products of well-behaved modules as per {paper}`thm'WellBehavedModule_pi` and {name}`WellBehavedModule.pi`.
 
 ## Transporting the LFP Property through Normalization
 
-_This section has not been mechanized in Lean._
+_This section and normalization has not been mechanized in Lean._
 
 ## Classes of WDPs with the Least Fixed Point Property
 
-corollary 6.24 {name}`wp_eq_op_of_isProb`
+We show that {name}`wGCL` programs over certain modules and with particular structures produce well-behaved {name}`WDP`'s. In particular we show that {name}`PReal`-{name}`ENNReal` modules with programs consiting of weighted choices limited to $`C₁ {}_{p}⊕_{1-p} C₂` admit well-behaved {name}`WDP`'s ultimately showing {name}`wp_eq_op_of_isProb` reflecting {paper}`cor'wp_eq_op_of_isProb`.
 
-corollary 6.25 actic not formalized
-
-corollary 6.26 formal languages not formalized
+_{paper}`cor'actic_wb` and {paper}`cor'formal_languages` concerning the Arctic semiring and Formal languages semiring respectively has not been formalized._
 
 # Case Studies
 
