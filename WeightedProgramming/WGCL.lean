@@ -458,7 +458,7 @@ attribute [local grind .] Set.countable_singleton in
 attribute [local grind .] Set.Countable.image in
 attribute [local grind =] Set.countable_coe_iff in
 attribute [local grind .] Set.countable_range in
-instance {s : Conf Γ 𝒲 ℛ} : Countable s.succs := by
+instance Conf.succs_countable {s : Conf Γ 𝒲 ℛ} : Countable s.succs := by
   induction s using Conf.induction with simp [Conf.succs]
   | sample x d σ =>
     suffices

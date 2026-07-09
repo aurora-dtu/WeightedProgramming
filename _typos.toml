@@ -1,0 +1,4 @@
+[default.extend-words]
+hom = "hom"
+thm = "thm"
+ands = "ands"

@@ -208,7 +208,7 @@ We consider only structures {lean}`ℛ` with orders being {name}`CompleteLattice
 variable [CompleteLattice ℛ] [CanonicallyOrderedAdd ℛ]
 ```
 
-{paper}`def'cont_module` defines ω-continuity which we formalize as two type classes {name}`ωScottContinuousAdd` and {name}`ωScottContinuousSMul`. These build on the notion of {name}`ωScottContinuous` from the {name}`OmegaCompletePartialOrder` module (a weaker order than {name}`CompleteLattice` and this we have an instance {inst}`OmegaCompletePartialOrder ℛ`). This bears a connection to continuity in the Scott topology {name}`Topology.scott`, but the only property we rely on is preservation of {name}`ωSup`, the chain/countable analouge of {name}`iSup`.
+{paper}`def'cont_module` defines ω-continuity which we formalize as two type classes {name}`ωScottContinuousAdd` and {name}`ωScottContinuousSMul`. These build on the notion of {name}`ωScottContinuous` from the {name}`OmegaCompletePartialOrder` module (a weaker order than {name}`CompleteLattice` and this we have an instance {inst}`OmegaCompletePartialOrder ℛ`). This bears a connection to continuity in the Scott topology {name}`Topology.scott`, but the only property we rely on is preservation of {name}`ωSup`, the chain/countable analogue of {name}`iSup`.
 
 {paper}`lem'countable_sums` introduces _countable sums_. There is not, at the time of writing, a direct correspondence to this notion of a countable sum defined for {name}`CompleteLattice`'s with {name}`AddCommMonoid` and {name}`CanonicallyOrderedAdd`. The closest is {name}`tsum`, short for topological sum and defined as a topological limit. However, since we do not impose a topological space on our structure, we use an alternative definition based on {name}`ωSup` namely {name}`ωSum`, heavily inspired by Weighted NetKAT's {citep pldi26}[] definition under the same name.
 
@@ -325,7 +325,7 @@ Along side the configurations, we need to introduce a small-step execution relat
 
 In addition to this definition, we also introduce {name}`Conf.succs` and {name}`Conf.succsₐ` which rephrase the semantics using a more explicit set construction of successors, shown equivalent by {name}`Conf.succs_agree`. This other formulation helps Lean's automation better identify the complete set of successors, crucial for showing properties such as _countable successors_ {name}`Conf.succs_countable`.
 
-These define a {name}`Conf.τ` a transition function for the {name}`WDP` that is induced by {name}`Step` refered to as {name}`wGCL.toWDP` as per {paper}`def'toWDP`. In these we also define {name}`ρ` and {name}`ρ'` as the scoring functions parametric over postweighting.
+These define a {name}`Conf.τ` a transition function for the {name}`WDP` that is induced by {name}`Step` referred to as {name}`wGCL.toWDP` as per {paper}`def'toWDP`. In these we also define {name}`ρ` and {name}`ρ'` as the scoring functions parametric over postweighting.
 
 ## Minimal Weighted Rewards
 
@@ -368,7 +368,7 @@ variable {ρ : S → ℛ}
 
     {lean}`⨅ 𝔖 : M.Sched, M.WRew' ρ 𝔖 s₀`
 
-{paper}`def'op` phrases {name}`op` the minimal weighted total reward in the shape of an prescoring transformer like {name}`wp`. This definition allows us to compare exactly {name}`op` with {name}`wp`, namely stating that operational and denotational semantics agree, as per {paper}`def'sound_wp_eq_op`. Ultimatly this is shown later with {name}`wp_eq_op`.
+{paper}`def'op` phrases {name}`op` the minimal weighted total reward in the shape of an prescoring transformer like {name}`wp`. This definition allows us to compare exactly {name}`op` with {name}`wp`, namely stating that operational and denotational semantics agree, as per {paper}`def'sound_wp_eq_op`. Ultimately this is shown later with {name}`wp_eq_op`.
 
 {docstring wGCL.op}
 
@@ -378,11 +378,11 @@ To show {name}`wp_eq_op` we first show a relation on the level of {name}`WDP`'s,
 
 To bring {name}`T` into the land of prescoring transformer {name}`lp` is defined as a short hand for {name}`lfp` {name}`T`.
 
-Thus, {paper}`thm'wp_eq_lp` shows {name}`wp_eq_lp`. A lot of grunt work goes into showing this theorem with core definitions being {name}`ξ` and {name}`Φ'` insipred by the mechanization efforts of {citep itp26}[].
+Thus, {paper}`thm'wp_eq_lp` shows {name}`wp_eq_lp`. A lot of grunt work goes into showing this theorem with core definitions being {name}`ξ` and {name}`Φ'` inspired by the mechanization efforts of {citep itp26}[].
 
 # When are minimal weighted rewards (not) equal to least fixed points?
 
-The objective of this section is to characterize the connection between {name}`T` and {name}`MinWRew`, ultimatly showing that {name}`lfp` {name}`T` is equal to {name}`MinWRew`. To this end, {paper}`lem'T_MinWRew_le_MinWRew` shows that {name}`MinWRew` is a prefixed of {name}`T`.
+The objective of this section is to characterize the connection between {name}`T` and {name}`MinWRew`, ultimately showing that {name}`lfp` {name}`T` is equal to {name}`MinWRew`. To this end, {paper}`lem'T_MinWRew_le_MinWRew` shows that {name}`MinWRew` is a prefixed of {name}`T`.
 
 {docstring WDP.T_MinWRew_le_MinWRew}
 
@@ -428,7 +428,7 @@ _This section and normalization has not been mechanized in Lean._
 
 ## Classes of WDPs with the Least Fixed Point Property
 
-We show that {name}`wGCL` programs over certain modules and with particular structures produce well-behaved {name}`WDP`'s. In particular we show that {name}`PReal`-{name}`ENNReal` modules with programs consiting of weighted choices limited to $`C₁ {}_{p}⊕_{1-p} C₂` admit well-behaved {name}`WDP`'s ultimately showing {name}`wp_eq_op_of_isProb` reflecting {paper}`cor'wp_eq_op_of_isProb`.
+We show that {name}`wGCL` programs over certain modules and with particular structures produce well-behaved {name}`WDP`'s. In particular we show that {name}`PReal`-{name}`ENNReal` modules with programs consisting of weighted choices limited to $`C₁ {}_{p}⊕_{1-p} C₂` admit well-behaved {name}`WDP`'s ultimately showing {name}`wp_eq_op_of_isProb` reflecting {paper}`cor'wp_eq_op_of_isProb`.
 
 _{paper}`cor'actic_wb` and {paper}`cor'formal_languages` concerning the Arctic semiring and Formal languages semiring respectively has not been formalized._
 
