@@ -1,0 +1,19 @@
+name = "WeightedProgrammingManual"
+defaultTargets = ["Docs", "docs"]
+packagesDir = "../.lake/packages"
+
+[[require]]
+name = "WeightedProgramming"
+path = ".."
+
+[[require]]
+name = "verso"
+git = "https://github.com/leanprover/verso"
+rev = "v4.31.0"
+
+[[lean_lib]]
+name = "Docs"
+
+[[lean_exe]]
+name = "docs"
+root = "Main"
