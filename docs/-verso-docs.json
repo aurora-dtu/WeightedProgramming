@@ -1,0 +1,382 @@
+{"99":
+ "<code>OrderHom.le_lfp.{u} {α : Type u} [CompleteLattice α] (f : α →o α) {a : α} (h : ∀ (b : α), f b ≤ b → a ≤ b) :\n  a ≤ OrderHom.lfp f</code>",
+ "98":
+ "<code>OrderHom.lfp_le.{u} {α : Type u} [CompleteLattice α] (f : α →o α) {a : α} (h : f a ≤ a) : OrderHom.lfp f ≤ a</code>",
+ "97":
+ "<code>OrderHom.lfp.{u} {α : Type u} [CompleteLattice α] : (α →o α) →o α</code><span class=\"sep\"></span><code class=\"docstring\">Least fixed point of a monotone function </code>",
+ "96":
+ "<code>OrderHom.{u_6, u_7} (α : Type u_6) (β : Type u_7) [Preorder α] [Preorder β] : Type (max u_6 u_7)</code><span class=\"sep\"></span><code class=\"docstring\">Bundled monotone (aka, increasing) function </code>",
+ "95":
+ "<code>wGCL.wp {𝒲 ℛ : Type} [MonoidWithZero 𝒲] [CompleteLattice ℛ] [AddCommMonoid ℛ] [DistribMulActionWithZero 𝒲 ℛ]\n  [AddLeftMono ℛ] [IsBotZeroClass ℛ] {D : Type} {Γ : D → Type} [DecidableEq D] [WDP.SMulMonoRight 𝒲 ℛ] :\n  wGCL Γ 𝒲 ℛ → (Σ[Γ] → ℛ) →o Σ[Γ] → ℛ</code>",
+ "94": "<code>Σ[Γ] → Bool</code>",
+ "93":
+ "<code>wGCL.loop.{u_1, u_2, u_3, u_4} {D : Type u_1} {Γ : D → Type u_2} {𝒲 : Type u_3} {ℛ : Type u_4} [Zero 𝒲]\n  (b : Σ[Γ] → Bool) (C : wGCL Γ 𝒲 ℛ) : wGCL Γ 𝒲 ℛ</code><span class=\"sep\"></span><code class=\"docstring\">`while b then C` </code>",
+ "92":
+ "<code>wGCL.nchoice.{u_1, u_2, u_3, u_4} {D : Type u_1} {Γ : D → Type u_2} {𝒲 : Type u_3} {ℛ : Type u_4} [Zero 𝒲]\n  (C₁ C₂ : wGCL Γ 𝒲 ℛ) : wGCL Γ 𝒲 ℛ</code><span class=\"sep\"></span><code class=\"docstring\">`C₁ □ C₂` </code>",
+ "91":
+ "<code>wGCL.wchoice.{u_1, u_2, u_3, u_4} {D : Type u_1} {Γ : D → Type u_2} {𝒲 : Type u_3} {ℛ : Type u_4} [Zero 𝒲]\n  (C₁ C₂ : wGCL Γ 𝒲 ℛ) (p₁ p₂ : Σ[Γ] → 𝒲) : wGCL Γ 𝒲 ℛ</code><span class=\"sep\"></span><code class=\"docstring\">`C₁ [p₁]⨁[p₂] C₂` </code>",
+ "90": "<code>wGCL Γ 𝒲 ℛ</code>",
+ "9":
+ "<code>DistribMulAction.{u_12, u_13} (M : Type u_12) (A : Type u_13) [Monoid M] [AddMonoid A] : Type (max u_12 u_13)</code><span class=\"sep\"></span><code class=\"docstring\">Typeclass for multiplicative actions on additive structures.\n\nFor example, if `G` is a group (with group law written as multiplication) and `A` is an\nabelian group (with group law written as addition), then to give `A` a `G`-module\nstructure (for example, to use the theory of group cohomology) is to say `[DistribMulAction G A]`.\nNote in that we do not use the `Module` typeclass for `G`-modules, as the `Module` typeclass\nis for modules over a ring rather than a group.\n\nMathematically, `DistribMulAction G A` is equivalent to giving `A` the structure of\na `ℤ[G]`-module.\n</code>",
+ "89":
+ "<code>wGCL.seq.{u_1, u_2, u_3, u_4} {D : Type u_1} {Γ : D → Type u_2} {𝒲 : Type u_3} {ℛ : Type u_4} [Zero 𝒲]\n  (C₁ C₂ : wGCL Γ 𝒲 ℛ) : wGCL Γ 𝒲 ℛ</code><span class=\"sep\"></span><code class=\"docstring\">`C₁ ; C₂` </code>",
+ "88": "<code>Σ[Γ] → 𝒲</code>",
+ "87":
+ "<code>wGCL.weight.{u_1, u_2, u_3, u_4} {D : Type u_1} {Γ : D → Type u_2} {𝒲 : Type u_3} {ℛ : Type u_4} [Zero 𝒲]\n  (w : Σ[Γ] → 𝒲) : wGCL Γ 𝒲 ℛ</code><span class=\"sep\"></span><code class=\"docstring\">`w ⨀` </code>",
+ "86": "<code>Σ[Γ] → ℛ</code>",
+ "85":
+ "<code>wGCL.reward.{u_1, u_2, u_3, u_4} {D : Type u_1} {Γ : D → Type u_2} {𝒲 : Type u_3} {ℛ : Type u_4} [Zero 𝒲]\n  (r : Σ[Γ] → ℛ) : wGCL Γ 𝒲 ℛ</code><span class=\"sep\"></span><code class=\"docstring\">`r ⨁` </code>",
+ "84": "<code>Countable (Γ x)</code>",
+ "83":
+ "<code>wGCL.havoc.{u_1, u_2, u_3, u_4} {D : Type u_1} {Γ : D → Type u_2} {𝒲 : Type u_3} {ℛ : Type u_4} [Zero 𝒲] (x : D)\n  (hx : Countable (Γ x)) : wGCL Γ 𝒲 ℛ</code><span class=\"sep\"></span><code class=\"docstring\">`havoc x`\n\nRequires that the type of `x` in the typing context `Γ` is `Countable`.\n</code>",
+ "82": "<code>Σ[Γ] → wGCL.Dist (Γ x) 𝒲</code>",
+ "81":
+ "<code>wGCL.sample.{u_1, u_2, u_3, u_4} {D : Type u_1} {Γ : D → Type u_2} {𝒲 : Type u_3} {ℛ : Type u_4} [Zero 𝒲] (x : D)\n  (d : Σ[Γ] → wGCL.Dist (Γ x) 𝒲) : wGCL Γ 𝒲 ℛ</code><span class=\"sep\"></span><code class=\"docstring\">`x :≈ d`\n\nRequires that the support of the distribution is `Countable`. This requirement\ndiffers from `havoc x` which non-deterministically chooses over all values of\n`x` and thus requires `Γ x` to be `Countable`.\n</code>",
+ "80":
+ "<code>Mem.{u_1, u_2} {D : Type u_1} (Γ : D → Type u_2) : Type (max u_1 u_2)</code>",
+ "8":
+ "<code>SMul.{u, v} (M : Type u) (α : Type v) : Type (max u v)</code><span class=\"sep\"></span><code class=\"docstring\">Typeclass for types with a scalar multiplication operation, denoted `•` (`\\bu`) </code>",
+ "79": "<code>Σ[Γ] → Γ x</code>",
+ "78":
+ "<code>wGCL.assign.{u_1, u_2, u_3, u_4} {D : Type u_1} {Γ : D → Type u_2} {𝒲 : Type u_3} {ℛ : Type u_4} [Zero 𝒲] (x : D)\n  (d : Σ[Γ] → Γ x) : wGCL Γ 𝒲 ℛ</code><span class=\"sep\"></span><code class=\"docstring\">`x := a` </code>",
+ "77": "<code>Type u_4</code>",
+ "76": "<code>D → Type u_2</code>",
+ "75":
+ "<code>Nonempty.{u} (α : Sort u) : Prop</code><span class=\"sep\"></span><code class=\"docstring\">`Nonempty α` is a typeclass that says that `α` is not an empty type,\nthat is, there exists an element in the type. It differs from `Inhabited α`\nin that `Nonempty α` is a `Prop`, which means that it does not actually carry\nan element of `α`, only a proof that *there exists* such an element.\nGiven `Nonempty α`, you can construct an element of `α` *nonconstructively*\nusing `Classical.choice`.\n</code>",
+ "74": "<code>Nonempty ↑(Function.support self.toFun)</code>",
+ "73":
+ "<code>wGCL.Dist.toFun.{u_1, u_2} {ι : Type u_1} {α : Type u_2} [Zero α] (self : wGCL.Dist ι α) : ι → α</code>",
+ "72": "<code>wGCL.Dist ι α</code>",
+ "71":
+ "<code>Function.support.{u_1, u_3} {ι : Type u_1} {M : Type u_3} [Zero M] (f : ι → M) : Set ι</code><span class=\"sep\"></span><code class=\"docstring\">`support` of a function is the set of points `x` such that `f x ≠ 0`. </code>",
+ "70": "<code>Countable ↑(Function.support self.toFun)</code>",
+ "7":
+ "<code class=\"docstring\">A type universe. `Type ≡ Type 0`, `Type u ≡ Sort (u + 1)`. </code>",
+ "69": "<code>ι → α</code>",
+ "68":
+ "<code>wGCL.Dist.mk.{u_1, u_2} {ι : Type u_1} {α : Type u_2} [Zero α] (toFun : ι → α)\n  (countable : Countable ↑(Function.support toFun)) (nonempty : Nonempty ↑(Function.support toFun)) : wGCL.Dist ι α</code>",
+ "67":
+ "<code>Zero.{u} (α : Type u) : Type u</code><span class=\"sep\"></span><code class=\"docstring\">A type with a zero element. </code>",
+ "66": "<code>Type u_2</code>",
+ "65":
+ "<code>wGCL.Dist.{u_1, u_2} (ι : Type u_1) (α : Type u_2) [Zero α] : Type (max u_1 u_2)</code>",
+ "64":
+ "<code>Bool : Type</code><span class=\"sep\"></span><code class=\"docstring\">The Boolean values, `true` and `false`.\n\nLogically speaking, this is equivalent to `Prop` (the type of propositions). The distinction is\npublic important for programming: both propositions and their proofs are erased in the code generator,\nwhile `Bool` corresponds to the Boolean type in most programming languages and carries precisely one\nbit of run-time information.\n</code>",
+ "63":
+ "<code>Substitution.{u_1, u_2, u_3} (α : Type u_1) {ι : outParam (Type u_2)} (β : outParam (ι → Type u_3)) :\n  Type (max (max u_1 u_2) u_3)</code>",
+ "62":
+ "<code>DecidableEq.{u} (α : Sort u) : Sort (max 1 u)</code><span class=\"sep\"></span><code class=\"docstring\">Propositional equality is `Decidable` for all elements of a type.\n\nIn other words, an instance of `DecidableEq α` is a means of deciding the proposition `a = b` is\nfor all `a b : α`.\n</code>",
+ "61": "<code>Γ d</code>",
+ "60": "<code>D</code>",
+ "6": "<code>Type</code>",
+ "59": "<code>Σ[Γ]</code>",
+ "58":
+ "<code>Nat : Type</code><span class=\"sep\"></span><code class=\"docstring\">The natural numbers, starting at zero.\n\nThis type is special-cased by both the kernel and the compiler, and overridden with an efficient\nimplementation. Both use a fast arbitrary-precision arithmetic library (usually\n[GMP](https://gmplib.org/)); at runtime, `Nat` values that are sufficiently small are unboxed.\n</code>",
+ "57": "<code>D → Type</code>",
+ "56":
+ "<code>WDP.AddBicontinuous.{u_3} (α : Type u_3) [Add α] [CompleteLattice α] : Prop</code>",
+ "55":
+ "<code>WDP.SMulContinuous.{u_3, u_4} (α : Type u_3) (β : Type u_4) [Monoid α] [AddMonoid β] [SMul α β] [CompleteLattice β] :\n  Prop</code>",
+ "54":
+ "<code>WDP.SMulMonoRight.{u_3, u_4} (α : Type u_3) (β : Type u_4) [Preorder β] [SMul α β] : Prop</code>",
+ "53":
+ "<code>DistribMulActionWithZero.{u_1, u_2} (M : Type u_1) (A : Type u_2) [MonoidWithZero M] [AddMonoid A] : Type (max u_1 u_2)</code>",
+ "52":
+ "<code>wGCL.{u_1, u_2, u_3, u_4} {D : Type u_1} (Γ : D → Type u_2) (𝒲 : Type u_3) (ℛ : Type u_4) [Zero 𝒲] :\n  Type (max (max (max u_1 u_2) u_3) u_4)</code><span class=\"sep\"></span><code class=\"docstring\">Syntax for the **weighted Guarded Command Language**. </code>",
+ "51":
+ "<code>Encodable.ofCountable.{u_3} (α : Type u_3) [Countable α] : Encodable α</code><span class=\"sep\"></span><code class=\"docstring\">If `α` is countable, then it has a (non-canonical) `Encodable` structure. </code>",
+ "50":
+ "<code>Encodable.{u_1} (α : Type u_1) : Type u_1</code><span class=\"sep\"></span><code class=\"docstring\">Constructively countable type. Made from an explicit injection `encode : α → ℕ` and a partial\ninverse `decode : ℕ → Option α`. Note that finite types *are* countable. See `Denumerable` if you\nwish to enforce infiniteness. </code>",
+ "5":
+ "<code class=\"docstring\">Declares one or more typed variables, or modifies whether already-declared variables are\n  implicit.\n\nIntroduces variables that can be used in definitions within the same `namespace` or `section` block.\nWhen a definition mentions a variable, Lean will add it as an argument of the definition. This is\nuseful in particular when writing many definitions that have parameters in common (see below for an\nexample).\n\nVariable declarations have the same flexibility as regular function parameters. In particular they\ncan be [explicit, implicit][binder docs], or [instance implicit][tpil classes] (in which case they\ncan be anonymous). This can be changed, for instance one can turn explicit variable `x` into an\nimplicit one with `variable {x}`. Note that currently, you should avoid changing how variables are\nbound and declare new variables at the same time; see [issue 2789] for more on this topic.\n\nIn *theorem bodies* (i.e. proofs), variables are not included based on usage in order to ensure that\nchanges to the proof cannot change the statement of the overall theorem. Instead, variables are only\navailable to the proof if they have been mentioned in the theorem header or in an `include` command\nor are instance implicit and depend only on such variables.\n\nSee [*Variables and Sections* from Theorem Proving in Lean][tpil vars] for a more detailed\ndiscussion.\n\n[tpil vars]:\nhttps://lean-lang.org/theorem_proving_in_lean4/dependent_type_theory.html#variables-and-sections\n(Variables and Sections on Theorem Proving in Lean) [tpil classes]:\nhttps://lean-lang.org/theorem_proving_in_lean4/type_classes.html (Type classes on Theorem Proving in\nLean) [binder docs]:\nhttps://leanprover-community.github.io/mathlib4_docs/Lean/Expr.html#Lean.BinderInfo (Documentation\nfor the BinderInfo type) [issue 2789]: https://github.com/leanprover/lean4/issues/2789 (Issue 2789\non github)\n\n## Examples\n\n```lean\nsection\n  variable\n    {α : Type u}      -- implicit\n    (a : α)           -- explicit\n    [instBEq : BEq α] -- instance implicit, named\n    [Hashable α]      -- instance implicit, anonymous\n\n  def isEqual (b : α) : Bool :=\n    a == b\n\n  #check isEqual\n  -- isEqual.{u} {α : Type u} (a : α) [instBEq : BEq α] (b : α) : Bool\n\n  variable\n    {a} -- `a` is implicit now\n\n  def eqComm {b : α} := a == b ↔ b == a\n\n  #check eqComm\n  -- eqComm.{u} {α : Type u} {a : α} [instBEq : BEq α] {b : α} : Prop\nend\n```\n\nThe following shows a typical use of `variable` to factor out definition arguments:\n\n```lean\nvariable (Src : Type)\n\nstructure Logger where\n  trace : List (Src × String)\n#check Logger\n-- Logger (Src : Type) : Type\n\nnamespace Logger\n  -- switch `Src : Type` to be implicit until the `end Logger`\n  variable {Src}\n\n  def empty : Logger Src where\n    trace := []\n  #check empty\n  -- Logger.empty {Src : Type} : Logger Src\n\n  variable (log : Logger Src)\n\n  def len :=\n    log.trace.length\n  #check len\n  -- Logger.len {Src : Type} (log : Logger Src) : Nat\n\n  variable (src : Src) [BEq Src]\n\n  -- at this point all of `log`, `src`, `Src` and the `BEq` instance can all become arguments\n\n  def filterSrc :=\n    log.trace.filterMap\n      fun (src', str') =&gt; if src' == src then some str' else none\n  #check filterSrc\n  -- Logger.filterSrc {Src : Type} (log : Logger Src) (src : Src) [inst✝ : BEq Src] : List String\n\n  def lenSrc :=\n    log.filterSrc src |&gt;.length\n  #check lenSrc\n  -- Logger.lenSrc {Src : Type} (log : Logger Src) (src : Src) [inst✝ : BEq Src] : Nat\nend Logger\n```\n\nThe following example demonstrates availability of variables in proofs:\n```lean\nvariable\n  {α : Type}    -- available in the proof as indirectly mentioned through `a`\n  [ToString α]  -- available in the proof as `α` is included\n  (a : α)       -- available in the proof as mentioned in the header\n  {β : Type}    -- not available in the proof\n  [ToString β]  -- not available in the proof\n\ntheorem ex : a = a := rfl\n```\nAfter elaboration of the proof, the following warning will be generated to highlight the unused\nhypothesis:\n```\nincluded section variable '[ToString α]' is not used in 'ex', consider excluding it\n```\nIn such cases, the offending variable declaration should be moved down or into a section so that\nonly theorems that do depend on it follow it until the end of the section.\n</code>",
+ "49":
+ "<code>Finset.ωSup.{u_1, u_2} {ι : Type u_1} {α : Type u_2} [e₁ : Encodable ι] [OmegaCompletePartialOrder α]\n  (f : Finset ι →o α) : α</code>",
+ "48":
+ "<code class=\"docstring\">The universe of propositions. `Prop ≡ Sort 0`.\n\nEvery proposition is propositionally equal to either `True` or `False`. </code>",
+ "47": "<code>ι</code>",
+ "46": "<code>ι → α</code>",
+ "45":
+ "<code>IsBotZeroClass.{u_1} (α : Type u_1) [LE α] [Zero α] : Prop</code><span class=\"sep\"></span><code class=\"docstring\">A typeclass expressing that the `0` of a type is a bottom element. In a partial `OrderBot`, this\nis equivalent to `⊥ = 0`. </code>",
+ "44":
+ "<code>AddLeftMono.{u_1} (M : Type u_1) [Add M] [LE M] : Prop</code><span class=\"sep\"></span><code class=\"docstring\">Typeclass for monotonicity of addition on the left,\nnamely `b₁ ≤ b₂ → a + b₁ ≤ a + b₂`.\n\nYou should usually not use this very granular typeclass directly, but rather a typeclass like\n`OrderedAddCommMonoid`. </code>",
+ "43":
+ "<code>Countable.{u} (α : Sort u) : Prop</code><span class=\"sep\"></span><code class=\"docstring\">A type `α` is countable if there exists an injective map `α → ℕ`. </code>",
+ "42": "<code>Type u_3</code>",
+ "41":
+ "<code>OmegaCompletePartialOrder.ωSum.{u_1, u_3} {ι : Type u_1} {α : Type u_3} [Countable ι] [OmegaCompletePartialOrder α]\n  [AddCommMonoid α] [AddLeftMono α] [IsBotZeroClass α] (f : ι → α) : α</code><span class=\"sep\"></span><code class=\"docstring\">`ω∑ i, f i` is the countable sum of `f` defined as the ω-supremum over sums finite subsets.\n\nNote that `ωSum` is defined for `Countable ι : Prop` while `Finset.ωSup` is for `Encodable ι :\nType`. Since the sum is exhaustive, the instance of `Encodable` is irrelevant and thus use\n`Encodable.ofCountable ι`.\n</code>",
+ "40":
+ "<code>tsum.{u_4, u_5} {α : Type u_4} {β : Type u_5} [AddCommMonoid α] [TopologicalSpace α] (f : β → α)\n  (L : SummationFilter β := SummationFilter.unconditional β) : α</code><span class=\"sep\"></span><code class=\"docstring\">`∑' i, f i` is the unconditional sum of `f` if it exists, or 0 otherwise.\n\nMore generally, if `L` is a `SummationFilter`, `∑'[L] i, f i` is the sum of `f` with respect to\n`L` if it exists, and `0` otherwise.\n\n(Note that even if the unconditional sum exists, it might not be unique if the topology is not\nseparated. When the support of `f` is finite, we make the most reasonable choice, to use the sum\nover the support. Otherwise, we choose arbitrarily an `a` satisfying `HasSum f a`. Similar remarks\napply to more general summation filters.)\n</code>",
+ "4":
+ "<code>MonoidWithZero.{u} (M₀ : Type u) : Type u</code><span class=\"sep\"></span><code class=\"docstring\">A type `M₀` is a “monoid with zero” if it is a monoid with zero element, and `0` is left\nand right absorbing. </code>",
+ "39":
+ "<code>iSup.{u, v} {α : Type u} {ι : Sort v} [SupSet α] (s : ι → α) : α</code><span class=\"sep\"></span><code class=\"docstring\">Indexed supremum </code>",
+ "38":
+ "<code>OmegaCompletePartialOrder.ωSup.{u_6} {α : Type u_6} [self : OmegaCompletePartialOrder α] : Chain α → α</code><span class=\"sep\"></span><code class=\"docstring\">The supremum of an increasing sequence </code>",
+ "37":
+ "<code>Topology.scott.{u_3} (α : Type u_3) (D : Set (Set α)) [Preorder α] : TopologicalSpace α</code><span class=\"sep\"></span><code class=\"docstring\">The Scott topology.\n\nIt is defined as the join of the topology of upper sets and the Scott-Hausdorff topology. </code>",
+ "36":
+ "<code>OmegaCompletePartialOrder.{u_6} (α : Type u_6) : Type u_6</code><span class=\"sep\"></span><code class=\"docstring\">An omega-complete partial order is a partial order with a supremum\noperation on increasing sequences indexed by natural numbers (which we\ncall `ωSup`). In this sense, it is strictly weaker than join complete\nsemi-lattices as only ω-sized totally ordered sets have a supremum.\n\nSee the definition on page 114 of [gunter1992]. </code>",
+ "35":
+ "<code>OmegaCompletePartialOrder.ωScottContinuous.{u_2, u_3} {α : Type u_2} {β : Type u_3} [OmegaCompletePartialOrder α]\n  [OmegaCompletePartialOrder β] (f : α → β) : Prop</code><span class=\"sep\"></span><code class=\"docstring\">A function `f` between `ω`-complete partial orders is `ωScottContinuous` if it is\nScott continuous over chains. </code>",
+ "34":
+ "<code>OmegaCompletePartialOrder.ωScottContinuousSMul.{u_4, u_5} (ι : Type u_4) (α : Type u_5) [OmegaCompletePartialOrder α]\n  [SMul ι α] : Prop</code>",
+ "33":
+ "<code>OmegaCompletePartialOrder.ωScottContinuousAdd.{u_4} (α : Type u_4) [OmegaCompletePartialOrder α] [Add α] : Prop</code>",
+ "32":
+ "<code>CanonicallyOrderedAdd.{u_1} (α : Type u_1) [Add α] [LE α] : Prop</code><span class=\"sep\"></span><code class=\"docstring\">An ordered additive monoid is `CanonicallyOrderedAdd`\nif the ordering coincides with the subtractibility relation,\nwhich is to say, `a ≤ b` iff there exists `c` with `b = a + c`.\nThis is satisfied by the natural numbers, for example, but not\nthe integers or other nontrivial `OrderedAddCommGroup`s.\n\nWe have `a ≤ b + a` and `a ≤ a + b` as separate fields. In the commutative case the second field\nis redundant, but in the noncommutative case (satisfied most relevantly by the ordinals), this\nextra field allows us to prove more things without the extra commutativity assumption. </code>",
+ "31":
+ "<code>InfSet.sInf.{u_1} {α : Type u_1} [self : InfSet α] : Set α → α</code><span class=\"sep\"></span><code class=\"docstring\">Infimum of a set </code>",
+ "30":
+ "<code>SupSet.sSup.{u_1} {α : Type u_1} [self : SupSet α] : Set α → α</code><span class=\"sep\"></span><code class=\"docstring\">Supremum of a set </code>",
+ "3":
+ "<code>AddCommMonoid.{u} (M : Type u) : Type u</code><span class=\"sep\"></span><code class=\"docstring\">An additive commutative monoid is an additive monoid with commutative `(+)`. </code>",
+ "29":
+ "<code>CompleteLattice.{u_8} (α : Type u_8) : Type u_8</code><span class=\"sep\"></span><code class=\"docstring\">A complete lattice is a bounded lattice which has suprema and infima for every subset. </code>",
+ "28":
+ "<code>Semiring.{u} (α : Type u) : Type u</code><span class=\"sep\"></span><code class=\"docstring\">A `Semiring` is a type with addition, multiplication, a `0` and a `1` where addition is\ncommutative and associative, multiplication is associative and left and right distributive over\naddition, and `0` and `1` are additive and multiplicative identities. </code>",
+ "27":
+ "<code>HAdd.hAdd.{u, v, w} {α : Type u} {β : Type v} {γ : outParam (Type w)} [self : HAdd α β γ] : α → β → γ</code><span class=\"sep\"></span><code class=\"docstring\">`a + b` computes the sum of `a` and `b`.\nThe meaning of this notation is type-dependent. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `+` in identifiers is `add`.</code>",
+ "26":
+ "<code>∀ (a : M) (x y : A), a • (x + y) = a • x + a • y</code><span class=\"sep\"></span><code class=\"docstring\">Scalar multiplication distributes across addition </code>",
+ "25": "<code>ℕ</code>",
+ "24":
+ "<code>∀ (a : M), a • 0 = 0</code><span class=\"sep\"></span><code class=\"docstring\">Multiplying `0` by a scalar gives `0` </code>",
+ "23":
+ "<code>Eq.{u_1} {α : Sort u_1} : α → α → Prop</code><span class=\"sep\"></span><code class=\"docstring\">The equality relation. It has one introduction rule, `Eq.refl`.\nWe use `a = b` as notation for `Eq a b`.\nA fundamental property of equality is that it is an equivalence relation.\n```\nvariable (α : Type) (a b c d : α)\nvariable (hab : a = b) (hcb : c = b) (hcd : c = d)\n\nexample : a = d :=\n  Eq.trans (Eq.trans hab (Eq.symm hcb)) hcd\n```\nEquality is much more than an equivalence relation, however. It has the important property that every assertion\nrespects the equivalence, in the sense that we can substitute equal expressions without changing the truth value.\nThat is, given `h1 : a = b` and `h2 : p a`, we can construct a proof for `p b` using substitution: `Eq.subst h1 h2`.\nExample:\n```\nexample (α : Type) (a b : α) (p : α → Prop)\n        (h1 : a = b) (h2 : p a) : p b :=\n  Eq.subst h1 h2\n\nexample (α : Type) (a b : α) (p : α → Prop)\n    (h1 : a = b) (h2 : p a) : p b :=\n  h1 ▸ h2\n```\nThe triangle in the second presentation is a macro built on top of `Eq.subst` and `Eq.symm`, and you can enter it by typing `\\t`.\nFor more information: [Equality](https://lean-lang.org/theorem_proving_in_lean4/quantifiers_and_equality.html#equality)\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `=` in identifiers is `eq`.</code>",
+ "221":
+ "<code>wGCL.wp_eq_op_of_isProb {D : Type} {Γ : D → Type} [DecidableEq D] {C : wGCL Γ PReal ENNReal} (hC : C.isProb) :\n  C.wp = C.op</code>",
+ "220":
+ "<code>WDP.WellBehavedModule.pi {ι : Type} {𝒲 ℛ : ι → Type} [(i : ι) → CompleteLattice (ℛ i)] [(i : ι) → AddCommMonoid (ℛ i)]\n  [(i : ι) → MonoidWithZero (𝒲 i)] [(i : ι) → DistribMulActionWithZero (𝒲 i) (ℛ i)] [∀ (i : ι), AddLeftMono (ℛ i)]\n  [∀ (i : ι), IsBotZeroClass (ℛ i)] [inst₁ : ∀ (i : ι), WDP.WellBehavedModule (𝒲 i) (ℛ i)] :\n  WDP.WellBehavedModule ((i : ι) → 𝒲 i) ((i : ι) → ℛ i)</code>",
+ "22":
+ "<code>HSMul.hSMul.{u, v, w} {α : Type u} {β : Type v} {γ : outParam (Type w)} [self : HSMul α β γ] : α → β → γ</code><span class=\"sep\"></span><code class=\"docstring\">`a • b` computes the product of `a` and `b`.\nThe meaning of this notation is type-dependent, but it is intended to be used for left actions. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `•` in identifiers is `smul`.</code>",
+ "219":
+ "<code>∀ {S A : Type} [Nonempty A] (M : WDP 𝒲 S A), Nonempty (WDP.IsWellBehaved ℛ M)</code>",
+ "218":
+ "<code>WDP.WellBehavedModule.mk.{u_1, u_2} {𝒲 : Type u_1} {ℛ : Type u_2} [CompleteLattice ℛ] [AddCommMonoid ℛ]\n  [MonoidWithZero 𝒲] [DistribMulActionWithZero 𝒲 ℛ] [AddLeftMono ℛ] [IsBotZeroClass ℛ]\n  (wdp_isWellBehaved : ∀ {S A : Type} [Nonempty A] (M : WDP 𝒲 S A), Nonempty (WDP.IsWellBehaved ℛ M)) :\n  WDP.WellBehavedModule 𝒲 ℛ</code>",
+ "217":
+ "<code>WDP.WellBehavedModule.{u_1, u_2} (𝒲 : Type u_1) (ℛ : Type u_2) [CompleteLattice ℛ] [AddCommMonoid ℛ] [MonoidWithZero 𝒲]\n  [DistribMulActionWithZero 𝒲 ℛ] [AddLeftMono ℛ] [IsBotZeroClass ℛ] : Prop</code>",
+ "216":
+ "<code>WDP.lfp_T_eq_MinWRew.{u_1, u_2} {𝒲 : Type u_1} {ℛ : Type u_2} {S A : Type} [MonoidWithZero 𝒲] [CompleteLattice ℛ]\n  [AddCommMonoid ℛ] [DistribMulActionWithZero 𝒲 ℛ] [AddLeftMono ℛ] [IsBotZeroClass ℛ] {M : WDP 𝒲 S A}\n  [ωScottContinuousSMul 𝒲 ℛ] [WDP.SMulContinuous 𝒲 ℛ] [WDP.AddBicontinuous ℛ] [WDP.SMulCocontinuousOn 𝒲 ℛ M.Sched]\n  (ρ : S → ℛ) [WDP.IsWellBehaved ℛ M] : OrderHom.lfp { toFun := M.T ρ, monotone' := ⋯ } = M.MinWRew ρ</code>",
+ "215":
+ "<code>WDP.mdp_wellBehaved {S A : Type} [Nonempty A] {M : WDP PReal S A}\n  (h : ∀ (s : S) (a : A), ω∑ (i : ↑(Function.support (M.τ s a))), ↑(M.τ s a ↑i) ≤ 1) : WDP.IsWellBehaved ENNReal M</code>",
+ "214":
+ "<code>ENNReal : Type</code><span class=\"sep\"></span><code class=\"docstring\">The extended nonnegative real numbers. This is usually denoted [0, ∞],\nand is relevant as the codomain of a measure. </code>",
+ "213": "<code>PReal : Type</code>",
+ "212":
+ "<code>∀ (v_1 : S → ℛ) (𝔖 : M.MSched) (x : self.X), M.T' ρ 𝔖 (self.f x v_1) ≤ self.f x (M.T' ρ 𝔖 v_1)</code>",
+ "211": "<code>∀ (x : self.X), ∃ 𝔖, M.T' ρ 𝔖 v ≤ self.f x v</code>",
+ "210":
+ "<code>List.comp.{u_1} {α : Type u_1} (l : List (α → α)) : α → α</code>",
+ "21":
+ "<code>HMul.hMul.{u, v, w} {α : Type u} {β : Type v} {γ : outParam (Type w)} [self : HMul α β γ] : α → β → γ</code><span class=\"sep\"></span><code class=\"docstring\">`a * b` computes the product of `a` and `b`.\nThe meaning of this notation is type-dependent. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `*` in identifiers is `mul`.</code>",
+ "209":
+ "<code>List.reverse.{u} {α : Type u} (as : List α) : List α</code><span class=\"sep\"></span><code class=\"docstring\">Reverses a list.\n\n`O(|as|)`.\n\nBecause of the “functional but in place” optimization implemented by Lean's compiler, this function\ndoes not allocate a new list when its reference to the input list is unshared: it simply walks the\nlinked list and reverses all the node pointers.\n\nExamples:\n* `[1, 2, 3, 4].reverse = [4, 3, 2, 1]`\n* `[].reverse = []`\n</code>",
+ "208":
+ "<code>List.range (n : ℕ) : List ℕ</code><span class=\"sep\"></span><code class=\"docstring\">Returns a list of the numbers from `0` to `n` exclusive, in increasing order.\n\n`O(n)`.\n\nExamples:\n* `range 5 = [0, 1, 2, 3, 4]`\n* `range 0 = []`\n* `range 2 = [0, 1]`\n</code>",
+ "207":
+ "<code>Function.comp.{u, v, w} {α : Sort u} {β : Sort v} {δ : Sort w} (f : β → δ) (g : α → β) : α → δ</code><span class=\"sep\"></span><code class=\"docstring\">Function composition, usually written with the infix operator `∘`. A new function is created from\ntwo existing functions, where one function's output is used as input to the other.\n\nExamples:\n * `Function.comp List.reverse (List.drop 2) [3, 2, 4, 1] = [1, 4]`\n * `(List.reverse ∘ List.drop 2) [3, 2, 4, 1] = [1, 4]`\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `∘` in identifiers is `comp`.</code>",
+ "206":
+ "<code>List.map.{u_1, u_2} {α : Type u_1} {β : Type u_2} (f : α → β) (l : List α) : List β</code><span class=\"sep\"></span><code class=\"docstring\">Applies a function to each element of the list, returning the resulting list of values.\n\n`O(|l|)`.\n\nExamples:\n* `[a, b, c].map f = [f a, f b, f c]`\n* `[].map Nat.succ = []`\n* `[\"one\", \"two\", \"three\"].map (·.length) = [3, 3, 5]`\n* `[\"one\", \"two\", \"three\"].map (·.reverse) = [\"eno\", \"owt\", \"eerht\"]`\n</code>",
+ "205": "<code>ℕ → self.X</code>",
+ "204":
+ "<code>⨅ x, ⨆ n, (List.map (self.f ∘ x) (List.range n).reverse).comp v ≤ v</code>",
+ "203":
+ "<code>WDP.WellBehaved.f.{u_1, u_2} {𝒲 : Type u_1} {ℛ : Type u_2} {S A : Type} [MonoidWithZero 𝒲] [CompleteLattice ℛ]\n  [AddCommMonoid ℛ] [DistribMulActionWithZero 𝒲 ℛ] [AddLeftMono ℛ] [IsBotZeroClass ℛ] {M : WDP 𝒲 S A} {v ρ : S → ℛ}\n  {h : M.T ρ v ≤ v} (self : WDP.WellBehaved h) : self.X → (S → ℛ) → S → ℛ</code>",
+ "202":
+ "<code>Monotone.{u, v} {α : Type u} {β : Type v} [Preorder α] [Preorder β] (f : α → β) : Prop</code><span class=\"sep\"></span><code class=\"docstring\">A function `f` is monotone if `a ≤ b` implies `f a ≤ f b`. </code>",
+ "201": "<code>self.X</code>",
+ "200": "<code>∀ (n : self.X), Monotone (self.f n)</code>",
+ "20": "<code>A</code>",
+ "2":
+ "<code>CommMonoid.{u} (M : Type u) : Type u</code><span class=\"sep\"></span><code class=\"docstring\">A commutative monoid is a monoid with commutative `(*)`. </code>",
+ "199":
+ "<code>WDP.WellBehaved.X.{u_1, u_2} {𝒲 : Type u_1} {ℛ : Type u_2} {S A : Type} [MonoidWithZero 𝒲] [CompleteLattice ℛ]\n  [AddCommMonoid ℛ] [DistribMulActionWithZero 𝒲 ℛ] [AddLeftMono ℛ] [IsBotZeroClass ℛ] {M : WDP 𝒲 S A} {v ρ : S → ℛ}\n  {h : M.T ρ v ≤ v} (self : WDP.WellBehaved h) : Type</code>",
+ "198": "<code>WDP.WellBehaved h</code>",
+ "197": "<code>self.X → (S → ℛ) → S → ℛ</code>",
+ "196": "<code>Type</code>",
+ "195":
+ "<code>WDP.WellBehaved.mk.{u_1, u_2} {𝒲 : Type u_1} {ℛ : Type u_2} {S A : Type} [MonoidWithZero 𝒲] [CompleteLattice ℛ]\n  [AddCommMonoid ℛ] [DistribMulActionWithZero 𝒲 ℛ] [AddLeftMono ℛ] [IsBotZeroClass ℛ] {M : WDP 𝒲 S A} {v ρ : S → ℛ}\n  {h : M.T ρ v ≤ v} (X : Type) (f : X → (S → ℛ) → S → ℛ) (f_mono : ∀ (n : X), Monotone (f n))\n  (iInf_iSup_comp_le : ⨅ x, ⨆ n, (List.map (f ∘ x) (List.range n).reverse).comp v ≤ v)\n  (exists_T'_le : ∀ (x : X), ∃ 𝔖, M.T' ρ 𝔖 v ≤ f x v)\n  (T'_f_comm : ∀ (v : S → ℛ) (𝔖 : M.MSched) (x : X), M.T' ρ 𝔖 (f x v) ≤ f x (M.T' ρ 𝔖 v)) : WDP.WellBehaved h</code>",
+ "194": "<code>M.T ρ v ≤ v</code>",
+ "193":
+ "<code>WDP.WellBehaved.{u_1, u_2} {𝒲 : Type u_1} {ℛ : Type u_2} {S A : Type} [MonoidWithZero 𝒲] [CompleteLattice ℛ]\n  [AddCommMonoid ℛ] [DistribMulActionWithZero 𝒲 ℛ] [AddLeftMono ℛ] [IsBotZeroClass ℛ] {M : WDP 𝒲 S A} {v ρ : S → ℛ}\n  (h : M.T ρ v ≤ v) : Type (max 1 u_2)</code>",
+ "192":
+ "<code>WDP.IsWellBehaved.{u_3, u_4} {𝒲 : Type u_3} (ℛ : Type u_4) {S A : Type} [MonoidWithZero 𝒲] [CompleteLattice ℛ]\n  [AddCommMonoid ℛ] [DistribMulActionWithZero 𝒲 ℛ] [AddLeftMono ℛ] [IsBotZeroClass ℛ] (M : WDP 𝒲 S A) : Type (max 1 u_4)</code>",
+ "191":
+ "<code>WDP.T_MinWRew_eq_MinWRew.{u_1, u_2} {𝒲 : Type u_1} {ℛ : Type u_2} {S A : Type} [MonoidWithZero 𝒲] [CompleteLattice ℛ]\n  [AddCommMonoid ℛ] [DistribMulActionWithZero 𝒲 ℛ] [AddLeftMono ℛ] [IsBotZeroClass ℛ] {M : WDP 𝒲 S A} [Nontrivial 𝒲]\n  [ωScottContinuousSMul 𝒲 ℛ] [WDP.SMulContinuous 𝒲 ℛ] [WDP.AddBicontinuous ℛ] [WDP.SMulCocontinuousOn 𝒲 ℛ M.Sched]\n  (ρ : S → ℛ) [WDP.IsWellBehaved ℛ M] : M.T ρ (M.MinWRew ρ) = M.MinWRew ρ</code>",
+ "190": "<code>ι → β</code>",
+ "19": "<code>M</code>",
+ "189": "<code>α</code>",
+ "188": "<code>∀ {a : α} {f : ι → β}, a • iInf f = ⨅ i, a • f i</code>",
+ "187":
+ "<code>WDP.SMulCocontinuousOn.mk.{u_3, u_4, u_5} {α : Type u_3} {β : Type u_4} {ι : Type u_5} [Monoid α] [AddMonoid β]\n  [SMul α β] [CompleteLattice β] (smul_iInf_on : ∀ {a : α} {f : ι → β}, a • iInf f = ⨅ i, a • f i) :\n  WDP.SMulCocontinuousOn α β ι</code>",
+ "186": "<code>Type u_5</code>",
+ "185":
+ "<code>iInf.{u, v} {α : Type u} {ι : Sort v} [InfSet α] (s : ι → α) : α</code><span class=\"sep\"></span><code class=\"docstring\">Indexed infimum </code>",
+ "184":
+ "<code>LE.le.{u} {α : Type u} [self : LE α] : α → α → Prop</code><span class=\"sep\"></span><code class=\"docstring\">The less-equal relation: `x ≤ y` \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `≤` in identifiers is `le`.</code>",
+ "183":
+ "<code>WDP.SMulCocontinuousOn.{u_3, u_4, u_5} (α : Type u_3) (β : Type u_4) (ι : Type u_5) [Monoid α] [AddMonoid β] [SMul α β]\n  [CompleteLattice β] : Prop</code>",
+ "182":
+ "<code>Nontrivial.{u_3} (α : Type u_3) : Prop</code><span class=\"sep\"></span><code class=\"docstring\">Predicate typeclass for expressing that a type is not reduced to a single element. In rings,\nthis is equivalent to `0 ≠ 1`. In vector spaces, this is equivalent to positive dimension. </code>",
+ "181":
+ "<code>WDP.T_MinWRew_le_MinWRew.{u_1, u_2} {𝒲 : Type u_1} {ℛ : Type u_2} {S A : Type} [MonoidWithZero 𝒲] [CompleteLattice ℛ]\n  [AddCommMonoid ℛ] [DistribMulActionWithZero 𝒲 ℛ] [AddLeftMono ℛ] [IsBotZeroClass ℛ] {M : WDP 𝒲 S A} [Nontrivial 𝒲]\n  [ωScottContinuousSMul 𝒲 ℛ] [WDP.SMulContinuous 𝒲 ℛ] [WDP.AddBicontinuous ℛ] [WDP.SMulCocontinuousOn 𝒲 ℛ M.Sched]\n  (ρ : S → ℛ) : M.T ρ (M.MinWRew ρ) ≤ M.MinWRew ρ</code>",
+ "180":
+ "<code>wGCL.Φ' {𝒲 ℛ : Type} [MonoidWithZero 𝒲] [CompleteLattice ℛ] [AddCommMonoid ℛ] [DistribMulActionWithZero 𝒲 ℛ]\n  [AddLeftMono ℛ] [IsBotZeroClass ℛ] {D : Type} {Γ : D → Type} [DecidableEq D] [WDP.SMulMonoRight 𝒲 ℛ]\n  [DecidableEq (wGCL Γ 𝒲 ℛ)] (g : wGCL.Conf Γ 𝒲 ℛ → ℛ) (C : wGCL.Conf Γ 𝒲 ℛ) : (wGCL.Conf Γ 𝒲 ℛ → ℛ) →o ℛ</code>",
+ "18":
+ "<code>DistribMulAction.mk.{u_12, u_13} {M : Type u_12} {A : Type u_13} [Monoid M] [AddMonoid A] [toMulAction : MulAction M A]\n  (smul_zero : ∀ (a : M), a • 0 = 0) (smul_add : ∀ (a : M) (x y : A), a • (x + y) = a • x + a • y) :\n  DistribMulAction M A</code>",
+ "179":
+ "<code>wGCL.ξ {𝒲 ℛ : Type} [MonoidWithZero 𝒲] [CompleteLattice ℛ] [AddCommMonoid ℛ] [DistribMulActionWithZero 𝒲 ℛ]\n  [AddLeftMono ℛ] [IsBotZeroClass ℛ] {D : Type} {Γ : D → Type} [DecidableEq D] [WDP.SMulMonoRight 𝒲 ℛ]\n  [DecidableEq (wGCL Γ 𝒲 ℛ)] : (wGCL Γ 𝒲 ℛ → (Σ[Γ] → ℛ) →o Σ[Γ] → ℛ) →o wGCL Γ 𝒲 ℛ → (Σ[Γ] → ℛ) →o Σ[Γ] → ℛ</code>",
+ "178":
+ "<code>wGCL.wp_eq_lp {𝒲 ℛ : Type} [MonoidWithZero 𝒲] [CompleteLattice ℛ] [AddCommMonoid ℛ] [DistribMulActionWithZero 𝒲 ℛ]\n  [AddLeftMono ℛ] [IsBotZeroClass ℛ] [NeZero 1] {D : Type} {Γ : D → Type} [DecidableEq D] [WDP.SMulMonoRight 𝒲 ℛ]\n  [DecidableEq (wGCL Γ 𝒲 ℛ)] [WDP.SMulContinuous 𝒲 ℛ] [WDP.AddBicontinuous ℛ] [ωScottContinuousSMul 𝒲 ℛ]\n  [ωScottContinuousAdd ℛ] : wGCL.wp = wGCL.lp</code>",
+ "177":
+ "<code>wGCL.lp {𝒲 ℛ : Type} [MonoidWithZero 𝒲] [CompleteLattice ℛ] [AddCommMonoid ℛ] [DistribMulActionWithZero 𝒲 ℛ]\n  [AddLeftMono ℛ] [IsBotZeroClass ℛ] {D : Type} {Γ : D → Type} [DecidableEq D] [DecidableEq (wGCL Γ 𝒲 ℛ)]\n  [ωScottContinuousSMul 𝒲 ℛ] : wGCL Γ 𝒲 ℛ → (Σ[Γ] → ℛ) →o Σ[Γ] → ℛ</code>",
+ "176":
+ "<code>WDP.T'.{u_1, u_2} {𝒲 : Type u_1} {ℛ : Type u_2} {S A : Type} [MonoidWithZero 𝒲] [AddCommMonoid ℛ]\n  [DistribMulActionWithZero 𝒲 ℛ] (M : WDP 𝒲 S A) [CompleteLattice ℛ] [AddLeftMono ℛ] [IsBotZeroClass ℛ] (ρ : S → ℛ)\n  (𝔖 : M.MSched) (v : S → ℛ) : S → ℛ</code>",
+ "175":
+ "<code>WDP.T.{u_1, u_2} {𝒲 : Type u_1} {ℛ : Type u_2} {S A : Type} [MonoidWithZero 𝒲] [AddCommMonoid ℛ]\n  [DistribMulActionWithZero 𝒲 ℛ] (M : WDP 𝒲 S A) [CompleteLattice ℛ] [AddLeftMono ℛ] [IsBotZeroClass ℛ] (ρ v : S → ℛ) :\n  S → ℛ</code>",
+ "174":
+ "<code>wGCL.wp_eq_op {𝒲 ℛ : Type} [MonoidWithZero 𝒲] [CompleteLattice ℛ] [AddCommMonoid ℛ] [DistribMulActionWithZero 𝒲 ℛ]\n  [AddLeftMono ℛ] [IsBotZeroClass ℛ] [NeZero 1] {D : Type} {Γ : D → Type} [DecidableEq D] [WDP.SMulMonoRight 𝒲 ℛ]\n  [DecidableEq (wGCL Γ 𝒲 ℛ)] [WDP.SMulContinuous 𝒲 ℛ] [WDP.AddBicontinuous ℛ] [ωScottContinuousSMul 𝒲 ℛ]\n  [ωScottContinuousAdd ℛ] [WDP.IsWellBehaved ℛ wGCL.toWDP] [WDP.SMulCocontinuousOn 𝒲 ℛ wGCL.toWDP.Sched] :\n  wGCL.wp = wGCL.op</code>",
+ "173":
+ "<code>wGCL.op {𝒲 ℛ : Type} [MonoidWithZero 𝒲] [CompleteLattice ℛ] [AddCommMonoid ℛ] [DistribMulActionWithZero 𝒲 ℛ]\n  [AddLeftMono ℛ] [IsBotZeroClass ℛ] {D : Type} {Γ : D → Type} [DecidableEq D] [DecidableEq (wGCL Γ 𝒲 ℛ)]\n  [ωScottContinuousSMul 𝒲 ℛ] : wGCL Γ 𝒲 ℛ → (Σ[Γ] → ℛ) →o Σ[Γ] → ℛ</code>",
+ "172":
+ "<code>WDP.MinWRew.{u_1, u_2} {𝒲 : Type u_1} {ℛ : Type u_2} {S A : Type} [MonoidWithZero 𝒲] [AddCommMonoid ℛ]\n  [DistribMulActionWithZero 𝒲 ℛ] (M : WDP 𝒲 S A) [CompleteLattice ℛ] [AddLeftMono ℛ] [IsBotZeroClass ℛ] (ρ : S → ℛ) :\n  S → ℛ</code>",
+ "171":
+ "<code>WDP.WRew'.{u_1, u_2} {𝒲 : Type u_1} {ℛ : Type u_2} {S A : Type} [MonoidWithZero 𝒲] [AddCommMonoid ℛ]\n  [DistribMulActionWithZero 𝒲 ℛ] (M : WDP 𝒲 S A) [CompleteLattice ℛ] [AddLeftMono ℛ] [IsBotZeroClass ℛ] (ρ : S → ℛ)\n  (𝔖 : M.Sched) : S → ℛ</code>",
+ "170":
+ "<code>WDP.Path.head.{u_2} {S : Type u_2} (self : WDP.Path S) : S</code>",
+ "17":
+ "<code>Int : Type</code><span class=\"sep\"></span><code class=\"docstring\">The integers.\n\nThis type is special-cased by the compiler and overridden with an efficient implementation. The\nruntime has a special representation for `Int` that stores “small” signed numbers directly, while\nlarger numbers use a fast arbitrary-precision arithmetic library (usually\n[GMP](https://gmplib.org/)). A “small number” is an integer that can be encoded with one fewer bits\nthan the platform's pointer size (i.e. 63 bits on 64-bit architectures and 31 bits on 32-bit\narchitectures).\n</code>",
+ "169": "<code>S → ℛ</code>",
+ "168":
+ "<code>Subtype.val.{u} {α : Sort u} {p : α → Prop} (self : Subtype p) : α</code><span class=\"sep\"></span><code class=\"docstring\">The value in the underlying type that satisfies the predicate.\n</code>",
+ "167": "<code>↑(Path.of₀ i s₀ 𝔖)</code>",
+ "166":
+ "<code>WDP.WRew.{u_1, u_2} {𝒲 : Type u_1} {ℛ : Type u_2} {S A : Type} [MonoidWithZero 𝒲] [AddCommMonoid ℛ]\n  [DistribMulActionWithZero 𝒲 ℛ] (M : WDP 𝒲 S A) [CompleteLattice ℛ] [AddLeftMono ℛ] [IsBotZeroClass ℛ] (ρ : S → ℛ)\n  (n : ℕ) (𝔖 : M.Sched) : S → ℛ</code>",
+ "165":
+ "<code>WDP.Path.of₀_countable.{u_1} {𝒲 : Type u_1} {S A : Type} [MonoidWithZero 𝒲] {M : WDP 𝒲 S A} (𝔖 : M.Sched) {n : ℕ}\n  {s : S} : Countable ↑(WDP.Path.of₀ n s 𝔖)</code>",
+ "164":
+ "<code>WDP.Path.of₀.{u_1} {𝒲 : Type u_1} {S A : Type} [Zero 𝒲] {M : WDP 𝒲 S A} [Monoid 𝒲] (n : ℕ) (s : S) (𝔖 : M.Sched) :\n  Set (WDP.Path S)</code>",
+ "163": "<code>List.rprod.{u_1} {α : Type u_1} [Monoid α] : List α → α</code>",
+ "162": "<code>List.pairs.{u_1} {α : Type u_1} : List α → List (α × α)</code>",
+ "161":
+ "<code>List.prod.{u_1} {α : Type u_1} [Mul α] [One α] : List α → α</code><span class=\"sep\"></span><code class=\"docstring\">Computes the product of the elements of a list.\n\nExamples:\n* `[a, b, c].prod = a * (b * (c * 1))`\n* `[1, 2, 5].prod = 10`\n</code>",
+ "160":
+ "<code>Finset.prod.{u_1, u_3} {ι : Type u_1} {M : Type u_3} [CommMonoid M] (s : Finset ι) (f : ι → M) : M</code><span class=\"sep\"></span><code class=\"docstring\">`∏ x ∈ s, f x` is the product of `f x` as `x` ranges over the elements of the finite set `s`.\n\nWhen the index type is a `Fintype`, the notation `∏ x, f x`, is a shorthand for\n`∏ x ∈ Finset.univ, f x`. </code>",
+ "16": "<code>Type ?u.23</code>",
+ "159":
+ "<code>WDP.Path.Weight.{u_1} {𝒲 : Type u_1} {S A : Type} [Zero 𝒲] {M : WDP 𝒲 S A} [Monoid 𝒲] (π : WDP.Path S) (𝔖 : M.Sched) : 𝒲</code>",
+ "158": "<code>WDP.Path S</code>",
+ "157":
+ "<code>WDP.Path.of {S : Type} (n : ℕ) (s : S) : Set (WDP.Path S)</code>",
+ "156": "<code>WDP.Path.{u_2} (S : Type u_2) : Type u_2</code>",
+ "155": "<code>M.MSched</code>",
+ "154": "<code>M.Sched</code>",
+ "153":
+ "<code>WDP.HSched.{u_1} {𝒲 : Type u_1} {S A : Type} [Zero 𝒲] (M : WDP 𝒲 S A) : Type</code>",
+ "152":
+ "<code>WDP.MSched.{u_1} {𝒲 : Type u_1} {S A : Type} [Zero 𝒲] (M : WDP 𝒲 S A) : Type</code>",
+ "151":
+ "<code>WDP.Sched.{u_1} {𝒲 : Type u_1} {S A : Type} [Zero 𝒲] (M : WDP 𝒲 S A) : Type</code>",
+ "150":
+ "<code>wGCL.ρ'.{u_1, u_2, u_3, u_4} {D : Type u_1} {Γ : D → Type u_2} {𝒲 : Type u_3} {ℛ : Type u_4} [Zero 𝒲] [Zero ℛ]\n  (X : Σ[Γ] → ℛ) (s : wGCL.Conf Γ 𝒲 ℛ) : ℛ</code>",
+ "15":
+ "<code>Module.{u, v} (R : Type u) (M : Type v) [Semiring R] [AddCommMonoid M] : Type (max u v)</code><span class=\"sep\"></span><code class=\"docstring\">A module is a generalization of vector spaces to a scalar semiring.\nIt consists of a scalar semiring `R` and an additive monoid of \"vectors\" `M`,\nconnected by a \"scalar multiplication\" operation `r • x : M`\n(where `r : R` and `x : M`) with some natural associativity and\ndistributivity axioms similar to those on a ring. </code>",
+ "149":
+ "<code>wGCL.ρ.{u_1, u_2, u_3, u_4} {D : Type u_1} {Γ : D → Type u_2} {𝒲 : Type u_3} {ℛ : Type u_4} [Zero 𝒲] [Zero ℛ] :\n  wGCL.Conf Γ 𝒲 ℛ → ℛ</code>",
+ "148":
+ "<code>wGCL.toWDP.{u_1, u_2, u_3, u_4} {D : Type u_1} {Γ : D → Type u_2} {𝒲 : Type u_3} {ℛ : Type u_4} [Zero 𝒲] [One 𝒲]\n  [DecidableEq D] [DecidableEq (wGCL Γ 𝒲 ℛ)] : WDP 𝒲 (wGCL.Conf Γ 𝒲 ℛ) ℕ</code>",
+ "147":
+ "<code>wGCL.Conf.τ.{u_1, u_2, u_3, u_4} {D : Type u_1} {Γ : D → Type u_2} {𝒲 : Type u_3} {ℛ : Type u_4} [Zero 𝒲] [One 𝒲]\n  [DecidableEq D] [DecidableEq (wGCL Γ 𝒲 ℛ)] : wGCL.Conf Γ 𝒲 ℛ → ℕ → wGCL.Conf Γ 𝒲 ℛ → 𝒲</code>",
+ "146":
+ "<code>wGCL.Conf.succs_countable.{u_1, u_2, u_3, u_4} {D : Type u_1} {Γ : D → Type u_2} {𝒲 : Type u_3} {ℛ : Type u_4} [Zero 𝒲]\n  [One 𝒲] [DecidableEq D] [DecidableEq (wGCL Γ 𝒲 ℛ)] {s : wGCL.Conf Γ 𝒲 ℛ} : Countable ↑s.succs</code>",
+ "145":
+ "<code>wGCL.Conf.succs_agree.{u_1, u_2, u_3, u_4} {D : Type u_1} {Γ : D → Type u_2} {𝒲 : Type u_3} {ℛ : Type u_4} [Zero 𝒲]\n  [One 𝒲] [DecidableEq D] [DecidableEq (wGCL Γ 𝒲 ℛ)] (c : wGCL.Conf Γ 𝒲 ℛ) : c.succs = {(α, w, c') | wGCL.Step c α w c'}</code>",
+ "144":
+ "<code>wGCL.Conf.succsₐ.{u_1, u_2, u_3, u_4} {D : Type u_1} {Γ : D → Type u_2} {𝒲 : Type u_3} {ℛ : Type u_4} [Zero 𝒲] [One 𝒲]\n  [DecidableEq D] [DecidableEq (wGCL Γ 𝒲 ℛ)] : wGCL.Conf Γ 𝒲 ℛ → ℕ → Set (𝒲 × wGCL.Conf Γ 𝒲 ℛ)</code>",
+ "143":
+ "<code>wGCL.Conf.succs.{u_1, u_2, u_3, u_4} {D : Type u_1} {Γ : D → Type u_2} {𝒲 : Type u_3} {ℛ : Type u_4} [Zero 𝒲] [One 𝒲]\n  [DecidableEq D] [DecidableEq (wGCL Γ 𝒲 ℛ)] : wGCL.Conf Γ 𝒲 ℛ → Set (ℕ × 𝒲 × wGCL.Conf Γ 𝒲 ℛ)</code>",
+ "142":
+ "<code>Not (a : Prop) : Prop</code><span class=\"sep\"></span><code class=\"docstring\">`Not p`, or `¬p`, is the negation of `p`. It is defined to be `p → False`,\nso if your goal is `¬p` you can use `intro h` to turn the goal into\n`h : p ⊢ False`, and if you have `hn : ¬p` and `h : p` then `hn h : False`\nand `(hn h).elim` will prove anything.\nFor more information: [Propositional Logic](https://lean-lang.org/theorem_proving_in_lean4/propositions_and_proofs.html#propositional-logic)\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `¬` in identifiers is `not`.</code>",
+ "141": "<code>¬b σ = true</code>",
+ "140":
+ "<code>wGCL.Step.loop₂.{u_1, u_2, u_3, u_4} {D : Type u_1} {Γ : D → Type u_2} {𝒲 : Type u_3} {ℛ : Type u_4} [Zero 𝒲] [One 𝒲]\n  [DecidableEq D] {C : wGCL Γ 𝒲 ℛ} {σ : Σ[Γ]} {n : ℕ} {b : Σ[Γ] → Bool} (h : ¬b σ = true) :\n  wGCL.Step conf ⟨@wGCL.loop b C, σ⟩ n 1 (wGCL.Conf.mk none σ)</code>",
+ "14": "<code>Type u_1</code>",
+ "139":
+ "<code>Bool.true : Bool</code><span class=\"sep\"></span><code class=\"docstring\">The Boolean value `true`, not to be confused with the proposition `True`. </code>",
+ "138": "<code>b σ = true</code>",
+ "137":
+ "<code>wGCL.Step.loop₁.{u_1, u_2, u_3, u_4} {D : Type u_1} {Γ : D → Type u_2} {𝒲 : Type u_3} {ℛ : Type u_4} [Zero 𝒲] [One 𝒲]\n  [DecidableEq D] {C : wGCL Γ 𝒲 ℛ} {σ : Σ[Γ]} {n : ℕ} {b : Σ[Γ] → Bool} (h : b σ = true) :\n  wGCL.Step conf ⟨@wGCL.loop b C, σ⟩ n 1 conf ⟨@C.seq (wGCL.loop b C), σ⟩</code>",
+ "136":
+ "<code>wGCL.Step.nchoiceR.{u_1, u_2, u_3, u_4} {D : Type u_1} {Γ : D → Type u_2} {𝒲 : Type u_3} {ℛ : Type u_4} [Zero 𝒲] [One 𝒲]\n  [DecidableEq D] {σ : Σ[Γ]} {n : ℕ} {C₁ C₂ : wGCL Γ 𝒲 ℛ} : wGCL.Step conf ⟨@C₁.nchoice C₂, σ⟩ (n + 1) 1 conf ⟨@C₂, σ⟩</code>",
+ "135":
+ "<code>wGCL.Step.nchoiceL.{u_1, u_2, u_3, u_4} {D : Type u_1} {Γ : D → Type u_2} {𝒲 : Type u_3} {ℛ : Type u_4} [Zero 𝒲] [One 𝒲]\n  [DecidableEq D] {σ : Σ[Γ]} {C₁ C₂ : wGCL Γ 𝒲 ℛ} : wGCL.Step conf ⟨@C₁.nchoice C₂, σ⟩ 0 1 conf ⟨@C₁, σ⟩</code>",
+ "134":
+ "<code>wGCL.Step.wchoice₂.{u_1, u_2, u_3, u_4} {D : Type u_1} {Γ : D → Type u_2} {𝒲 : Type u_3} {ℛ : Type u_4} [Zero 𝒲] [One 𝒲]\n  [DecidableEq D] {p₁ p₂ : Σ[Γ] → 𝒲} {σ : Σ[Γ]} {n : ℕ} {C₁ C₂ : wGCL Γ 𝒲 ℛ} (h : C₁ ≠ C₂) :\n  wGCL.Step conf ⟨@C₁.wchoice C₂ p₁ p₂, σ⟩ n (p₂ σ) conf ⟨@C₂, σ⟩</code>",
+ "133":
+ "<code>Ne.{u} {α : Sort u} (a b : α) : Prop</code><span class=\"sep\"></span><code class=\"docstring\">`a ≠ b`, or `Ne a b` is defined as `¬ (a = b)` or `a = b → False`,\nand asserts that `a` and `b` are not equal.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `≠` in identifiers is `ne`.</code>",
+ "132": "<code>C₁ ≠ C₂</code>",
+ "131":
+ "<code>wGCL.Step.wchoice₁.{u_1, u_2, u_3, u_4} {D : Type u_1} {Γ : D → Type u_2} {𝒲 : Type u_3} {ℛ : Type u_4} [Zero 𝒲] [One 𝒲]\n  [DecidableEq D] {p₁ p₂ : Σ[Γ] → 𝒲} {σ : Σ[Γ]} {n : ℕ} {C₁ C₂ : wGCL Γ 𝒲 ℛ} (h : C₁ ≠ C₂) :\n  wGCL.Step conf ⟨@C₁.wchoice C₂ p₁ p₂, σ⟩ n (p₁ σ) conf ⟨@C₁, σ⟩</code>",
+ "130":
+ "<code>wGCL.skip.{u_1, u_2, u_3, u_4} {D : Type u_1} {Γ : D → Type u_2} {𝒲 : Type u_3} {ℛ : Type u_4} [Zero 𝒲] [One 𝒲] :\n  wGCL Γ 𝒲 ℛ</code>",
+ "13": "<code>?m.1</code>",
+ "129":
+ "<code>wGCL.Step.wchoice₀₂.{u_1, u_2, u_3, u_4} {D : Type u_1} {Γ : D → Type u_2} {𝒲 : Type u_3} {ℛ : Type u_4} [Zero 𝒲]\n  [One 𝒲] [DecidableEq D] {p₁ p₂ : Σ[Γ] → 𝒲} {σ : Σ[Γ]} {n : ℕ} {C : wGCL Γ 𝒲 ℛ} :\n  wGCL.Step conf ⟨@C.wchoice C p₁ p₂, σ⟩ n (p₂ σ) conf ⟨@wGCL.skip.seq C, σ⟩</code>",
+ "128":
+ "<code>wGCL.Step.wchoice₀₁.{u_1, u_2, u_3, u_4} {D : Type u_1} {Γ : D → Type u_2} {𝒲 : Type u_3} {ℛ : Type u_4} [Zero 𝒲]\n  [One 𝒲] [DecidableEq D] {p₁ p₂ : Σ[Γ] → 𝒲} {σ : Σ[Γ]} {n : ℕ} {C : wGCL Γ 𝒲 ℛ} :\n  wGCL.Step conf ⟨@C.wchoice C p₁ p₂, σ⟩ n (p₁ σ) conf ⟨@C, σ⟩</code>",
+ "127":
+ "<code>wGCL.Step.seq₂.{u_1, u_2, u_3, u_4} {D : Type u_1} {Γ : D → Type u_2} {𝒲 : Type u_3} {ℛ : Type u_4} [Zero 𝒲] [One 𝒲]\n  [DecidableEq D] {C₁ : wGCL Γ 𝒲 ℛ} {σ : Σ[Γ]} {a : ℕ} {p : 𝒲} {C₁' : wGCL Γ 𝒲 ℛ} {σ' : Σ[Γ]} {C₂ : wGCL Γ 𝒲 ℛ} :\n  wGCL.Step conf ⟨@C₁, σ⟩ a p conf ⟨@C₁', σ'⟩ → wGCL.Step conf ⟨@C₁.seq C₂, σ⟩ a p conf ⟨@C₁'.seq C₂, σ'⟩</code>",
+ "126": "<code>𝒲</code>",
+ "125":
+ "<code>wGCL.Step.seq₁.{u_1, u_2, u_3, u_4} {D : Type u_1} {Γ : D → Type u_2} {𝒲 : Type u_3} {ℛ : Type u_4} [Zero 𝒲] [One 𝒲]\n  [DecidableEq D] {C₁ : wGCL Γ 𝒲 ℛ} {σ : Σ[Γ]} {a : ℕ} {p : 𝒲} {σ' : Σ[Γ]} {C₂ : wGCL Γ 𝒲 ℛ} :\n  wGCL.Step conf ⟨@C₁, σ⟩ a p (wGCL.Conf.mk none σ') → wGCL.Step conf ⟨@C₁.seq C₂, σ⟩ a p conf ⟨@C₂, σ'⟩</code>",
+ "124":
+ "<code>wGCL.A.ofCountableInv.{u_5} {α : Type u_5} [Countable α] [Nonempty α] (n : ℕ) : α</code>",
+ "123":
+ "<code>wGCL.Step.havoc.{u_1, u_2, u_3, u_4} {D : Type u_1} {Γ : D → Type u_2} {𝒲 : Type u_3} {ℛ : Type u_4} [Zero 𝒲] [One 𝒲]\n  [DecidableEq D] {σ : Σ[Γ]} {x : D} {hx : Countable (Γ x)} (n : ℕ) :\n  wGCL.Step conf ⟨@wGCL.havoc x hx, σ⟩ n 1 (wGCL.Conf.mk none (σ[x ↦ wGCL.A.ofCountableInv n]))</code>",
+ "122":
+ "<code>Membership.mem.{u, v} {α : outParam (Type u)} {γ : Type v} [self : Membership α γ] : γ → α → Prop</code><span class=\"sep\"></span><code class=\"docstring\">The membership relation `a ∈ s : Prop` where `a : α`, `s : γ`. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `∈` in identifiers is `mem`.</code>",
+ "121": "<code>v ∈ d σ</code>",
+ "120": "<code>Γ x</code>",
+ "12": "<code>Type u_13</code>",
+ "119":
+ "<code>wGCL.Step.sample.{u_1, u_2, u_3, u_4} {D : Type u_1} {Γ : D → Type u_2} {𝒲 : Type u_3} {ℛ : Type u_4} [Zero 𝒲] [One 𝒲]\n  [DecidableEq D] {σ : Σ[Γ]} {n : ℕ} {x : D} {d : Σ[Γ] → wGCL.Dist (Γ x) 𝒲} {v : Γ x} (hv : v ∈ d σ) :\n  wGCL.Step conf ⟨@wGCL.sample x d, σ⟩ n ((d σ) v) (wGCL.Conf.mk none (σ[x ↦ v]))</code>",
+ "118":
+ "<code>Substitution.substs.{u_1, u_2, u_3} {α : Type u_1} {ι✝ : Type u_2} {β : ι✝ → Type u_3} [Substitution α β] (m : α)\n  (xs : List (Sigma β)) : α</code>",
+ "117":
+ "<code>wGCL.Step.assign.{u_1, u_2, u_3, u_4} {D : Type u_1} {Γ : D → Type u_2} {𝒲 : Type u_3} {ℛ : Type u_4} [Zero 𝒲] [One 𝒲]\n  [DecidableEq D] {x : D} {a : Σ[Γ] → Γ x} {σ : Σ[Γ]} {n : ℕ} :\n  wGCL.Step conf ⟨@wGCL.assign x a, σ⟩ n 1 (wGCL.Conf.mk none (σ[x ↦ a σ]))</code>",
+ "116":
+ "<code>wGCL.Step.weight.{u_1, u_2, u_3, u_4} {D : Type u_1} {Γ : D → Type u_2} {𝒲 : Type u_3} {ℛ : Type u_4} [Zero 𝒲] [One 𝒲]\n  [DecidableEq D] {w : Σ[Γ] → 𝒲} {σ : Σ[Γ]} {n : ℕ} : wGCL.Step conf ⟨@wGCL.weight w, σ⟩ n (w σ) (wGCL.Conf.mk none σ)</code>",
+ "115":
+ "<code>Option.none.{u} {α : Type u} : Option α</code><span class=\"sep\"></span><code class=\"docstring\">No value. </code>",
+ "114":
+ "<code>wGCL.Step.reward.{u_1, u_2, u_3, u_4} {D : Type u_1} {Γ : D → Type u_2} {𝒲 : Type u_3} {ℛ : Type u_4} [Zero 𝒲] [One 𝒲]\n  [DecidableEq D] {r : Σ[Γ] → ℛ} {σ : Σ[Γ]} {n : ℕ} : wGCL.Step conf ⟨@wGCL.reward r, σ⟩ n 1 (wGCL.Conf.mk none σ)</code>",
+ "113":
+ "<code>One.{u} (α : Type u) : Type u</code><span class=\"sep\"></span><code class=\"docstring\">A type with a \"one\" element. </code>",
+ "112":
+ "<code>wGCL.Step.{u_1, u_2, u_3, u_4} {D : Type u_1} {Γ : D → Type u_2} {𝒲 : Type u_3} {ℛ : Type u_4} [Zero 𝒲] [One 𝒲]\n  [DecidableEq D] : wGCL.Conf Γ 𝒲 ℛ → ℕ → 𝒲 → wGCL.Conf Γ 𝒲 ℛ → Prop</code>",
+ "111": "<code>Σ[Γ]</code>",
+ "110":
+ "<code>Option.{u} (α : Type u) : Type u</code><span class=\"sep\"></span><code class=\"docstring\">Optional values, which are either `some` around a value from the underlying type or `none`.\n\n`Option` can represent nullable types or computations that might fail. In the codomain of a function\ntype, it can also represent partiality.\n</code>",
+ "11": "<code>Type u_12</code>",
+ "109": "<code>Option (wGCL Γ 𝒲 ℛ)</code>",
+ "108":
+ "<code>wGCL.Conf.mk.{u_1, u_2, u_3, u_4} {D : Type u_1} {Γ : D → Type u_2} {𝒲 : Type u_3} {ℛ : Type u_4} [Zero 𝒲]\n  (C : Option (wGCL Γ 𝒲 ℛ)) (σ : Σ[Γ]) : wGCL.Conf Γ 𝒲 ℛ</code>",
+ "107":
+ "<code>wGCL.Conf.{u_1, u_2, u_3, u_4} {D : Type u_1} (Γ : D → Type u_2) (𝒲 : Type u_3) (ℛ : Type u_4) [Zero 𝒲] :\n  Type (max (max (max u_1 u_2) u_3) u_4)</code>",
+ "106":
+ "<code>WDP.τ.{u_1, u_2, u_3} {𝒲 : Type u_1} {S : Type u_2} {A : Type u_3} [Zero 𝒲] (self : WDP 𝒲 S A) : S → A → S → 𝒲</code>",
+ "105": "<code>WDP 𝒲 S A</code>",
+ "104": "<code>S</code>",
+ "103":
+ "<code>∀ (s : S) (α : A), Countable ↑(Function.support (self.τ s α))</code>",
+ "102": "<code>S → A → S → 𝒲</code>",
+ "101":
+ "<code>WDP.mk.{u_1, u_2, u_3} {𝒲 : Type u_1} {S : Type u_2} {A : Type u_3} [Zero 𝒲] (τ : S → A → S → 𝒲)\n  (τ_countable : ∀ (s : S) (α : A), Countable ↑(Function.support (τ s α)) := by infer_instance) : WDP 𝒲 S A</code>",
+ "100":
+ "<code>WDP.{u_1, u_2, u_3} (𝒲 : Type u_1) (S : Type u_2) (A : Type u_3) [Zero 𝒲] : Type (max (max u_1 u_2) u_3)</code><span class=\"sep\"></span><code class=\"docstring\">A weighted decision process (WDP) is a tuple 𝑀 = (𝒲,ℛ,S,A,τ) and is comprised of\n1. The monoid of weights 𝒲, a monoid with zero.\n2. The naturally ordered, 𝜔-continuous 𝒲-module ℛ of rewards, such that the natural order of ℛ\n   is a complete lattice.\n3. The state space S, an arbitrary set.\n4. The action space A, an arbitrary set.\n5. the state transition τ : S × A → S → 𝒲, such that τ(𝑠,𝑎)(𝑠′) ≠ 0 for at most countably\n   many 𝑠′.\n6. the reward function ρ : S → ℛ. </code>",
+ "10":
+ "<code>MulAction.{u_9, u_10} (α : Type u_9) (β : Type u_10) [Monoid α] : Type (max u_10 u_9)</code><span class=\"sep\"></span><code class=\"docstring\">Type class for monoid actions on types, with notation `g • p`.\n\nThe `MulAction G P` typeclass says that the monoid `G` acts multiplicatively on a type `P`.\nMore precisely this means that the action satisfies the two axioms `1 • p = p` and\n`(g₁ * g₂) • p = g₁ • (g₂ • p)`. A mathematician might simply say that the monoid `G`\nacts on `P`.\n\nFor example, if `G` is a group and `X` is a type, if a mathematician says\nsay \"let `G` act on the set `X`\" they will probably mean `[MulAction G X]`.\n\n\n[Wikidata Q288465](https://www.wikidata.org/wiki/Q288465)</code>",
+ "1":
+ "<code>AddMonoid.{u} (M : Type u) : Type u</code><span class=\"sep\"></span><code class=\"docstring\">An `AddMonoid` is an `AddSemigroup` with an element `0` such that `0 + a = a + 0 = a`. </code>",
+ "0":
+ "<code>Monoid.{u} (M : Type u) : Type u</code><span class=\"sep\"></span><code class=\"docstring\">A `Monoid` is a `Semigroup` with an element `1` such that `1 * a = a * 1 = a`. </code>"}

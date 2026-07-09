@@ -1,0 +1,2077 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script>
+      (function(){
+  const {protocol:proto, host:hostName, pathname:path, search:srch, hash:hsh} = window.location;
+  if (!(path.endsWith("/") || path.endsWith(".html"))) {
+    window.location.replace(`${proto}//${hostName}${path}/${srch}${hsh}`);
+  }
+})()</script>
+    <script>
+      // Enable TypeScript checking.
+// @ts-check
+
+// Applies a saved table-of-contents width before the first paint.
+//
+// This is a tiny inline counterpart to toc-resize.js: it runs in the page head so that
+// returning desktop readers do not see the default width flash to their saved width.
+// It only records the width in the --verso-toc-user-width custom property; the
+// stylesheet clamps it and ignores it on mobile, and toc-resize.js then takes over the
+// interactive resizing. Keep the storage key in sync with toc-resize.js.
+
+(function () {
+    try {
+        const saved = localStorage.getItem("verso-toc-width");
+        // Parse to a number (as toc-resize.js does) and write that back, so a stored
+        // value with stray whitespace becomes a valid length rather than `" 420 px"`.
+        const width = saved === null ? NaN : Number(saved);
+        if (Number.isFinite(width)) {
+            document.documentElement.style.setProperty("--verso-toc-user-width", `${width}px`);
+        }
+    } catch (_) {
+        // Leave the default width in place when local storage is unavailable.
+    }
+})();
+</script>
+    <base href="./../"><meta charset="utf-8">
+    <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <title>Preliminaries</title><link rel="stylesheet" href="book.css">
+    <link rel="stylesheet" href="verso-vars.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked@11.1.1/marked.min.js" integrity="sha384-zbcZAIxlvJtNE3Dp5nxLXdXtXyxwOdnILY1TDPVmKFhl4r4nSUG1r8bcFXGVa4Te" crossorigin="anonymous"></script>
+    <script defer="defer" src="-verso-search/elasticlunr.min.js"></script>
+    <script defer="defer" src="-verso-search/fuzzysort.min.js"></script>
+    <script defer="defer" src="-verso-search/searchIndex.js"></script>
+    <script defer="defer" src="-verso-search/search-config.js"></script>
+    <script type="module" src="-verso-search/search-init.js"></script>
+    <link rel="stylesheet" href="-verso-search/search-box.css">
+    <link rel="stylesheet" href="-verso-search/search-page.css">
+    <link rel="stylesheet" href="-verso-search/search-highlight.css">
+    <link rel="stylesheet" href="-verso-search/domain-display.css">
+    <script src="-verso-search/search-highlight.js" defer="defer"></script>
+    <script src="toc-resize.js" defer="defer"></script>
+    <script src="-verso-data/katex/katex.js"></script>
+    <script src="-verso-data/katex/math.js"></script>
+    <script src="-verso-data/popper.min.js"></script>
+    <script src="-verso-data/tippy-bundle.umd.min.js"></script>
+    <link rel="stylesheet" href="-verso-data/tippy-border.css">
+    <link rel="stylesheet" href="-verso-data/katex/katex.css">
+    <style>
+.namedocs {
+  position: relative;
+  border: solid 1px #98B2C0;
+  border-radius: .5rem;
+  padding-top: var(--verso--box-padding);
+  margin-top: var(--verso--box-vertical-margin);
+  margin-bottom: var(--verso--box-vertical-margin);
+}
+
+.namedocs .text {
+  /* Causes margins on child elements to collapse inside the element, such
+     that the margins don't extend into parent with the background color.
+     The effect is that weird borders in the definition box don't happen anymore. */
+  display: flow-root;
+  /* Add a padding. this is the same as the margin applied to the first and last child.
+     The effect is that the padding looks the same size on all sides. */
+  padding: 0 var(--verso--box-padding);
+  border-top: 1px solid #98B2C0;
+}
+
+.namedocs .text > pre {
+  overflow-x: auto;
+}
+
+.namedocs .signature {
+  font-family: var(--verso-code-font-family);
+  margin-top: 0 !important;
+  margin-left: var(--verso--box-padding) !important;
+  margin-bottom: .75rem !important;
+}
+
+.namedocs .label {
+  display: block;
+  font-size: small;
+  font-family: var(--verso-structure-font-family);
+  position: absolute;
+  top: -0.65rem;
+  left: 1rem;
+  background: #fff;
+  padding: 0 .5rem .125rem;
+  border: 1px solid #98B2C0;
+  border-radius: 1rem;
+  color: #555;
+}
+
+.namedocs h1 {
+  font-size: inherit;
+  font-weight: bold
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.namedocs > .text .constructor {
+  padding-top: 0;
+  padding-right: 0;
+  padding-bottom: 0;
+  margin-top: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.namedocs > .text .constructor::before {
+  content: '| ';
+  display: block;
+  font-family: var(--verso-code-font-family);
+  font-weight: bold;
+  float: left;
+  width: 0.5rem;
+  white-space: pre;
+}
+
+.namedocs > .text .constructor .name-and-type {
+  padding-left: 0.5rem;
+  float: left;
+  margin-top: 0;
+  max-width: calc(100% - 1rem);
+}
+.namedocs > .text .constructor .docs {
+  clear: both;
+  padding-left: 1rem;
+}
+
+/* These margins work together with the padding on .text */
+.namedocs .text > :first-child {
+  margin-top: var(--verso--box-padding);
+}
+.namedocs .text > :last-child {
+  margin-bottom: var(--verso--box-padding);
+}
+
+.namedocs .methods td, .namedocs .fields td {
+  vertical-align: top;
+}
+.namedocs .inheritance {
+  vertical-align: top;
+  font-size: smaller;
+  font-family: var(--verso-structure-font-family);
+}
+.namedocs .inheritance ol {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+}
+.namedocs .inheritance ol li {
+  list-style-type: none;
+  display: inline-block;
+}
+.namedocs .inheritance ol li::after {
+  content: " > "
+}
+.namedocs .inheritance ol li:last-child::after {
+  content: "";
+}
+
+.namedocs .extends {
+  display: inline;
+  margin: 0;
+  padding: 0;
+}
+
+.namedocs .extends li {
+  list-style-type: none;
+  display: inline-block;
+}
+
+.namedocs .extends li label {
+  padding-right: 1rem;
+}
+
+.namedocs .subdocs .name-and-type {
+  font-size: 1rem;
+  margin-left: 0;
+  margin-top: 0;
+  margin-right: 0;
+  margin-bottom: 0.5rem;
+}
+
+.namedocs .subdocs .docs {
+  margin-left: 1.5rem;
+  margin-top: 0;
+  margin-right: 0;
+  margin-bottom: 0.5rem;
+}
+
+.namedocs:has(input[data-parent-idx]) [data-inherited-from] {
+  transition-property: opacity, display;
+  transition-duration: 0.4s;
+  transition-behavior: allow-discrete;
+  @starting-style { opacity: 0 !important; }
+}
+
+#this-page-items .tactic-name { font-weight: bold; }
+.namedocs:has(input[data-parent-idx="0"]) [data-inherited-from="0"] {
+  display: none;
+  opacity: 0;
+}
+.namedocs:has(input[data-parent-idx="0"]:checked) [data-inherited-from="0"] {
+  display: block;
+  transform: none;
+  opacity: 1;
+}
+.namedocs:has(input[data-parent-idx="0"]:checked):has(.inheritance[data-inherited-from="0"]:hover) [data-inherited-from]:not([data-inherited-from="0"]) {
+  opacity: 0.5;
+}
+.namedocs:has(input[data-parent-idx="1"]) [data-inherited-from="1"] {
+  display: none;
+  opacity: 0;
+}
+.namedocs:has(input[data-parent-idx="1"]:checked) [data-inherited-from="1"] {
+  display: block;
+  transform: none;
+  opacity: 1;
+}
+.namedocs:has(input[data-parent-idx="1"]:checked):has(.inheritance[data-inherited-from="1"]:hover) [data-inherited-from]:not([data-inherited-from="1"]) {
+  opacity: 0.5;
+}
+.namedocs:has(input[data-parent-idx="2"]) [data-inherited-from="2"] {
+  display: none;
+  opacity: 0;
+}
+.namedocs:has(input[data-parent-idx="2"]:checked) [data-inherited-from="2"] {
+  display: block;
+  transform: none;
+  opacity: 1;
+}
+.namedocs:has(input[data-parent-idx="2"]:checked):has(.inheritance[data-inherited-from="2"]:hover) [data-inherited-from]:not([data-inherited-from="2"]) {
+  opacity: 0.5;
+}
+.namedocs:has(input[data-parent-idx="3"]) [data-inherited-from="3"] {
+  display: none;
+  opacity: 0;
+}
+.namedocs:has(input[data-parent-idx="3"]:checked) [data-inherited-from="3"] {
+  display: block;
+  transform: none;
+  opacity: 1;
+}
+.namedocs:has(input[data-parent-idx="3"]:checked):has(.inheritance[data-inherited-from="3"]:hover) [data-inherited-from]:not([data-inherited-from="3"]) {
+  opacity: 0.5;
+}
+.namedocs:has(input[data-parent-idx="4"]) [data-inherited-from="4"] {
+  display: none;
+  opacity: 0;
+}
+.namedocs:has(input[data-parent-idx="4"]:checked) [data-inherited-from="4"] {
+  display: block;
+  transform: none;
+  opacity: 1;
+}
+.namedocs:has(input[data-parent-idx="4"]:checked):has(.inheritance[data-inherited-from="4"]:hover) [data-inherited-from]:not([data-inherited-from="4"]) {
+  opacity: 0.5;
+}
+.namedocs:has(input[data-parent-idx="5"]) [data-inherited-from="5"] {
+  display: none;
+  opacity: 0;
+}
+.namedocs:has(input[data-parent-idx="5"]:checked) [data-inherited-from="5"] {
+  display: block;
+  transform: none;
+  opacity: 1;
+}
+.namedocs:has(input[data-parent-idx="5"]:checked):has(.inheritance[data-inherited-from="5"]:hover) [data-inherited-from]:not([data-inherited-from="5"]) {
+  opacity: 0.5;
+}
+.namedocs:has(input[data-parent-idx="6"]) [data-inherited-from="6"] {
+  display: none;
+  opacity: 0;
+}
+.namedocs:has(input[data-parent-idx="6"]:checked) [data-inherited-from="6"] {
+  display: block;
+  transform: none;
+  opacity: 1;
+}
+.namedocs:has(input[data-parent-idx="6"]:checked):has(.inheritance[data-inherited-from="6"]:hover) [data-inherited-from]:not([data-inherited-from="6"]) {
+  opacity: 0.5;
+}
+.namedocs:has(input[data-parent-idx="7"]) [data-inherited-from="7"] {
+  display: none;
+  opacity: 0;
+}
+.namedocs:has(input[data-parent-idx="7"]:checked) [data-inherited-from="7"] {
+  display: block;
+  transform: none;
+  opacity: 1;
+}
+.namedocs:has(input[data-parent-idx="7"]:checked):has(.inheritance[data-inherited-from="7"]:hover) [data-inherited-from]:not([data-inherited-from="7"]) {
+  opacity: 0.5;
+}
+.namedocs:has(input[data-parent-idx="8"]) [data-inherited-from="8"] {
+  display: none;
+  opacity: 0;
+}
+.namedocs:has(input[data-parent-idx="8"]:checked) [data-inherited-from="8"] {
+  display: block;
+  transform: none;
+  opacity: 1;
+}
+.namedocs:has(input[data-parent-idx="8"]:checked):has(.inheritance[data-inherited-from="8"]:hover) [data-inherited-from]:not([data-inherited-from="8"]) {
+  opacity: 0.5;
+}
+.namedocs:has(input[data-parent-idx="9"]) [data-inherited-from="9"] {
+  display: none;
+  opacity: 0;
+}
+.namedocs:has(input[data-parent-idx="9"]:checked) [data-inherited-from="9"] {
+  display: block;
+  transform: none;
+  opacity: 1;
+}
+.namedocs:has(input[data-parent-idx="9"]:checked):has(.inheritance[data-inherited-from="9"]:hover) [data-inherited-from]:not([data-inherited-from="9"]) {
+  opacity: 0.5;
+}
+.namedocs:has(input[data-parent-idx="10"]) [data-inherited-from="10"] {
+  display: none;
+  opacity: 0;
+}
+.namedocs:has(input[data-parent-idx="10"]:checked) [data-inherited-from="10"] {
+  display: block;
+  transform: none;
+  opacity: 1;
+}
+.namedocs:has(input[data-parent-idx="10"]:checked):has(.inheritance[data-inherited-from="10"]:hover) [data-inherited-from]:not([data-inherited-from="10"]) {
+  opacity: 0.5;
+}
+.namedocs:has(input[data-parent-idx="11"]) [data-inherited-from="11"] {
+  display: none;
+  opacity: 0;
+}
+.namedocs:has(input[data-parent-idx="11"]:checked) [data-inherited-from="11"] {
+  display: block;
+  transform: none;
+  opacity: 1;
+}
+.namedocs:has(input[data-parent-idx="11"]:checked):has(.inheritance[data-inherited-from="11"]:hover) [data-inherited-from]:not([data-inherited-from="11"]) {
+  opacity: 0.5;
+}
+.namedocs:has(input[data-parent-idx="12"]) [data-inherited-from="12"] {
+  display: none;
+  opacity: 0;
+}
+.namedocs:has(input[data-parent-idx="12"]:checked) [data-inherited-from="12"] {
+  display: block;
+  transform: none;
+  opacity: 1;
+}
+.namedocs:has(input[data-parent-idx="12"]:checked):has(.inheritance[data-inherited-from="12"]:hover) [data-inherited-from]:not([data-inherited-from="12"]) {
+  opacity: 0.5;
+}
+.namedocs:has(input[data-parent-idx="13"]) [data-inherited-from="13"] {
+  display: none;
+  opacity: 0;
+}
+.namedocs:has(input[data-parent-idx="13"]:checked) [data-inherited-from="13"] {
+  display: block;
+  transform: none;
+  opacity: 1;
+}
+.namedocs:has(input[data-parent-idx="13"]:checked):has(.inheritance[data-inherited-from="13"]:hover) [data-inherited-from]:not([data-inherited-from="13"]) {
+  opacity: 0.5;
+}
+.namedocs:has(input[data-parent-idx="14"]) [data-inherited-from="14"] {
+  display: none;
+  opacity: 0;
+}
+.namedocs:has(input[data-parent-idx="14"]:checked) [data-inherited-from="14"] {
+  display: block;
+  transform: none;
+  opacity: 1;
+}
+.namedocs:has(input[data-parent-idx="14"]:checked):has(.inheritance[data-inherited-from="14"]:hover) [data-inherited-from]:not([data-inherited-from="14"]) {
+  opacity: 0.5;
+}
+.namedocs:has(input[data-parent-idx="15"]) [data-inherited-from="15"] {
+  display: none;
+  opacity: 0;
+}
+.namedocs:has(input[data-parent-idx="15"]:checked) [data-inherited-from="15"] {
+  display: block;
+  transform: none;
+  opacity: 1;
+}
+.namedocs:has(input[data-parent-idx="15"]:checked):has(.inheritance[data-inherited-from="15"]:hover) [data-inherited-from]:not([data-inherited-from="15"]) {
+  opacity: 0.5;
+}
+.namedocs:has(input[data-parent-idx="16"]) [data-inherited-from="16"] {
+  display: none;
+  opacity: 0;
+}
+.namedocs:has(input[data-parent-idx="16"]:checked) [data-inherited-from="16"] {
+  display: block;
+  transform: none;
+  opacity: 1;
+}
+.namedocs:has(input[data-parent-idx="16"]:checked):has(.inheritance[data-inherited-from="16"]:hover) [data-inherited-from]:not([data-inherited-from="16"]) {
+  opacity: 0.5;
+}
+.namedocs:has(input[data-parent-idx="17"]) [data-inherited-from="17"] {
+  display: none;
+  opacity: 0;
+}
+.namedocs:has(input[data-parent-idx="17"]:checked) [data-inherited-from="17"] {
+  display: block;
+  transform: none;
+  opacity: 1;
+}
+.namedocs:has(input[data-parent-idx="17"]:checked):has(.inheritance[data-inherited-from="17"]:hover) [data-inherited-from]:not([data-inherited-from="17"]) {
+  opacity: 0.5;
+}
+.namedocs:has(input[data-parent-idx="18"]) [data-inherited-from="18"] {
+  display: none;
+  opacity: 0;
+}
+.namedocs:has(input[data-parent-idx="18"]:checked) [data-inherited-from="18"] {
+  display: block;
+  transform: none;
+  opacity: 1;
+}
+.namedocs:has(input[data-parent-idx="18"]:checked):has(.inheritance[data-inherited-from="18"]:hover) [data-inherited-from]:not([data-inherited-from="18"]) {
+  opacity: 0.5;
+}
+.namedocs:has(input[data-parent-idx="19"]) [data-inherited-from="19"] {
+  display: none;
+  opacity: 0;
+}
+.namedocs:has(input[data-parent-idx="19"]:checked) [data-inherited-from="19"] {
+  display: block;
+  transform: none;
+  opacity: 1;
+}
+.namedocs:has(input[data-parent-idx="19"]:checked):has(.inheritance[data-inherited-from="19"]:hover) [data-inherited-from]:not([data-inherited-from="19"]) {
+  opacity: 0.5;
+}
+.namedocs:has(input[data-parent-idx="20"]) [data-inherited-from="20"] {
+  display: none;
+  opacity: 0;
+}
+.namedocs:has(input[data-parent-idx="20"]:checked) [data-inherited-from="20"] {
+  display: block;
+  transform: none;
+  opacity: 1;
+}
+.namedocs:has(input[data-parent-idx="20"]:checked):has(.inheritance[data-inherited-from="20"]:hover) [data-inherited-from]:not([data-inherited-from="20"]) {
+  opacity: 0.5;
+}
+.namedocs:has(input[data-parent-idx="21"]) [data-inherited-from="21"] {
+  display: none;
+  opacity: 0;
+}
+.namedocs:has(input[data-parent-idx="21"]:checked) [data-inherited-from="21"] {
+  display: block;
+  transform: none;
+  opacity: 1;
+}
+.namedocs:has(input[data-parent-idx="21"]:checked):has(.inheritance[data-inherited-from="21"]:hover) [data-inherited-from]:not([data-inherited-from="21"]) {
+  opacity: 0.5;
+}
+.namedocs:has(input[data-parent-idx="22"]) [data-inherited-from="22"] {
+  display: none;
+  opacity: 0;
+}
+.namedocs:has(input[data-parent-idx="22"]:checked) [data-inherited-from="22"] {
+  display: block;
+  transform: none;
+  opacity: 1;
+}
+.namedocs:has(input[data-parent-idx="22"]:checked):has(.inheritance[data-inherited-from="22"]:hover) [data-inherited-from]:not([data-inherited-from="22"]) {
+  opacity: 0.5;
+}
+.namedocs:has(input[data-parent-idx="23"]) [data-inherited-from="23"] {
+  display: none;
+  opacity: 0;
+}
+.namedocs:has(input[data-parent-idx="23"]:checked) [data-inherited-from="23"] {
+  display: block;
+  transform: none;
+  opacity: 1;
+}
+.namedocs:has(input[data-parent-idx="23"]:checked):has(.inheritance[data-inherited-from="23"]:hover) [data-inherited-from]:not([data-inherited-from="23"]) {
+  opacity: 0.5;
+}
+.namedocs:has(input[data-parent-idx="24"]) [data-inherited-from="24"] {
+  display: none;
+  opacity: 0;
+}
+.namedocs:has(input[data-parent-idx="24"]:checked) [data-inherited-from="24"] {
+  display: block;
+  transform: none;
+  opacity: 1;
+}
+.namedocs:has(input[data-parent-idx="24"]:checked):has(.inheritance[data-inherited-from="24"]:hover) [data-inherited-from]:not([data-inherited-from="24"]) {
+  opacity: 0.5;
+}
+.namedocs:has(input[data-parent-idx="25"]) [data-inherited-from="25"] {
+  display: none;
+  opacity: 0;
+}
+.namedocs:has(input[data-parent-idx="25"]:checked) [data-inherited-from="25"] {
+  display: block;
+  transform: none;
+  opacity: 1;
+}
+.namedocs:has(input[data-parent-idx="25"]:checked):has(.inheritance[data-inherited-from="25"]:hover) [data-inherited-from]:not([data-inherited-from="25"]) {
+  opacity: 0.5;
+}
+.namedocs:has(input[data-parent-idx="26"]) [data-inherited-from="26"] {
+  display: none;
+  opacity: 0;
+}
+.namedocs:has(input[data-parent-idx="26"]:checked) [data-inherited-from="26"] {
+  display: block;
+  transform: none;
+  opacity: 1;
+}
+.namedocs:has(input[data-parent-idx="26"]:checked):has(.inheritance[data-inherited-from="26"]:hover) [data-inherited-from]:not([data-inherited-from="26"]) {
+  opacity: 0.5;
+}
+.namedocs:has(input[data-parent-idx="27"]) [data-inherited-from="27"] {
+  display: none;
+  opacity: 0;
+}
+.namedocs:has(input[data-parent-idx="27"]:checked) [data-inherited-from="27"] {
+  display: block;
+  transform: none;
+  opacity: 1;
+}
+.namedocs:has(input[data-parent-idx="27"]:checked):has(.inheritance[data-inherited-from="27"]:hover) [data-inherited-from]:not([data-inherited-from="27"]) {
+  opacity: 0.5;
+}
+.namedocs:has(input[data-parent-idx="28"]) [data-inherited-from="28"] {
+  display: none;
+  opacity: 0;
+}
+.namedocs:has(input[data-parent-idx="28"]:checked) [data-inherited-from="28"] {
+  display: block;
+  transform: none;
+  opacity: 1;
+}
+.namedocs:has(input[data-parent-idx="28"]:checked):has(.inheritance[data-inherited-from="28"]:hover) [data-inherited-from]:not([data-inherited-from="28"]) {
+  opacity: 0.5;
+}
+.namedocs:has(input[data-parent-idx="29"]) [data-inherited-from="29"] {
+  display: none;
+  opacity: 0;
+}
+.namedocs:has(input[data-parent-idx="29"]:checked) [data-inherited-from="29"] {
+  display: block;
+  transform: none;
+  opacity: 1;
+}
+.namedocs:has(input[data-parent-idx="29"]:checked):has(.inheritance[data-inherited-from="29"]:hover) [data-inherited-from]:not([data-inherited-from="29"]) {
+  opacity: 0.5;
+}
+.namedocs:has(input[data-parent-idx="30"]) [data-inherited-from="30"] {
+  display: none;
+  opacity: 0;
+}
+.namedocs:has(input[data-parent-idx="30"]:checked) [data-inherited-from="30"] {
+  display: block;
+  transform: none;
+  opacity: 1;
+}
+.namedocs:has(input[data-parent-idx="30"]:checked):has(.inheritance[data-inherited-from="30"]:hover) [data-inherited-from]:not([data-inherited-from="30"]) {
+  opacity: 0.5;
+}
+.namedocs:has(input[data-parent-idx="31"]) [data-inherited-from="31"] {
+  display: none;
+  opacity: 0;
+}
+.namedocs:has(input[data-parent-idx="31"]:checked) [data-inherited-from="31"] {
+  display: block;
+  transform: none;
+  opacity: 1;
+}
+.namedocs:has(input[data-parent-idx="31"]:checked):has(.inheritance[data-inherited-from="31"]:hover) [data-inherited-from]:not([data-inherited-from="31"]) {
+  opacity: 0.5;
+}
+.namedocs:has(input[data-parent-idx="32"]) [data-inherited-from="32"] {
+  display: none;
+  opacity: 0;
+}
+.namedocs:has(input[data-parent-idx="32"]:checked) [data-inherited-from="32"] {
+  display: block;
+  transform: none;
+  opacity: 1;
+}
+.namedocs:has(input[data-parent-idx="32"]:checked):has(.inheritance[data-inherited-from="32"]:hover) [data-inherited-from]:not([data-inherited-from="32"]) {
+  opacity: 0.5;
+}
+.namedocs:has(input[data-parent-idx="33"]) [data-inherited-from="33"] {
+  display: none;
+  opacity: 0;
+}
+.namedocs:has(input[data-parent-idx="33"]:checked) [data-inherited-from="33"] {
+  display: block;
+  transform: none;
+  opacity: 1;
+}
+.namedocs:has(input[data-parent-idx="33"]:checked):has(.inheritance[data-inherited-from="33"]:hover) [data-inherited-from]:not([data-inherited-from="33"]) {
+  opacity: 0.5;
+}
+.namedocs:has(input[data-parent-idx="34"]) [data-inherited-from="34"] {
+  display: none;
+  opacity: 0;
+}
+.namedocs:has(input[data-parent-idx="34"]:checked) [data-inherited-from="34"] {
+  display: block;
+  transform: none;
+  opacity: 1;
+}
+.namedocs:has(input[data-parent-idx="34"]:checked):has(.inheritance[data-inherited-from="34"]:hover) [data-inherited-from]:not([data-inherited-from="34"]) {
+  opacity: 0.5;
+}
+.namedocs:has(input[data-parent-idx="35"]) [data-inherited-from="35"] {
+  display: none;
+  opacity: 0;
+}
+.namedocs:has(input[data-parent-idx="35"]:checked) [data-inherited-from="35"] {
+  display: block;
+  transform: none;
+  opacity: 1;
+}
+.namedocs:has(input[data-parent-idx="35"]:checked):has(.inheritance[data-inherited-from="35"]:hover) [data-inherited-from]:not([data-inherited-from="35"]) {
+  opacity: 0.5;
+}
+.namedocs:has(input[data-parent-idx="36"]) [data-inherited-from="36"] {
+  display: none;
+  opacity: 0;
+}
+.namedocs:has(input[data-parent-idx="36"]:checked) [data-inherited-from="36"] {
+  display: block;
+  transform: none;
+  opacity: 1;
+}
+.namedocs:has(input[data-parent-idx="36"]:checked):has(.inheritance[data-inherited-from="36"]:hover) [data-inherited-from]:not([data-inherited-from="36"]) {
+  opacity: 0.5;
+}
+.namedocs:has(input[data-parent-idx="37"]) [data-inherited-from="37"] {
+  display: none;
+  opacity: 0;
+}
+.namedocs:has(input[data-parent-idx="37"]:checked) [data-inherited-from="37"] {
+  display: block;
+  transform: none;
+  opacity: 1;
+}
+.namedocs:has(input[data-parent-idx="37"]:checked):has(.inheritance[data-inherited-from="37"]:hover) [data-inherited-from]:not([data-inherited-from="37"]) {
+  opacity: 0.5;
+}
+.namedocs:has(input[data-parent-idx="38"]) [data-inherited-from="38"] {
+  display: none;
+  opacity: 0;
+}
+.namedocs:has(input[data-parent-idx="38"]:checked) [data-inherited-from="38"] {
+  display: block;
+  transform: none;
+  opacity: 1;
+}
+.namedocs:has(input[data-parent-idx="38"]:checked):has(.inheritance[data-inherited-from="38"]:hover) [data-inherited-from]:not([data-inherited-from="38"]) {
+  opacity: 0.5;
+}
+.namedocs:has(input[data-parent-idx="39"]) [data-inherited-from="39"] {
+  display: none;
+  opacity: 0;
+}
+.namedocs:has(input[data-parent-idx="39"]:checked) [data-inherited-from="39"] {
+  display: block;
+  transform: none;
+  opacity: 1;
+}
+.namedocs:has(input[data-parent-idx="39"]:checked):has(.inheritance[data-inherited-from="39"]:hover) [data-inherited-from]:not([data-inherited-from="39"]) {
+  opacity: 0.5;
+}
+.namedocs:has(input[data-parent-idx="40"]) [data-inherited-from="40"] {
+  display: none;
+  opacity: 0;
+}
+.namedocs:has(input[data-parent-idx="40"]:checked) [data-inherited-from="40"] {
+  display: block;
+  transform: none;
+  opacity: 1;
+}
+.namedocs:has(input[data-parent-idx="40"]:checked):has(.inheritance[data-inherited-from="40"]:hover) [data-inherited-from]:not([data-inherited-from="40"]) {
+  opacity: 0.5;
+}
+.namedocs:has(input[data-parent-idx="41"]) [data-inherited-from="41"] {
+  display: none;
+  opacity: 0;
+}
+.namedocs:has(input[data-parent-idx="41"]:checked) [data-inherited-from="41"] {
+  display: block;
+  transform: none;
+  opacity: 1;
+}
+.namedocs:has(input[data-parent-idx="41"]:checked):has(.inheritance[data-inherited-from="41"]:hover) [data-inherited-from]:not([data-inherited-from="41"]) {
+  opacity: 0.5;
+}
+.namedocs:has(input[data-parent-idx="42"]) [data-inherited-from="42"] {
+  display: none;
+  opacity: 0;
+}
+.namedocs:has(input[data-parent-idx="42"]:checked) [data-inherited-from="42"] {
+  display: block;
+  transform: none;
+  opacity: 1;
+}
+.namedocs:has(input[data-parent-idx="42"]:checked):has(.inheritance[data-inherited-from="42"]:hover) [data-inherited-from]:not([data-inherited-from="42"]) {
+  opacity: 0.5;
+}
+.namedocs:has(input[data-parent-idx="43"]) [data-inherited-from="43"] {
+  display: none;
+  opacity: 0;
+}
+.namedocs:has(input[data-parent-idx="43"]:checked) [data-inherited-from="43"] {
+  display: block;
+  transform: none;
+  opacity: 1;
+}
+.namedocs:has(input[data-parent-idx="43"]:checked):has(.inheritance[data-inherited-from="43"]:hover) [data-inherited-from]:not([data-inherited-from="43"]) {
+  opacity: 0.5;
+}
+.namedocs:has(input[data-parent-idx="44"]) [data-inherited-from="44"] {
+  display: none;
+  opacity: 0;
+}
+.namedocs:has(input[data-parent-idx="44"]:checked) [data-inherited-from="44"] {
+  display: block;
+  transform: none;
+  opacity: 1;
+}
+.namedocs:has(input[data-parent-idx="44"]:checked):has(.inheritance[data-inherited-from="44"]:hover) [data-inherited-from]:not([data-inherited-from="44"]) {
+  opacity: 0.5;
+}
+.namedocs:has(input[data-parent-idx="45"]) [data-inherited-from="45"] {
+  display: none;
+  opacity: 0;
+}
+.namedocs:has(input[data-parent-idx="45"]:checked) [data-inherited-from="45"] {
+  display: block;
+  transform: none;
+  opacity: 1;
+}
+.namedocs:has(input[data-parent-idx="45"]:checked):has(.inheritance[data-inherited-from="45"]:hover) [data-inherited-from]:not([data-inherited-from="45"]) {
+  opacity: 0.5;
+}
+.namedocs:has(input[data-parent-idx="46"]) [data-inherited-from="46"] {
+  display: none;
+  opacity: 0;
+}
+.namedocs:has(input[data-parent-idx="46"]:checked) [data-inherited-from="46"] {
+  display: block;
+  transform: none;
+  opacity: 1;
+}
+.namedocs:has(input[data-parent-idx="46"]:checked):has(.inheritance[data-inherited-from="46"]:hover) [data-inherited-from]:not([data-inherited-from="46"]) {
+  opacity: 0.5;
+}
+.namedocs:has(input[data-parent-idx="47"]) [data-inherited-from="47"] {
+  display: none;
+  opacity: 0;
+}
+.namedocs:has(input[data-parent-idx="47"]:checked) [data-inherited-from="47"] {
+  display: block;
+  transform: none;
+  opacity: 1;
+}
+.namedocs:has(input[data-parent-idx="47"]:checked):has(.inheritance[data-inherited-from="47"]:hover) [data-inherited-from]:not([data-inherited-from="47"]) {
+  opacity: 0.5;
+}
+.namedocs:has(input[data-parent-idx="48"]) [data-inherited-from="48"] {
+  display: none;
+  opacity: 0;
+}
+.namedocs:has(input[data-parent-idx="48"]:checked) [data-inherited-from="48"] {
+  display: block;
+  transform: none;
+  opacity: 1;
+}
+.namedocs:has(input[data-parent-idx="48"]:checked):has(.inheritance[data-inherited-from="48"]:hover) [data-inherited-from]:not([data-inherited-from="48"]) {
+  opacity: 0.5;
+}
+.namedocs:has(input[data-parent-idx="49"]) [data-inherited-from="49"] {
+  display: none;
+  opacity: 0;
+}
+.namedocs:has(input[data-parent-idx="49"]:checked) [data-inherited-from="49"] {
+  display: block;
+  transform: none;
+  opacity: 1;
+}
+.namedocs:has(input[data-parent-idx="49"]:checked):has(.inheritance[data-inherited-from="49"]:hover) [data-inherited-from]:not([data-inherited-from="49"]) {
+  opacity: 0.5;
+}
+</style><style>
+    main .theIndex {
+      padding-left: 0;
+      font-family: var(--verso-text-font-family);
+    }
+
+    main .theIndex nav {
+      position: sticky;
+      top: var(--verso-header-height);
+      background: white;
+      font-family: var(--verso-structure-font-family);
+    }
+
+    main .theIndex [id] {
+      /* This needs the combined height of the index header and the page header. We
+         know the height of the page header, but the index header height varies, so
+         we use the maximum height it gets which also works well for readers with
+         wide screens */
+      scroll-margin-top: calc(var(--verso-header-height) + 7.5rem);
+    }
+
+    @media screen and (max-width: 700px) {
+      /* On mobile, the sticky index takes up half the screen. */
+      main .theIndex nav {
+        position: static;
+      }
+
+      main .theIndex [id] {
+        /* On mobile, the index header is not sticky, so we just need to
+        be below the page header. */
+        scroll-margin-top: var(--verso-header-height);
+      }
+    }
+
+    main .theIndex nav ol {
+      padding: 0;
+    }
+
+    main .theIndex nav ol li {
+      display: inline-block;
+    }
+
+    main .theIndex nav ol li a {
+      /* Padding instead of margin to have a bigger click target */
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+    }
+    /* Increase the size of the touch target on phones */
+    @media screen and (max-width: 700px) {
+      main .theIndex nav ol li a {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+      }
+    }
+
+    main .theIndex nav ol li:first-child a {
+      padding-left: 0;
+    }
+
+    main .theIndex nav ol li + li:before {
+      content: "|";
+    }
+
+    main .theIndex h1,
+    main .theIndex h2,
+    main .theIndex h3,
+    main .theIndex h4,
+    main .theIndex h5,
+    main .theIndex h6 {
+      margin-top: 0;
+    }
+
+    main .theIndex ol {
+      list-style-type: none;
+    }
+
+    main .theIndex .division > ol {
+      padding-left: 0;
+      display: flex;
+      flex-direction: column;
+      gap: .5rem;
+      overflow-wrap: break-word;
+    }
+
+   main .theIndex .division > ol > li {
+      margin-bottom: 0.5rem;
+    }
+
+    main .theIndex .division ol ol {
+      padding-left: 1rem;
+    }
+
+    main .theIndex .division {
+      break-inside: avoid;
+      counter-reset: none;
+      max-width: none;
+      width: auto;
+    }
+    </style><style>
+.marginalia .note {
+  position: relative;
+  padding: 0.5rem;
+}
+
+/*
+The margin-note layout responds to the width of <main>, not the viewport, because the
+ToC is resizable: a wider ToC leaves less room beside the text for notes. <main> is a
+query container (see Html/Style.lean), so the container queries below track the actual
+content width.
+
+There are two "in the margin" regimes, split at the same width where the content stops
+being left-aligned and becomes centered (1112px and 1212px of content width; at the
+default ToC width these are the old 1400px and 1500px viewport breakpoints):
+
+  * While the content is left-aligned there is a large area to its right, so a fixed
+    13rem note with a fixed 16rem overhang fits comfortably.
+  * Once the content is centered the note must fit the symmetric right gap, whose width
+    is (content - text column) / 2. A fixed overhang would overflow the page for content
+    widths just above the centering threshold, so the note and its overhang are sized in
+    container units, which always fit that gap.
+*/
+
+/* Narrow viewport (e.g. phone): the ToC is hidden and the note spans the text column. */
+@media screen and (width <= 700px) {
+  .marginalia .note {
+    float: left;
+    clear: left;
+    width: 90%;
+    margin: 1rem 5%;
+  }
+}
+
+/* Wider than a phone: by default float the note at the right of the text column,
+   overlapping the content. The container queries below lift it into the true margin
+   once there is room. */
+@media screen and (min-width: 701px) {
+  .marginalia .note {
+    float: right;
+    clear: right;
+    width: 40%;
+    margin: 1rem 0;
+    margin-left: 10%;
+  }
+}
+
+/* Left-aligned content: a fixed-size note in the wide area to its right. */
+@container main (width >= 1112px) {
+  .marginalia .note {
+    float: right;
+    clear: right;
+    width: 13rem;
+    margin: 1rem -16rem 0 0;
+  }
+}
+
+/* Centered content: size the note in container units so it always fits the symmetric
+   right gap. The threshold matches the content-centering threshold in Html/Style.lean,
+   so the fixed-overhang note above is only ever used while the content is left-aligned.
+   The overhang (18cqi) stays below the gap, (100cqi - text column) / 2, for every
+   content width at which the content is centered. */
+@container main (width >= 1212px) {
+  .marginalia .note {
+    width: 15cqi;
+    margin-right: -18cqi;
+  }
+}
+
+.marginalia:hover, .marginalia:hover .note, .marginalia:has(.note:hover) {
+  background-color: var(--lean-accent-light-blue);
+}
+
+body {
+  counter-reset: margin-note-counter;
+}
+.marginalia .note {
+  counter-increment: margin-note-counter;
+}
+.marginalia .note::before {
+  content: counter(margin-note-counter) ".";
+  position: absolute;
+  vertical-align: baseline;
+  font-size: 0.9em;
+  font-weight: bold;
+  left: -3rem;
+  width: 3rem;
+  text-align: right;
+}
+.marginalia::after {
+  content: counter(margin-note-counter);
+  vertical-align: super;
+  font-size: 0.7em;
+  font-weight: bold;
+  margin-right: 0.5em;
+}
+</style><style>
+
+.hl.lean {
+  white-space: pre;
+  font-weight: normal;
+  font-style: normal;
+  font-size: inherit;
+}
+
+.hl.lean .keyword {
+  color: var(--verso-code-keyword-color,);
+  font-weight: var(--verso-code-keyword-weight, bold);
+  font-style: var(--verso-code-keyword-style, normal);
+  font-family: var(--verso-code-keyword-font-family,);
+}
+
+.hl.lean .const {
+  color: var(--verso-code-const-color,);
+  font-weight: var(--verso-code-const-weight, normal);
+  font-style: var(--verso-code-const-style, normal);
+  font-family: var(--verso-code-const-font-family,);
+}
+
+.hl.lean .var {
+  color: var(--verso-code-var-color,);
+  font-weight: var(--verso-code-var-weight, normal);
+  font-style: var(--verso-code-var-style, italic);
+  font-family: var(--verso-code-var-font-family,);
+
+  position: relative;
+}
+
+.hl.lean .literal, .hl.lean .unknown {
+  color: var(--verso-code-color,);
+  font-weight: normal;
+  font-style: normal;
+  font-family: var(--verso-code-font-family,);
+}
+
+/* These lexically-classified token kinds default to the `.unknown` appearance. The rule follows
+   `.const` so it wins for the `anon-ctor` tokens, which also carry the `const` class. */
+.hl.lean .anon-ctor,
+.hl.lean .number,
+.hl.lean .char,
+.hl.lean .comment,
+.hl.lean .punctuation,
+.hl.lean .delim,
+.hl.lean .wildcard {
+  color: var(--verso-code-color,);
+  font-weight: normal;
+  font-style: normal;
+  font-family: var(--verso-code-font-family,);
+}
+
+.hover-container {
+  width: 0;
+  height: 0;
+  position: relative;
+  display: inline;
+}
+
+.hl.lean a {
+  color: inherit;
+  text-decoration: currentcolor underline dotted;
+}
+
+.hl.lean a:hover {
+  text-decoration: currentcolor underline solid;
+}
+
+.hl.lean .hover-info {
+  white-space: normal;
+}
+
+.hl.lean .token .hover-info {
+  display: none;
+  position: absolute;
+  background-color: #e5e5e5;
+  border: 1px solid black;
+  padding: 0.5rem;
+  z-index: 300;
+}
+
+.hl.lean .hover-info.messages {
+  max-height: 10rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-gutter: stable;
+  padding: 0 0.5rem 0 0;
+  display: block;
+}
+
+.hl.lean .hover-info code {
+  white-space: pre-wrap;
+  background: none;
+  color: black;
+}
+
+.hl.lean .hover-info.messages > code {
+  padding: 0.5rem;
+  display: block;
+  width: fit-content;
+}
+
+.hl.lean .hover-info.messages > code:only-child {
+  margin: 0;
+}
+
+.hl.lean .hover-info.messages > code {
+  margin: 0.1rem;
+}
+
+.hl.lean .hover-info.messages > code:not(:first-child) {
+  margin-top: 0rem;
+}
+
+.hl.lean {
+}
+
+.hl.lean.block {
+  display: block;
+}
+
+.hl.lean.inline {
+  display: inline;
+  white-space: pre-wrap;
+}
+
+.hl.lean * {
+}
+
+.hl.lean .token {
+  transition: all 0.25s; /* Slight fade for highlights */
+}
+
+@media (hover: hover) {
+  .hl.lean .token.binding-hl, .hl.lean .literal:hover, .hl.lean .token.typed:hover {
+    background-color: #eee;
+    border-radius: 2px;
+    transition: none;
+  }
+}
+
+
+.hl.lean .has-info .token:not(.tactic-state):not(.tactic-state *), .hl.lean .has-info .inter-text:not(.tactic-state):not(.tactic-state *) {
+  text-decoration-style: wavy;
+  text-decoration-line: underline;
+  text-decoration-thickness: from-font;
+  text-decoration-skip-ink: none;
+}
+
+.hl.lean .has-info .hover-info {
+  display: none;
+  position: absolute;
+  transform: translate(0.25rem, 0.3rem);
+  border: 1px solid black;
+  padding: 0.5rem;
+  z-index: 400;
+  text-align: left;
+}
+
+.hl.lean .has-info.error :not(.tactic-state):not(.tactic-state *){
+  text-decoration-color: red;
+}
+
+@media (hover: hover) {
+  .hl.lean .has-info.error:hover {
+    background-color: #ffb3b3;
+  }
+}
+
+.hl.lean .hover-info.messages > code.error {
+  background-color: #e5e5e5;
+  border-left: 0.2rem solid #ffb3b3;
+}
+
+.tippy-box[data-theme~='error'] .hl.lean .hover-info.messages > code.error {
+  background: none;
+  border: none;
+}
+
+.error .verso-message, .error .verso-message .token, .error .verso-message label {
+  color: var(--verso-error-color);
+}
+
+.error .verso-message .case-label:has(input[type="checkbox"])::before {
+  background-color: var(--verso-error-color) !important;
+}
+
+.hl.lean .has-info.warning :not(.tactic-state):not(.tactic-state *) {
+  text-decoration-color: var(--verso-warning-indicator-color);
+}
+
+@media (hover: hover) {
+  .hl.lean .has-info.warning:hover {
+    background-color:var(--verso-warning-color);
+  }
+}
+
+.hl.lean .hover-info.messages > code.warning {
+  background-color: var(--verso-warning-color);
+}
+
+.lean-output {
+  border-left: 0.2em solid transparent;
+  padding: 0 0 0 0.5em;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.lean-output.error {
+  border-color: var(--verso-error-indicator-color);
+}
+
+.lean-output.information {
+  border-color: var(--verso-info-indicator-color);
+}
+
+.lean-output.warning {
+  border-color: var(--verso-warning-indicator-color);
+}
+
+.hl.lean .hover-info.messages > code.error {
+  background-color: #e5e5e5;
+  border-left: 0.2rem solid var(--verso-warning-color);
+}
+
+.tippy-box[data-theme~='warning'] .hl.lean .hover-info.messages > code.warning {
+  background: none;
+  border: none;
+}
+
+
+.hl.lean .has-info.information :not(.tactic-state):not(.tactic-state *) {
+  text-decoration-color: var(--verso-info-indicator-color, blue);
+}
+
+@media (hover: hover) {
+  .hl.lean .has-info.information:hover {
+    background-color: #4777ff;
+  }
+}
+
+
+.hl.lean .hover-info.messages > code.information {
+  background-color: #e5e5e5;
+  border-left: 0.2rem solid #4777ff;
+}
+
+.tippy-box[data-theme~='info'] .hl.lean .hover-info.messages > code.information {
+  background: none;
+  border: none;
+}
+
+.hl.lean div.docstring {
+  font-family: var(--verso-text-font-family, sans-serif);
+  white-space: normal;
+  max-width: calc(min(40rem, 90vw));
+  width: max-content;
+}
+
+.hl.lean div.docstring > :last-child {
+  margin-bottom: 0;
+}
+
+.hl.lean div.docstring > :first-child {
+  margin-top: 0;
+}
+
+.hl.lean .hover-info .sep {
+  display: block;
+  width: auto;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  padding: 0;
+  height: 1px;
+  border-top: 1px solid #ccc;
+}
+
+.hl.lean code {
+  font-family: var(--verso-code-font-family);
+}
+
+.hl.lean .tactic-state {
+  display: none;
+  position: relative;
+  width: fit-content;
+  border: 1px solid #888888;
+  border-radius: 0.1rem;
+  padding: 0.5rem;
+  font-family: sans-serif;
+  background-color: #ffffff;
+}
+
+.hl.lean.popup .tactic-state {
+  position: static;
+  display: block;
+  width: auto;
+  border: none;
+  padding: 0.5rem;
+  font-family: sans-serif;
+  background-color: #ffffff;
+}
+
+
+.hl.lean .tactic {
+  position: relative;
+  display: inline;
+  vertical-align: top;
+  /* Without these, mobile Safari will start making font sizes inconsistent when its text size adjustment feature is triggered.*/
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+.hl.lean .tactic:has(> .tactic-toggle:checked) {
+  display: inline-grid;
+  grid-template-columns: 1fr;
+}
+
+.hl.lean .tactic-toggle:checked ~ .tactic-state {
+  display: inline-block;
+  vertical-align: top;
+  grid-row: 2;
+  justify-self: start;
+}
+
+.hl.lean .tactic > label {
+  position: relative;
+  grid-row: 1;
+  display: inline;
+}
+
+@media (hover: hover) {
+  /* Highlight a region on hover only when its own toggle is unchecked, and only the innermost
+     hovered region: `label:hover` bubbles to ancestor labels, so suppress the highlight on a region
+     whose label contains a more deeply nested hovered tactic label. */
+  .hl.lean .tactic:has(> .tactic-toggle:not(:checked)) > label:hover:not(:has(.tactic > label:hover)) {
+    background-color: #eeeeee;
+  }
+}
+
+.hl.lean .tactic-toggle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  height: 0;
+  width: 0;
+  z-index: -10;
+}
+
+.hl.lean .tactic > label::after {
+  content: "";
+  border: 1px solid #bbbbbb;
+  /* These need to be em, not rem, to scale with the font */
+  border-radius: 1em;
+  height: 0.25em;
+  vertical-align: middle;
+  width: 0.6em;
+  margin-left: 0.1em;
+  margin-right: 0.1em;
+  display: inline-block;
+  transition: all 0.5s;
+}
+
+/*
+@media (hover: hover) {
+  .hl.lean .tactic > label:hover::after {
+    border: 1px solid #aaaaaa;
+    background-color: #aaaaaa;
+    transition: all 0.5s;
+  }
+}
+*/
+
+.hl.lean .tactic > label:has(+ .tactic-toggle:checked)::after {
+  border: 1px solid #999999;
+  background-color: #999999;
+  transition: all 0.5s;
+}
+
+.hl.lean .tactic-state .goal + .goal {
+  margin-top: 1.5em;
+}
+
+/*
+Some CSS frameworks customize details/summary in ways not compatible with Verso's output.
+*/
+
+.hl.lean details {
+  display: block !important;
+  margin: 0;
+}
+
+.hl.lean details summary {
+  display: list-item !important;
+  margin: 0;
+}
+
+.hl.lean details summary:focus {
+  outline: none;
+  outline-offset: none;
+  color: inherit;
+}
+
+.hl.lean ul > li {
+  margin-bottom: 0;
+}
+
+.hl.lean details summary::marker {
+  display: inline !important;
+}
+
+.hl.lean details > summary:first-of-type {
+  list-style-type: disclosure-closed;
+  list-style-position: inside;
+}
+
+.hl.lean details[open] > summary:first-of-type {
+  list-style-type: disclosure-open;
+}
+
+.hl.lean details summary::before, .hl.lean details summary::after {
+  content: "" !important;
+  background: none;
+  display: none;
+}
+
+.hl.lean .tactic-state summary {
+  /* These need to be em, not rem, to scale with the font */
+  margin-left: -0.5em;
+}
+
+.hl.lean .tactic-state details {
+  /* These need to be em, not rem, to scale with the font */
+  padding-left: 0.5em;
+}
+
+.hl.lean .case-label {
+  display: block;
+  position: relative;
+}
+
+.hl.lean .case-label input[type="checkbox"] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  height: 0;
+  width: 0;
+  z-index: -10;
+}
+
+.hl.lean .case-label:has(input[type="checkbox"])::before {
+  display: inline-block;
+  background-color: black;
+  content: ' ';
+  transition: ease 0.2s;
+  margin-right: 0.7em;
+  clip-path: polygon(100% 0, 0 0, 50% 100%);
+  width: 0.6em;
+  height: 0.6em;
+  vertical-align: middle;
+}
+
+.hl.lean .case-label:has(input[type="checkbox"]:not(:checked))::before {
+  transform: rotate(-90deg);
+}
+
+.hl.lean .case-label:has(input[type="checkbox"]) {
+
+}
+
+.hl.lean .case-label:has(input[type="checkbox"]:checked) {
+
+}
+
+
+.hl.lean .labeled-case > :not(:first-child) {
+  max-height: 0px;
+  display: block;
+  overflow: hidden;
+  transition: max-height 0.1s ease-in;
+  /* These need to be em, not rem, to scale with the font */
+  margin-left: 0.5em;
+  margin-top: 0.1em;
+}
+
+.hl.lean .labeled-case:has(.case-label input[type="checkbox"]:checked) > :not(:first-child) {
+  max-height: 100%;
+}
+
+
+.hl.lean .goal-name::before {
+  font-style: normal;
+  content: "case ";
+}
+
+.hl.lean .goal-name {
+  font-style: italic;
+  font-family: var(--verso-code-font-family);
+  color: inherit;
+}
+
+.hl.lean .hypotheses {
+  display: table;
+}
+
+.hl.lean .hypothesis {
+  display: table-row;
+}
+
+.hl.lean .hypothesis > * {
+  display: table-cell;
+}
+
+
+.hl.lean .hypotheses .colon {
+  text-align: center;
+  /* This needs to be em, not rem, to scale with the font */
+  min-width: 1em;
+}
+
+.hl.lean .hypotheses .name {
+  text-align: right;
+}
+
+.hl.lean .hypotheses .name,
+.hl.lean .hypotheses .type,
+.hl.lean .conclusion .type {
+  font-family: var(--verso-code-font-family);
+}
+
+.tippy-box {
+  /* Without these, mobile Safari will start making font sizes inconsistent when its text size adjustment feature is triggered.*/
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+.tippy-box[data-theme~='lean'] {
+  background-color: #e5e5e5;
+  color: black;
+  border: 1px solid black;
+}
+.tippy-box[data-theme~='lean'][data-placement^='top'] > .tippy-arrow::before {
+  border-top-color: #e5e5e5;
+}
+.tippy-box[data-theme~='lean'][data-placement^='bottom'] > .tippy-arrow::before {
+  border-bottom-color: #e5e5e5;
+}
+.tippy-box[data-theme~='lean'][data-placement^='left'] > .tippy-arrow::before {
+  border-left-color: #e5e5e5;
+}
+.tippy-box[data-theme~='lean'][data-placement^='right'] > .tippy-arrow::before {
+  border-right-color: #e5e5e5;
+}
+
+.tippy-box[data-theme~='message'][data-placement^='top'] > .tippy-arrow::before {
+  border-top-color: #e5e5e5;
+  border-width: 11px 11px 0;
+}
+.tippy-box[data-theme~='message'][data-placement^='top'] > .tippy-arrow::after {
+  bottom: -11px;
+  border-width: 11px 11px 0;
+}
+.tippy-box[data-theme~='message'][data-placement^='bottom'] > .tippy-arrow::before {
+  border-width: 0 11px 11px;
+}
+.tippy-box[data-theme~='message'][data-placement^='bottom'] > .tippy-arrow::after {
+  top: -11px;
+  border-width: 0 11px 11px;
+}
+.tippy-box[data-theme~='message'][data-placement^='left'] > .tippy-arrow::before {
+  border-left-color: #e5e5e5;
+  border-width: 11px 0 11px 11px;
+}
+.tippy-box[data-theme~='message'][data-placement^='left'] > .tippy-arrow::after {
+  right: -11px;
+  border-width: 11px 0 11px 11px;
+}
+
+.tippy-box[data-theme~='message'][data-placement^='right'] > .tippy-arrow::before {
+  border-right-color: #e5e5e5;
+  border-width: 11px 11px 11px 0;
+}
+.tippy-box[data-theme~='message'][data-placement^='right'] > .tippy-arrow::after {
+  left: -11px;
+  border-width: 11px 11px 11px 0;
+}
+
+
+
+.tippy-box[data-theme~='warning'] {
+  background-color: #e5e5e5;
+  color: black;
+  border: 3px solid var(--verso-warning-color);
+}
+
+.tippy-box[data-theme~='error'] {
+  background-color: #e5e5e5;
+  color: black;
+  border: 3px solid #f7a7af;
+}
+
+.tippy-box[data-theme~='info'] {
+  background-color: #e5e5e5;
+  color: black;
+  border: 3px solid #99b3c2;
+}
+
+.tippy-box[data-theme~='tactic'] {
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+}
+.tippy-box[data-theme~='tactic'][data-placement^='top'] > .tippy-arrow::before {
+  border-top-color: white;
+}
+.tippy-box[data-theme~='tactic'][data-placement^='bottom'] > .tippy-arrow::before {
+  border-bottom-color: white;
+}
+.tippy-box[data-theme~='tactic'][data-placement^='left'] > .tippy-arrow::before {
+  border-left-color: white;
+}
+.tippy-box[data-theme~='tactic'][data-placement^='right'] > .tippy-arrow::before {
+  border-right-color: white;
+}
+
+.extra-doc-links {
+  list-style-type: none;
+  margin-left: 0;
+  padding: 0;
+}
+
+.extra-doc-links > li {
+  display: inline-block;
+}
+
+.extra-doc-links > li:not(:last-child)::after {
+  content: '|';
+  display: inline-block;
+  margin: 0 0.25em;
+}
+
+.verso-message .trace {
+  display: block;
+}
+
+.verso-message .trace > summary::marker {
+  color: var(--verso-text-color);
+}
+
+.verso-message .trace-children {
+  margin: 0;
+  padding: 0;
+}
+
+.verso-message .trace-children > li {
+  list-style-type: none;
+  margin-left: 1.5em;
+}
+
+.verso-message .trace-children > li:not(:has(.trace)) {
+  margin-left: 0;
+}
+
+.verso-message .trace-class {
+  color: color-mix(in srgb, currentColor 70%, transparent);
+  font-weight: bold;
+  margin: 0;
+  padding: 0;
+}
+
+.verso-message .text {
+  white-space: pre-wrap;
+}
+
+</style><script>
+      
+window.onload = () => {
+
+    // Don't show hovers inside of closed tactic states
+    function blockedByTactic(elem) {
+      let parent = elem.parentNode;
+      while (parent && "classList" in parent) {
+        if (parent.classList.contains("tactic")) {
+          const toggle = parent.querySelector(":scope > input.tactic-toggle");
+          if (toggle) {
+            return !toggle.checked;
+          }
+        }
+        parent = parent.parentNode;
+      }
+      return false;
+    }
+
+    // Track whether any tippy is visible (O(1) check instead of DOM scan)
+    let visibleTippyCount = 0;
+    function blockedByTippy(elem) {
+      return visibleTippyCount > 0;
+    }
+
+    // Binding highlights via event delegation with cached lookups
+    const bindingCache = new Map(); // context+binding -> [token elements]
+    let highlightedTokens = [];
+    function getBindingTokens(context, binding) {
+      const key = context + "\0" + binding;
+      let tokens = bindingCache.get(key);
+      if (!tokens) {
+        tokens = [];
+        for (const example of document.querySelectorAll(".hl.lean")) {
+          if (example.dataset.leanContext == context) {
+            for (const tok of example.querySelectorAll(".token[data-binding=\"" + CSS.escape(binding) + "\"]")) {
+              tokens.push(tok);
+            }
+          }
+        }
+        bindingCache.set(key, tokens);
+      }
+      return tokens;
+    }
+    for (const container of document.querySelectorAll(".hl.lean")) {
+      container.addEventListener("mouseover", (event) => {
+        const c = event.target.closest(".token");
+        if (!c || !c.dataset.binding || c.dataset.binding === "" || !container.contains(c)) return;
+        if (blockedByTactic(c)) return;
+        const tokens = getBindingTokens(container.dataset.leanContext, c.dataset.binding);
+        for (const tok of tokens) {
+          tok.classList.add("binding-hl");
+        }
+        highlightedTokens = tokens;
+      });
+      container.addEventListener("mouseout", (event) => {
+        const c = event.target.closest(".token");
+        if (!c || !container.contains(c)) return;
+        for (const tok of highlightedTokens) {
+          tok.classList.remove("binding-hl");
+        }
+        highlightedTokens = [];
+      });
+    }
+    /* Render docstrings */
+    if ('undefined' !== typeof marked) {
+        for (const d of document.querySelectorAll("code.docstring, pre.docstring")) {
+            const str = d.innerText;
+            const html = marked.parse(str);
+            const rendered = document.createElement("div");
+            rendered.classList.add("docstring");
+            rendered.innerHTML = html;
+            d.parentNode.replaceChild(rendered, d);
+        }
+    }
+    // Add hovers
+    let docsJson = "-verso-docs.json";
+    fetch(docsJson).then((resp) => resp.json()).then((versoDocData) => {
+
+      function hideParentTooltips(element) {
+        let parent = element.parentElement;
+        while (parent) {
+          const tippyInstance = parent._tippy;
+          if (tippyInstance) {
+            tippyInstance.hide();
+          }
+          parent = parent.parentElement;
+        }
+      }
+
+
+
+      const defaultTippyProps = {
+        /* DEBUG -- remove the space: * /
+        onHide(any) { return false; },
+        trigger: "click",
+        // */
+        /* theme: "lean", */
+        maxWidth: "none",
+        appendTo: () => document.body,
+        interactive: true,
+        delay: [100, null],
+        /* ignoreAttributes: true, */
+        followCursor: 'initial',
+        onShow(inst) {
+          if (inst.reference.className == 'tactic') {
+            const toggle = inst.reference.querySelector(":scope > input.tactic-toggle");
+            if (toggle && toggle.checked) {
+              return false;
+            }
+            hideParentTooltips(inst.reference);
+            if (blockedByTippy(inst.reference)) { return false; }
+
+          } else if (inst.reference.querySelector(".hover-info") || "versoHover" in inst.reference.dataset) {
+            if (blockedByTactic(inst.reference)) { return false };
+            if (blockedByTippy(inst.reference)) { return false; }
+          } else { // Nothing to show here!
+            return false;
+          }
+        },
+        onShown(inst) { visibleTippyCount++; },
+        onHidden(inst) { visibleTippyCount = Math.max(0, visibleTippyCount - 1); },
+        content (tgt) {
+          const content = document.createElement("span");
+          if (tgt.className == 'tactic') {
+            const state = tgt.querySelector(":scope > .tactic-state").cloneNode(true);
+            state.style.display = "block";
+            content.appendChild(state);
+            content.style.display = "block";
+            content.className = "hl lean popup";
+          } else {
+            content.className = "hl lean";
+            content.style.display = "block";
+            content.style.maxHeight = "300px";
+            content.style.overflowY = "auto";
+            content.style.overflowX = "hidden";
+            const hoverId = tgt.dataset.versoHover;
+            const hoverInfo = tgt.querySelector(".hover-info");
+            if (hoverId) { // Docstrings from the table
+              // TODO stop doing an implicit conversion from string to number here
+              let data = versoDocData[hoverId];
+              if (data) {
+                const info = document.createElement("span");
+                info.className = "hover-info";
+                info.style.display = "block";
+                info.innerHTML = data;
+                content.appendChild(info);
+                /* Render docstrings - TODO server-side */
+                if ('undefined' !== typeof marked) {
+                    for (const d of content.querySelectorAll("code.docstring, pre.docstring")) {
+                        const str = d.innerText;
+                        const html = marked.parse(str);
+                        const rendered = document.createElement("div");
+                        rendered.classList.add("docstring");
+                        rendered.innerHTML = html;
+                        d.parentNode.replaceChild(rendered, d);
+                    }
+                }
+              } else {
+                content.innerHTML = "Failed to load doc ID: " + hoverId;
+              }
+            } else if (hoverInfo) { // The inline info, still used for compiler messages
+              content.appendChild(hoverInfo.cloneNode(true));
+            }
+            const extraLinks = tgt.parentElement.dataset['versoLinks'];
+            if (extraLinks) {
+              try {
+                const extras = JSON.parse(extraLinks);
+                const links = document.createElement('ul');
+                links.className = 'extra-doc-links';
+                extras.forEach((l) => {
+                  const li = document.createElement('li');
+                  li.innerHTML = "<a href=\"" + l['href'] + "\" title=\"" + l.long + "\">" + l.short + "</a>";
+                  links.appendChild(li);
+                });
+                content.appendChild(links);
+              } catch (error) {
+                console.error(error);
+              }
+            }
+          }
+          return content;
+        }
+      };
+
+
+      document.querySelectorAll('.hl.lean .const.token, .hl.lean .keyword.token, .hl.lean .literal.token, .hl.lean .option.token, .hl.lean .var.token, .hl.lean .typed.token, .hl.lean .level-var, .hl.lean .level-const, .hl.lean .level-op, .hl.lean .sort').forEach(element => {
+        element.setAttribute('data-tippy-theme', 'lean');
+      });
+      document.querySelectorAll('.hl.lean .has-info.warning').forEach(element => {
+        element.setAttribute('data-tippy-theme', 'warning message');
+      });
+      document.querySelectorAll('.hl.lean .has-info.information').forEach(element => {
+        element.setAttribute('data-tippy-theme', 'info message');
+      });
+      document.querySelectorAll('.hl.lean .has-info.error').forEach(element => {
+        element.setAttribute('data-tippy-theme', 'error message');
+      });
+      document.querySelectorAll('.hl.lean .tactic').forEach(element => {
+        element.setAttribute('data-tippy-theme', 'tactic');
+      });
+      // Skip tokens inside closed tactics — they interfere with tactic tippys
+      const closedTactics = new Set();
+      document.querySelectorAll('.hl.lean .tactic').forEach(tactic => {
+        const toggle = tactic.querySelector(':scope > input.tactic-toggle');
+        if (toggle && !toggle.checked) closedTactics.add(tactic);
+      });
+      function isInsideClosedTactic(el) {
+        const tactic = el.closest('.tactic');
+        return tactic && tactic !== el && closedTactics.has(tactic);
+      }
+
+      const tokenSelector = '.hl.lean .const.token, .hl.lean .keyword.token, .hl.lean .literal.token, .hl.lean .option.token, .hl.lean .var.token, .hl.lean .typed.token, .hl.lean .has-info, .hl.lean .tactic, .hl.lean .level-var, .hl.lean .level-const, .hl.lean .level-op, .hl.lean .sort';
+      tippy(Array.from(document.querySelectorAll(tokenSelector)).filter(el => !isInsideClosedTactic(el)), defaultTippyProps);
+
+      // Create/destroy token tippys when tactic checkbox toggles
+      const tacticTippySelector = '.const.token, .keyword.token, .literal.token, .option.token, .var.token, .typed.token, .has-info, .level-var, .level-const, .level-op, .sort';
+      document.querySelectorAll('.hl.lean .tactic').forEach(tactic => {
+        const toggle = tactic.querySelector(':scope > input.tactic-toggle');
+        if (toggle) toggle.addEventListener('change', () => {
+          if (toggle.checked) {
+            closedTactics.delete(tactic);
+            tactic.querySelectorAll('.token').forEach(tok => {
+              if (!tok._tippy && tok.matches(tacticTippySelector)) {
+                tippy(tok, defaultTippyProps);
+              }
+            });
+          } else {
+            closedTactics.add(tactic);
+            tactic.querySelectorAll('.token').forEach(tok => {
+              if (tok._tippy) tok._tippy.destroy();
+            });
+          }
+        });
+      });
+  });
+}
+</script>
+    </head>
+  <body>
+    <header>
+      <div class="header-logo-wrapper"></div>
+      <div class="header-title-wrapper">
+        <a href="" class="header-title"><h1>
+            Countable Nondeterminism in Weighted Programming with an Application to Mechanized Foundations for Probabilistic Program Verification</h1>
+          </a></div>
+      </header>
+    <label for="toggle-toc" id="toggle-toc-click"><span class="line line1"></span><span class="line line2"></span><span class="line line3"></span></label><div class="with-toc">
+      <div class="toc-backdrop" onclick="document.getElementById('toggle-toc-click')?.click()"></div>
+      <nav id="toc">
+        <input type="checkbox" id="toggle-toc"><div class="first">
+          <a href="" class="toc-title"><h1>
+              Countable Nondeterminism in Weighted Programming with an Application to Mechanized Foundations for Probabilistic Program Verification</h1>
+            </a><div class="split-tocs">
+            <div class="split-toc book">
+              <div class="title">
+                <label for="--verso-manual-toc-----bookRoot" class="toggle-split-toc"><input type="checkbox" class="toggle-split-toc" id="--verso-manual-toc-----bookRoot" checked="checked"></label><span class="">Table of Contents</span></div>
+              <table><tr class="numbered"><td class="num">1.</td><td><a href="Introduction/#Countable-Nondeterminism-in-Weighted-Programming-with-an-Application-to-Mechanized-Foundations-for-Probabilistic-Program-Verification-_LPAR_Lean-manual_RPAR_--Introduction">Introduction</a></td></tr><tr class="current numbered"><td class="num">2.</td><td><a href="Preliminaries/#Countable-Nondeterminism-in-Weighted-Programming-with-an-Application-to-Mechanized-Foundations-for-Probabilistic-Program-Verification-_LPAR_Lean-manual_RPAR_--Preliminaries">Preliminaries</a></td></tr><tr class="numbered"><td class="num">3.</td><td><a href="Weighted-Programming/#Countable-Nondeterminism-in-Weighted-Programming-with-an-Application-to-Mechanized-Foundations-for-Probabilistic-Program-Verification-_LPAR_Lean-manual_RPAR_--Weighted-Programming">Weighted Programming</a></td></tr><tr class="numbered"><td class="num">4.</td><td><a href="Operational-Semantics-via-Weighted-Decision-Processes/#Countable-Nondeterminism-in-Weighted-Programming-with-an-Application-to-Mechanized-Foundations-for-Probabilistic-Program-Verification-_LPAR_Lean-manual_RPAR_--Operational-Semantics-via-Weighted-Decision-Processes">Operational Semantics via Weighted Decision Processes</a></td></tr><tr class="numbered"><td class="num">5.</td><td><a href="When-are-minimal-weighted-rewards-_LPAR_not_RPAR_-equal-to-least-fixed-points___/#Countable-Nondeterminism-in-Weighted-Programming-with-an-Application-to-Mechanized-Foundations-for-Probabilistic-Program-Verification-_LPAR_Lean-manual_RPAR_--When-are-minimal-weighted-rewards-_LPAR_not_RPAR_-equal-to-least-fixed-points___">When are minimal weighted rewards (not) equal to least fixed points?</a></td></tr><tr class="numbered"><td class="num">6.</td><td><a href="Case-Studies/#Countable-Nondeterminism-in-Weighted-Programming-with-an-Application-to-Mechanized-Foundations-for-Probabilistic-Program-Verification-_LPAR_Lean-manual_RPAR_--Case-Studies">Case Studies</a></td></tr><tr class="numbered"><td class="num">7.</td><td><a href="Related-Work/#Countable-Nondeterminism-in-Weighted-Programming-with-an-Application-to-Mechanized-Foundations-for-Probabilistic-Program-Verification-_LPAR_Lean-manual_RPAR_--Related-Work">Related Work</a></td></tr><tr class="unnumbered"><td class="num"><td><a href="Index/#index">Index</a></td></tr></table></div>
+            <div class="split-toc">
+              <div class="title">
+                <label for="--verso-manual-toc-Countable-Nondeterminism-in-Weighted-Programming-with-an-Application-to-Mechanized-Foundations-for-Probabilistic-Program-Verification-_LPAR_Lean-manual_RPAR_--Preliminaries" class="toggle-split-toc"><input type="checkbox" class="toggle-split-toc" id="--verso-manual-toc-Countable-Nondeterminism-in-Weighted-Programming-with-an-Application-to-Mechanized-Foundations-for-Probabilistic-Program-Verification-_LPAR_Lean-manual_RPAR_--Preliminaries" checked="checked"></label><span class="number">2.</span> <span class="current"><a href="Preliminaries/#Countable-Nondeterminism-in-Weighted-Programming-with-an-Application-to-Mechanized-Foundations-for-Probabilistic-Program-Verification-_LPAR_Lean-manual_RPAR_--Preliminaries">Preliminaries</a></span></div>
+              <ol>
+                <li>
+                  <a href="Preliminaries/#DistribMulAction___mk"><code>DistribMulAction</code></a></li>
+                <li>
+                  <a href="Preliminaries/#OmegaCompletePartialOrder______Sum"><code>ωSum</code></a></li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        <div class="last"></div>
+        </nav>
+      <div class="toc-resize-handle"></div>
+      <main><div class="content-wrapper">
+          <nav class="prev-next-buttons">
+            <a class="local-button active" href="Introduction/#Countable-Nondeterminism-in-Weighted-Programming-with-an-Application-to-Mechanized-Foundations-for-Probabilistic-Program-Verification-_LPAR_Lean-manual_RPAR_--Introduction" rel="prev" title="1. Introduction"><span class="arrow">←</span><span class="where">1. Introduction</span></a><a class="local-button active" href="Weighted-Programming/#Countable-Nondeterminism-in-Weighted-Programming-with-an-Application-to-Mechanized-Foundations-for-Probabilistic-Program-Verification-_LPAR_Lean-manual_RPAR_--Weighted-Programming" rel="next" title="3. Weighted Programming"><span class="where">3. Weighted Programming</span><span class="arrow">→</span></a></nav>
+          <section>
+            <h1>
+              2. Preliminaries<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Countable-Nondeterminism-in-Weighted-Programming-with-an-Application-to-Mechanized-Foundations-for-Probabilistic-Program-Verification-_LPAR_Lean-manual_RPAR_--Preliminaries" title="Permalink">🔗</a></span></h1>
+            <p>
+              Much of the foundational structures and theories we use, we can inherit from <a href="https://mathlib.org/">mathlib</a>, which we attempt to do as much as possible. However, some of these are <em>slightly</em> different from the requirements we have, which we will make clear as necessary.</p>
+            <p>
+              <strong>Definition 2.1</strong>, which introduces <em>monoids</em>, are present in mathlib under <code class="hl lean inline" data-lean-context="examples"><span class="const token" data-binding="const-Monoid" data-verso-hover="0">Monoid</span></code> (where the operator is <code>*</code> and unit is <code>1</code>) and <code class="hl lean inline" data-lean-context="examples"><span class="const token" data-binding="const-AddMonoid" data-verso-hover="1">AddMonoid</span></code> (where the operator is <code>+</code> and unit is <code>0</code>). They each have commutative variants <code class="hl lean inline" data-lean-context="examples"><span class="const token" data-binding="const-CommMonoid" data-verso-hover="2">CommMonoid</span></code> and <code class="hl lean inline" data-lean-context="examples"><span class="const token" data-binding="const-AddCommMonoid" data-verso-hover="3">AddCommMonoid</span></code>, of which we will use the latter more often.</p>
+            <p>
+              <strong>Definition 2.4</strong> introduces <em>modules</em>, which in mathlib terms is a <code class="hl lean inline" data-lean-context="examples"><span class="const token" data-binding="const-MonoidWithZero" data-verso-hover="4">MonoidWithZero</span></code> with a <code class="hl lean inline" data-lean-context="examples"><span class="const token" data-binding="const-AddCommMonoid" data-verso-hover="3">AddCommMonoid</span></code>.</p>
+            <code class="hl lean block" data-lean-context="examples"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.variable-6396" data-verso-hover="5">variable</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.implicitBinder-6405">{</span><span class="var token" data-binding="var-_uniq.2" data-verso-hover="6">𝒲</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.4" data-verso-hover="6">ℛ</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.implicitBinder-6405">:</span><span class="inter-text"> </span><span class="sort token" data-binding="sort-7243200735919010059" data-verso-hover="7">Type</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.implicitBinder-6405">}</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.instBinder-6423">[</span><span class="const token" data-binding="const-MonoidWithZero" data-verso-hover="4">MonoidWithZero</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.2" data-verso-hover="6">𝒲</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.instBinder-6423">]</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.instBinder-6445">[</span><span class="const token" data-binding="const-AddCommMonoid" data-verso-hover="3">AddCommMonoid</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.4" data-verso-hover="6">ℛ</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.instBinder-6445">]</span><span class="inter-text">
+</span><span class="unknown token" data-binding=""></span></code><p>
+              The scalar multiplication joining the two are given by <code class="hl lean inline" data-lean-context="examples"><span class="const token" data-binding="const-SMul" data-verso-hover="8">SMul</span></code> and it's associative, distributive, annihalation and neutrality properties are given by <code class="hl lean inline" data-lean-context="examples"><a href="Preliminaries/#DistribMulAction___mk" title="Documentation for DistribMulAction"><span class="const token" data-binding="const-DistribMulAction" data-verso-hover="9">DistribMulAction</span></a></code>.</p>
+            <blockquote><p>
+                The below definition is extracted from the lean source code. Click the checkbox next to <code class="hl lean inline" data-lean-context="examples"><span class="const token" data-binding="const-MulAction" data-verso-hover="10">MulAction</span></code> under <strong>Extends</strong> to see the full definition.</p>
+              </blockquote><div class="namedocs" id="DistribMulAction___mk">
+              <span class="permalink-widget block"><a href="find/?domain=Verso.Genre.Manual.doc&amp;name=DistribMulAction.mk" title="Permalink">🔗</a></span><span class="label">type class</span><pre class="signature hl lean block"><div class="wide-only"><a href="Preliminaries/#DistribMulAction___mk" title="Documentation for DistribMulAction"><span class="const token" data-binding="const-DistribMulAction" data-verso-hover="9">DistribMulAction.{u_12, u_13}</span></a><span class="inter-text"> </span><span class="unknown token" data-binding="">(</span><span class="var token" data-binding="var-_uniq.40916" data-verso-hover="11">M</span><span class="inter-text"> </span><span class="unknown token" data-binding="">:</span><span class="inter-text"> </span><span class="sort token" data-binding="sort-7243200735919010059" data-verso-hover="7">Type u_12</span><span class="unknown token" data-binding="">)</span><span class="inter-text"> </span><span class="unknown token" data-binding="">(</span><span class="var token" data-binding="var-_uniq.40917" data-verso-hover="12">A</span><span class="inter-text"> </span><span class="unknown token" data-binding="">:</span><span class="inter-text"> </span><span class="sort token" data-binding="sort-7243200735919010059" data-verso-hover="7">Type u_13</span><span class="unknown token" data-binding="">)</span><span class="inter-text"> </span><span class="unknown token" data-binding="">[</span><span class="const token" data-binding="const-Monoid" data-verso-hover="0">Monoid</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.40916" data-verso-hover="11">M</span><span class="unknown token" data-binding="">]</span><span class="inter-text">
+  </span><span class="unknown token" data-binding="">[</span><span class="const token" data-binding="const-AddMonoid" data-verso-hover="1">AddMonoid</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.40917" data-verso-hover="12">A</span><span class="unknown token" data-binding="">]</span><span class="inter-text"> </span><span class="unknown token" data-binding="">:</span><span class="inter-text"> </span><span class="sort token" data-binding="sort-7243200735919010059" data-verso-hover="7">Type (max u_12 u_13)</span></div><div class="narrow-only"><a href="Preliminaries/#DistribMulAction___mk" title="Documentation for DistribMulAction"><span class="const token" data-binding="const-DistribMulAction" data-verso-hover="9">DistribMulAction.{u_12, u_13}</span></a><span class="inter-text">
+  </span><span class="unknown token" data-binding="">(</span><span class="var token" data-binding="var-_uniq.40916" data-verso-hover="11">M</span><span class="inter-text"> </span><span class="unknown token" data-binding="">:</span><span class="inter-text"> </span><span class="sort token" data-binding="sort-7243200735919010059" data-verso-hover="7">Type u_12</span><span class="unknown token" data-binding="">)</span><span class="inter-text"> </span><span class="unknown token" data-binding="">(</span><span class="var token" data-binding="var-_uniq.40917" data-verso-hover="12">A</span><span class="inter-text"> </span><span class="unknown token" data-binding="">:</span><span class="inter-text"> </span><span class="sort token" data-binding="sort-7243200735919010059" data-verso-hover="7">Type u_13</span><span class="unknown token" data-binding="">)</span><span class="inter-text">
+  </span><span class="unknown token" data-binding="">[</span><span class="const token" data-binding="const-Monoid" data-verso-hover="0">Monoid</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.40916" data-verso-hover="11">M</span><span class="unknown token" data-binding="">]</span><span class="inter-text"> </span><span class="unknown token" data-binding="">[</span><span class="const token" data-binding="const-AddMonoid" data-verso-hover="1">AddMonoid</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.40917" data-verso-hover="12">A</span><span class="unknown token" data-binding="">]</span><span class="inter-text"> </span><span class="unknown token" data-binding="">:</span><span class="inter-text">
+  </span><span class="sort token" data-binding="sort-7243200735919010059" data-verso-hover="7">Type (max u_12 u_13)</span></div></pre><div class="text">
+                <p>
+                  Typeclass for multiplicative actions on additive structures.</p>
+                <p>
+                  For example, if <code class="hl lean inline" data-lean-context="docstring-examples"><span class="var token" data-binding="var-_uniq.6973" data-verso-hover="13">G</span></code> is a group (with group law written as multiplication) and <code class="hl lean inline" data-lean-context="docstring-examples"><span class="var token" data-binding="var-_uniq.6377" data-verso-hover="12">A</span></code> is an
+abelian group (with group law written as addition), then to give <code class="hl lean inline" data-lean-context="docstring-examples"><span class="var token" data-binding="var-_uniq.6377" data-verso-hover="12">A</span></code> a <code class="hl lean inline" data-lean-context="docstring-examples"><span class="var token" data-binding="var-_uniq.6973" data-verso-hover="13">G</span></code>-module
+structure (for example, to use the theory of group cohomology) is to say <code class="hl lean inline" data-lean-context="docstring-examples"><span class="punctuation bracket token" data-binding="kw-occ-«term[_]»-0">[</span><a href="Preliminaries/#DistribMulAction___mk" title="Documentation for DistribMulAction"><span class="const token" data-binding="const-DistribMulAction" data-verso-hover="9">DistribMulAction</span></a><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.6973" data-verso-hover="14">G</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.6377" data-verso-hover="12">A</span><span class="punctuation bracket token" data-binding="kw-occ-«term[_]»-0">]</span></code>.
+Note in that we do not use the <code class="hl lean inline" data-lean-context="docstring-examples"><span class="const token" data-binding="const-Module" data-verso-hover="15">Module</span></code> typeclass for <code class="hl lean inline" data-lean-context="docstring-examples"><span class="var token" data-binding="var-_uniq.6973" data-verso-hover="14">G</span></code>-modules, as the <code class="hl lean inline" data-lean-context="docstring-examples"><span class="const token" data-binding="const-Module" data-verso-hover="15">Module</span></code> typeclass
+is for modules over a ring rather than a group.</p>
+                <p>
+                  Mathematically, <code class="hl lean inline" data-lean-context="docstring-examples"><a href="Preliminaries/#DistribMulAction___mk" title="Documentation for DistribMulAction"><span class="const token" data-binding="const-DistribMulAction" data-verso-hover="9">DistribMulAction</span></a><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.8554" data-verso-hover="16">G</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.7988" data-verso-hover="12">A</span></code> is equivalent to giving <code class="hl lean inline" data-lean-context="docstring-examples"><span class="var token" data-binding="var-_uniq.7988" data-verso-hover="12">A</span></code> the structure of
+a <code class="hl lean inline" data-lean-context="docstring-examples"><span class="const token" data-binding="const-Int" data-verso-hover="17">ℤ</span><span class="punctuation bracket token" data-binding="kw-occ-«term__[_]»-0">[</span><span class="var token" data-binding="var-_uniq.8554" data-verso-hover="16">G</span><span class="punctuation bracket token" data-binding="kw-occ-«term__[_]»-0">]</span></code>-module.</p>
+                <h1>
+                  Instance Constructor</h1>
+                <section class="subdocs">
+                  <pre class="name-and-type hl lean"><a href="Preliminaries/#DistribMulAction___mk" title="Documentation for DistribMulAction.mk"><span class="const token" data-binding="const-DistribMulAction.mk" data-verso-hover="18">DistribMulAction.mk</span></a><span class="unknown token" data-binding="">.{u_12,</span><span class="inter-text"> </span><span class="unknown token" data-binding="">u_13}</span></pre><div class="docs"></div>
+                  </section>
+                <h1>
+                  Extends</h1>
+                <ul class="extends">
+                  <li>
+                    <input type="checkbox" id="0-MulAction-DistribMulAction" data-parent-idx="0"><label for="0-MulAction-DistribMulAction"><code class="hl lean inline"><span class="const token" data-binding="const-MulAction" data-verso-hover="10">MulAction</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.40852" data-verso-hover="11">M</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.40853" data-verso-hover="12">A</span></code></label></li>
+                  </ul>
+                <h1>
+                  Methods</h1>
+                <section class="subdocs" data-inherited-from="0">
+                  <pre class="name-and-type hl lean"><span class="unknown token" data-binding="">smul</span> : <span class="var token" data-binding="var-_uniq.40857" data-verso-hover="11">M</span><span class="inter-text"> </span><span class="unknown token" data-binding="">→</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.40858" data-verso-hover="12">A</span><span class="inter-text"> </span><span class="unknown token" data-binding="">→</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.40858" data-verso-hover="12">A</span></pre><div class="inheritance docs" data-inherited-from="0">
+                    Inherited from <ol>
+                      <li>
+                        <code class="hl lean inline"><span class="const token" data-binding="const-MulAction" data-verso-hover="10">MulAction</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.40852" data-verso-hover="11">M</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.40853" data-verso-hover="12">A</span></code></li>
+                      </ol>
+                    </div>
+                  <div class="docs"></div>
+                  </section>
+                <section class="subdocs" data-inherited-from="0">
+                  <pre class="name-and-type hl lean"><span class="unknown token" data-binding="">mul_smul</span> : <span class="unknown token" data-binding="">∀</span><span class="inter-text"> </span><span class="unknown token" data-binding="">(</span><span class="var token" data-binding="var-_uniq.40883" data-verso-hover="19">x</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.40885" data-verso-hover="19">y</span><span class="inter-text"> </span><span class="unknown token" data-binding="">:</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.40857" data-verso-hover="11">M</span><span class="unknown token" data-binding="">)</span><span class="inter-text"> </span><span class="unknown token" data-binding="">(</span><span class="var token" data-binding="var-_uniq.40886" data-verso-hover="20">b</span><span class="inter-text"> </span><span class="unknown token" data-binding="">:</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.40858" data-verso-hover="12">A</span><span class="unknown token" data-binding="">),</span><span class="inter-text"> </span><span class="const token" data-binding="const-HMul.hMul" data-verso-hover="21">(</span><span class="var token" data-binding="var-_uniq.40883" data-verso-hover="19">x</span><span class="inter-text"> </span><span class="const token" data-binding="const-HMul.hMul" data-verso-hover="21">*</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.40885" data-verso-hover="19">y</span><span class="const token" data-binding="const-HMul.hMul" data-verso-hover="21">)</span><span class="inter-text"> </span><span class="const token" data-binding="const-HSMul.hSMul" data-verso-hover="22">•</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.40886" data-verso-hover="20">b</span><span class="inter-text"> </span><span class="const token" data-binding="const-Eq" data-verso-hover="23">=</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.40883" data-verso-hover="19">x</span><span class="inter-text"> </span><span class="const token" data-binding="const-HSMul.hSMul" data-verso-hover="22">•</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.40885" data-verso-hover="19">y</span><span class="inter-text"> </span><span class="const token" data-binding="const-HSMul.hSMul" data-verso-hover="22">•</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.40886" data-verso-hover="20">b</span></pre><div class="inheritance docs" data-inherited-from="0">
+                    Inherited from <ol>
+                      <li>
+                        <code class="hl lean inline"><span class="const token" data-binding="const-MulAction" data-verso-hover="10">MulAction</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.40852" data-verso-hover="11">M</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.40853" data-verso-hover="12">A</span></code></li>
+                      </ol>
+                    </div>
+                  <div class="docs"></div>
+                  </section>
+                <section class="subdocs" data-inherited-from="0">
+                  <pre class="name-and-type hl lean"><span class="unknown token" data-binding="">one_smul</span> : <span class="unknown token" data-binding="">∀</span><span class="inter-text"> </span><span class="unknown token" data-binding="">(</span><span class="var token" data-binding="var-_uniq.40893" data-verso-hover="20">b</span><span class="inter-text"> </span><span class="unknown token" data-binding="">:</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.40858" data-verso-hover="12">A</span><span class="unknown token" data-binding="">),</span><span class="inter-text"> </span><span class="unknown token" data-binding="">1</span><span class="inter-text"> </span><span class="const token" data-binding="const-HSMul.hSMul" data-verso-hover="22">•</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.40893" data-verso-hover="20">b</span><span class="inter-text"> </span><span class="const token" data-binding="const-Eq" data-verso-hover="23">=</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.40893" data-verso-hover="20">b</span></pre><div class="inheritance docs" data-inherited-from="0">
+                    Inherited from <ol>
+                      <li>
+                        <code class="hl lean inline"><span class="const token" data-binding="const-MulAction" data-verso-hover="10">MulAction</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.40852" data-verso-hover="11">M</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.40853" data-verso-hover="12">A</span></code></li>
+                      </ol>
+                    </div>
+                  <div class="docs"></div>
+                  </section>
+                <section class="subdocs">
+                  <pre class="name-and-type hl lean"><span class="const token" data-binding="const-DistribMulAction.smul_zero" data-verso-hover="24">smul_zero</span> : <span class="unknown token" data-binding="">∀</span><span class="inter-text"> </span><span class="unknown token" data-binding="">(</span><span class="var token" data-binding="var-_uniq.40897" data-verso-hover="19">a</span><span class="inter-text"> </span><span class="unknown token" data-binding="">:</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.40857" data-verso-hover="11">M</span><span class="unknown token" data-binding="">),</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.40897" data-verso-hover="19">a</span><span class="inter-text"> </span><span class="const token" data-binding="const-HSMul.hSMul" data-verso-hover="22">•</span><span class="inter-text"> </span><span class="unknown token" data-binding="">0</span><span class="inter-text"> </span><span class="const token" data-binding="const-Eq" data-verso-hover="23">=</span><span class="inter-text"> </span><span class="unknown token" data-binding="">0</span></pre><div class="docs">
+                    <p>
+                      Multiplying <code class="hl lean inline" data-lean-context="docstring-examples"><span class="literal number token" data-binding="" data-verso-hover="25">0</span></code> by a scalar gives <code class="hl lean inline" data-lean-context="docstring-examples"><span class="literal number token" data-binding="" data-verso-hover="25">0</span></code></p>
+                    </div>
+                  </section>
+                <section class="subdocs">
+                  <pre class="name-and-type hl lean"><span class="const token" data-binding="const-DistribMulAction.smul_add" data-verso-hover="26">smul_add</span> : <span class="unknown token" data-binding="">∀</span><span class="inter-text"> </span><span class="unknown token" data-binding="">(</span><span class="var token" data-binding="var-_uniq.40899" data-verso-hover="19">a</span><span class="inter-text"> </span><span class="unknown token" data-binding="">:</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.40857" data-verso-hover="11">M</span><span class="unknown token" data-binding="">)</span><span class="inter-text"> </span><span class="unknown token" data-binding="">(</span><span class="var token" data-binding="var-_uniq.40901" data-verso-hover="20">x</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.40902" data-verso-hover="20">y</span><span class="inter-text"> </span><span class="unknown token" data-binding="">:</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.40858" data-verso-hover="12">A</span><span class="unknown token" data-binding="">),</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.40899" data-verso-hover="19">a</span><span class="inter-text"> </span><span class="const token" data-binding="const-HSMul.hSMul" data-verso-hover="22">•</span><span class="inter-text"> </span><span class="const token" data-binding="const-HAdd.hAdd" data-verso-hover="27">(</span><span class="var token" data-binding="var-_uniq.40901" data-verso-hover="20">x</span><span class="inter-text"> </span><span class="const token" data-binding="const-HAdd.hAdd" data-verso-hover="27">+</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.40902" data-verso-hover="20">y</span><span class="const token" data-binding="const-HAdd.hAdd" data-verso-hover="27">)</span><span class="inter-text"> </span><span class="const token" data-binding="const-Eq" data-verso-hover="23">=</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.40899" data-verso-hover="19">a</span><span class="inter-text"> </span><span class="const token" data-binding="const-HSMul.hSMul" data-verso-hover="22">•</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.40901" data-verso-hover="20">x</span><span class="inter-text"> </span><span class="const token" data-binding="const-HAdd.hAdd" data-verso-hover="27">+</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.40899" data-verso-hover="19">a</span><span class="inter-text"> </span><span class="const token" data-binding="const-HSMul.hSMul" data-verso-hover="22">•</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.40902" data-verso-hover="20">y</span></pre><div class="docs">
+                    <p>
+                      Scalar multiplication distributes across addition</p>
+                    </div>
+                  </section>
+                </div>
+              </div>
+            <p>
+              Note that we are <em>not</em> using <code class="hl lean inline" data-lean-context="examples"><span class="const token" data-binding="const-Module" data-verso-hover="15">Module</span></code> from mathlib, as that would require <code class="hl lean inline" data-lean-context="examples"><span class="var token" data-binding="var-_uniq.41047" data-verso-hover="6">𝒲</span></code> to be a <code class="hl lean inline" data-lean-context="examples"><span class="const token" data-binding="const-Semiring" data-verso-hover="28">Semiring</span></code>, which we do not require, while <code class="hl lean inline" data-lean-context="examples"><a href="Preliminaries/#DistribMulAction___mk" title="Documentation for DistribMulAction"><span class="const token" data-binding="const-DistribMulAction" data-verso-hover="9">DistribMulAction</span></a></code> has exactly the properties we want.</p>
+            <p>
+              We consider only structures <code class="hl lean inline" data-lean-context="examples"><span class="var token" data-binding="var-_uniq.41085" data-verso-hover="6">ℛ</span></code> with orders being <code class="hl lean inline" data-lean-context="examples"><span class="const token" data-binding="const-CompleteLattice" data-verso-hover="29">CompleteLattice</span></code>'s, which provide <code class="hl lean inline" data-lean-context="examples"><span class="const token" data-binding="const-SupSet.sSup" data-verso-hover="30">sSup</span></code> and <code class="hl lean inline" data-lean-context="examples"><span class="const token" data-binding="const-InfSet.sInf" data-verso-hover="31">sInf</span></code> as supremum and infimum over sets. <strong>Definition 2.6</strong> defines <em>naturally ordered</em> captured by <code class="hl lean inline" data-lean-context="examples"><span class="const token" data-binding="const-CanonicallyOrderedAdd" data-verso-hover="32">CanonicallyOrderedAdd</span></code>.</p>
+            <code class="hl lean block" data-lean-context="examples"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.variable-7330" data-verso-hover="5">variable</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.instBinder-7339">[</span><span class="const token" data-binding="const-CompleteLattice" data-verso-hover="29">CompleteLattice</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.4" data-verso-hover="6">ℛ</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.instBinder-7339">]</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.instBinder-7361">[</span><span class="const token" data-binding="const-CanonicallyOrderedAdd" data-verso-hover="32">CanonicallyOrderedAdd</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.4" data-verso-hover="6">ℛ</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.instBinder-7361">]</span><span class="inter-text">
+</span><span class="unknown token" data-binding=""></span></code><p>
+              <strong>Definition 2.8</strong> defines ω-continuity which we formalize as two type classes <code class="hl lean inline" data-lean-context="examples"><span class="const token" data-binding="const-OmegaCompletePartialOrder.ωScottContinuousAdd" data-verso-hover="33">ωScottContinuousAdd</span></code> and <code class="hl lean inline" data-lean-context="examples"><span class="const token" data-binding="const-OmegaCompletePartialOrder.ωScottContinuousSMul" data-verso-hover="34">ωScottContinuousSMul</span></code>. These build on the notion of <code class="hl lean inline" data-lean-context="examples"><span class="const token" data-binding="const-OmegaCompletePartialOrder.ωScottContinuous" data-verso-hover="35">ωScottContinuous</span></code> from the <code class="hl lean inline" data-lean-context="examples"><span class="const token" data-binding="const-OmegaCompletePartialOrder" data-verso-hover="36">OmegaCompletePartialOrder</span></code> module (a weaker order than <code class="hl lean inline" data-lean-context="examples"><span class="const token" data-binding="const-CompleteLattice" data-verso-hover="29">CompleteLattice</span></code> and this we have an instance <code class="hl lean inline" data-lean-context="examples"><span class="const token" data-binding="const-OmegaCompletePartialOrder" data-verso-hover="36">OmegaCompletePartialOrder</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.42864" data-verso-hover="6">ℛ</span></code>). This bears a connection to continuity in the Scott topology <code class="hl lean inline" data-lean-context="examples"><span class="const token" data-binding="const-Topology.scott" data-verso-hover="37">Topology.scott</span></code>, but the only property we rely on is preservation of <code class="hl lean inline" data-lean-context="examples"><span class="const token" data-binding="const-OmegaCompletePartialOrder.ωSup" data-verso-hover="38">ωSup</span></code>, the chain/countable analogue of <code class="hl lean inline" data-lean-context="examples"><span class="const token" data-binding="const-iSup" data-verso-hover="39">iSup</span></code>.</p>
+            <p>
+              <strong>Lemma 2.9</strong> introduces <em>countable sums</em>. There is not, at the time of writing, a direct correspondence to this notion of a countable sum defined for <code class="hl lean inline" data-lean-context="examples"><span class="const token" data-binding="const-CompleteLattice" data-verso-hover="29">CompleteLattice</span></code>'s with <code class="hl lean inline" data-lean-context="examples"><span class="const token" data-binding="const-AddCommMonoid" data-verso-hover="3">AddCommMonoid</span></code> and <code class="hl lean inline" data-lean-context="examples"><span class="const token" data-binding="const-CanonicallyOrderedAdd" data-verso-hover="32">CanonicallyOrderedAdd</span></code>. The closest is <code class="hl lean inline" data-lean-context="examples"><span class="const token" data-binding="const-tsum" data-verso-hover="40">tsum</span></code>, short for topological sum and defined as a topological limit. However, since we do not impose a topological space on our structure, we use an alternative definition based on <code class="hl lean inline" data-lean-context="examples"><span class="const token" data-binding="const-OmegaCompletePartialOrder.ωSup" data-verso-hover="38">ωSup</span></code> namely <code class="hl lean inline" data-lean-context="examples"><a href="Preliminaries/#OmegaCompletePartialOrder______Sum" title="Documentation for OmegaCompletePartialOrder.ωSum"><span class="const token" data-binding="const-OmegaCompletePartialOrder.ωSum" data-verso-hover="41">ωSum</span></a></code>, heavily inspired by Weighted NetKAT's  (Acevedo <em>et al.</em>, 2026)<span class="marginalia"><span class="note"><span class="citation">Emmanuel Suárez Acevedo, Tiago Ferreira, Kevin Batz, Oliver Bøving, Nate Foster,  and Alexandra Silva, 2026. “Weighted NetKAT: A Programming Language for Quantitative Network Verification”. In <em>PLDI.</em></span></span></span> definition under the same name.</p>
+            <div class="namedocs" id="OmegaCompletePartialOrder______Sum">
+              <span class="permalink-widget block"><a href="find/?domain=Verso.Genre.Manual.doc&amp;name=OmegaCompletePartialOrder.ωSum" title="Permalink">🔗</a></span><span class="label">def</span><pre class="signature hl lean block"><div class="wide-only"><a href="Preliminaries/#OmegaCompletePartialOrder______Sum" title="Documentation for OmegaCompletePartialOrder.ωSum"><span class="const token" data-binding="const-OmegaCompletePartialOrder.ωSum" data-verso-hover="41">OmegaCompletePartialOrder.ωSum.{u_1, u_3}</span></a><span class="inter-text"> </span><span class="unknown token" data-binding="">{</span><span class="var token" data-binding="var-_uniq.46822" data-verso-hover="14">ι</span><span class="inter-text"> </span><span class="unknown token" data-binding="">:</span><span class="inter-text"> </span><span class="sort token" data-binding="sort-7243200735919010059" data-verso-hover="7">Type u_1</span><span class="unknown token" data-binding="">}</span><span class="inter-text"> </span><span class="unknown token" data-binding="">{</span><span class="var token" data-binding="var-_uniq.46823" data-verso-hover="42">α</span><span class="inter-text"> </span><span class="unknown token" data-binding="">:</span><span class="inter-text"> </span><span class="sort token" data-binding="sort-7243200735919010059" data-verso-hover="7">Type u_3</span><span class="unknown token" data-binding="">}</span><span class="inter-text">
+  </span><span class="unknown token" data-binding="">[</span><span class="const token" data-binding="const-Countable" data-verso-hover="43">Countable</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.46822" data-verso-hover="14">ι</span><span class="unknown token" data-binding="">]</span><span class="inter-text"> </span><span class="unknown token" data-binding="">[</span><span class="const token" data-binding="const-OmegaCompletePartialOrder" data-verso-hover="36">OmegaCompletePartialOrder</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.46823" data-verso-hover="42">α</span><span class="unknown token" data-binding="">]</span><span class="inter-text"> </span><span class="unknown token" data-binding="">[</span><span class="const token" data-binding="const-AddCommMonoid" data-verso-hover="3">AddCommMonoid</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.46823" data-verso-hover="42">α</span><span class="unknown token" data-binding="">]</span><span class="inter-text">
+  </span><span class="unknown token" data-binding="">[</span><span class="const token" data-binding="const-AddLeftMono" data-verso-hover="44">AddLeftMono</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.46823" data-verso-hover="42">α</span><span class="unknown token" data-binding="">]</span><span class="inter-text"> </span><span class="unknown token" data-binding="">[</span><span class="const token" data-binding="const-IsBotZeroClass" data-verso-hover="45">IsBotZeroClass</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.46823" data-verso-hover="42">α</span><span class="unknown token" data-binding="">]</span><span class="inter-text"> </span><span class="unknown token" data-binding="">(</span><span class="var token" data-binding="var-_uniq.46830" data-verso-hover="46">f</span><span class="inter-text"> </span><span class="unknown token" data-binding="">:</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.46822" data-verso-hover="14">ι</span><span class="inter-text"> </span><span class="unknown token" data-binding="">→</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.46823" data-verso-hover="42">α</span><span class="unknown token" data-binding="">)</span><span class="inter-text"> </span><span class="unknown token" data-binding="">:</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.46823" data-verso-hover="42">α</span></div><div class="narrow-only"><a href="Preliminaries/#OmegaCompletePartialOrder______Sum" title="Documentation for OmegaCompletePartialOrder.ωSum"><span class="const token" data-binding="const-OmegaCompletePartialOrder.ωSum" data-verso-hover="41">OmegaCompletePartialOrder.ωSum.{u_1, u_3}</span></a><span class="inter-text">
+  </span><span class="unknown token" data-binding="">{</span><span class="var token" data-binding="var-_uniq.46822" data-verso-hover="14">ι</span><span class="inter-text"> </span><span class="unknown token" data-binding="">:</span><span class="inter-text"> </span><span class="sort token" data-binding="sort-7243200735919010059" data-verso-hover="7">Type u_1</span><span class="unknown token" data-binding="">}</span><span class="inter-text"> </span><span class="unknown token" data-binding="">{</span><span class="var token" data-binding="var-_uniq.46823" data-verso-hover="42">α</span><span class="inter-text"> </span><span class="unknown token" data-binding="">:</span><span class="inter-text"> </span><span class="sort token" data-binding="sort-7243200735919010059" data-verso-hover="7">Type u_3</span><span class="unknown token" data-binding="">}</span><span class="inter-text">
+  </span><span class="unknown token" data-binding="">[</span><span class="const token" data-binding="const-Countable" data-verso-hover="43">Countable</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.46822" data-verso-hover="14">ι</span><span class="unknown token" data-binding="">]</span><span class="inter-text">
+  </span><span class="unknown token" data-binding="">[</span><span class="const token" data-binding="const-OmegaCompletePartialOrder" data-verso-hover="36">OmegaCompletePartialOrder</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.46823" data-verso-hover="42">α</span><span class="unknown token" data-binding="">]</span><span class="inter-text">
+  </span><span class="unknown token" data-binding="">[</span><span class="const token" data-binding="const-AddCommMonoid" data-verso-hover="3">AddCommMonoid</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.46823" data-verso-hover="42">α</span><span class="unknown token" data-binding="">]</span><span class="inter-text"> </span><span class="unknown token" data-binding="">[</span><span class="const token" data-binding="const-AddLeftMono" data-verso-hover="44">AddLeftMono</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.46823" data-verso-hover="42">α</span><span class="unknown token" data-binding="">]</span><span class="inter-text">
+  </span><span class="unknown token" data-binding="">[</span><span class="const token" data-binding="const-IsBotZeroClass" data-verso-hover="45">IsBotZeroClass</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.46823" data-verso-hover="42">α</span><span class="unknown token" data-binding="">]</span><span class="inter-text"> </span><span class="unknown token" data-binding="">(</span><span class="var token" data-binding="var-_uniq.46830" data-verso-hover="46">f</span><span class="inter-text"> </span><span class="unknown token" data-binding="">:</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.46822" data-verso-hover="14">ι</span><span class="inter-text"> </span><span class="unknown token" data-binding="">→</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.46823" data-verso-hover="42">α</span><span class="unknown token" data-binding="">)</span><span class="inter-text"> </span><span class="unknown token" data-binding="">:</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.46823" data-verso-hover="42">α</span></div></pre><div class="text">
+                <p>
+                  <code class="hl lean inline" data-lean-context="docstring-examples"><span class="unknown token" data-binding="">ω∑</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.46264" data-verso-hover="47">i</span><span class="punctuation separator token" data-binding="kw-occ-OmegaCompletePartialOrder.«termω∑_,_»-0">,</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.46252" data-verso-hover="46">f</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.46264" data-verso-hover="47">i</span></code> is the countable sum of <code class="hl lean inline" data-lean-context="docstring-examples"><span class="var token" data-binding="var-_uniq.46252" data-verso-hover="46">f</span></code> defined as the ω-supremum over sums finite subsets.</p>
+                <p>
+                  Note that <code class="hl lean inline" data-lean-context="docstring-examples"><a href="Preliminaries/#OmegaCompletePartialOrder______Sum" title="Documentation for OmegaCompletePartialOrder.ωSum"><span class="const token" data-binding="const-OmegaCompletePartialOrder.ωSum" data-verso-hover="41">ωSum</span></a></code> is defined for <code class="hl lean inline" data-lean-context="docstring-examples"><span class="const token" data-binding="const-Countable" data-verso-hover="43">Countable</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.46295" data-verso-hover="14">ι</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Verso.Genre.Manual.docMetavar-0">:</span><span class="inter-text"> </span><span class="sort token" data-binding="sort-14430969920833713138" data-verso-hover="48">Prop</span></code> while <code class="hl lean inline" data-lean-context="docstring-examples"><span class="const token" data-binding="const-Finset.ωSup" data-verso-hover="49">Finset.ωSup</span></code> is for <code class="hl lean inline" data-lean-context="docstring-examples"><span class="unknown token" data-binding="">Encodable</span><span class="inter-text"> </span><span class="unknown token" data-binding="">ι</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="">:</span><span class="inter-text"> </span><span class="keyword token" data-binding="">Type</span></code>. Since the sum is exhaustive, the instance of <code class="hl lean inline" data-lean-context="docstring-examples"><span class="const token" data-binding="const-Encodable" data-verso-hover="50">Encodable</span></code> is irrelevant and thus use
+<code class="hl lean inline" data-lean-context="docstring-examples"><span class="const token" data-binding="const-Encodable.ofCountable" data-verso-hover="51">Encodable.ofCountable</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.46295" data-verso-hover="14">ι</span></code>.</p>
+                </div>
+              </div>
+            </section>
+          <nav class="prev-next-buttons">
+            <a class="local-button active" href="Introduction/#Countable-Nondeterminism-in-Weighted-Programming-with-an-Application-to-Mechanized-Foundations-for-Probabilistic-Program-Verification-_LPAR_Lean-manual_RPAR_--Introduction" rel="prev" title="1. Introduction"><span class="arrow">←</span><span class="where">1. Introduction</span></a><a class="local-button active" href="Weighted-Programming/#Countable-Nondeterminism-in-Weighted-Programming-with-an-Application-to-Mechanized-Foundations-for-Probabilistic-Program-Verification-_LPAR_Lean-manual_RPAR_--Weighted-Programming" rel="next" title="3. Weighted Programming"><span class="where">3. Weighted Programming</span><span class="arrow">→</span></a></nav>
+          </div>
+        </main></div>
+    </body>
+  </html>
+

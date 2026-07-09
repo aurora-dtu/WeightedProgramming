@@ -1,0 +1,661 @@
+{"Verso.Genre.Manual.section":
+ {"title": "Sections or chapters of the manual",
+  "description": null,
+  "contents":
+  {"index":
+   [{"id": "index",
+     "data":
+     {"title": "Index",
+      "shortTitle": null,
+      "sectionNum": null,
+      "searchPriority": 50,
+      "context":
+      [{"title":
+        "Countable Nondeterminism in Weighted Programming with an Application to Mechanized Foundations for Probabilistic Program Verification (Lean manual)",
+        "shortTitle":
+        "Countable Nondeterminism in Weighted Programming with an Application to Mechanized Foundations for Probabilistic Program Verification",
+        "number": null},
+       {"title": "Index", "shortTitle": null, "number": null}]},
+     "address": "/Index/"}],
+   "Countable-Nondeterminism-in-Weighted-Programming-with-an-Application-to-Mechanized-Foundations-for-Probabilistic-Program-Verification-_LPAR_Lean-manual_RPAR_--When-are-minimal-weighted-rewards-_LPAR_not_RPAR_-equal-to-least-fixed-points___--WDP-Level___-A-Sufficient-Condition-for-the-LFP-property":
+   [{"id":
+     "Countable-Nondeterminism-in-Weighted-Programming-with-an-Application-to-Mechanized-Foundations-for-Probabilistic-Program-Verification-_LPAR_Lean-manual_RPAR_--When-are-minimal-weighted-rewards-_LPAR_not_RPAR_-equal-to-least-fixed-points___--WDP-Level___-A-Sufficient-Condition-for-the-LFP-property",
+     "data":
+     {"title": "WDP Level: A Sufficient Condition for the LFP property",
+      "shortTitle": null,
+      "sectionNum": "5.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title":
+        "Countable Nondeterminism in Weighted Programming with an Application to Mechanized Foundations for Probabilistic Program Verification (Lean manual)",
+        "shortTitle":
+        "Countable Nondeterminism in Weighted Programming with an Application to Mechanized Foundations for Probabilistic Program Verification",
+        "number": null},
+       {"title":
+        "When are minimal weighted rewards (not) equal to least fixed points?",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "WDP Level: A Sufficient Condition for the LFP property",
+        "shortTitle": null,
+        "number": "2"}]},
+     "address":
+     "/When-are-minimal-weighted-rewards-_LPAR_not_RPAR_-equal-to-least-fixed-points___/"}],
+   "Countable-Nondeterminism-in-Weighted-Programming-with-an-Application-to-Mechanized-Foundations-for-Probabilistic-Program-Verification-_LPAR_Lean-manual_RPAR_--When-are-minimal-weighted-rewards-_LPAR_not_RPAR_-equal-to-least-fixed-points___--Transporting-the-LFP-Property-through-Normalization":
+   [{"id":
+     "Countable-Nondeterminism-in-Weighted-Programming-with-an-Application-to-Mechanized-Foundations-for-Probabilistic-Program-Verification-_LPAR_Lean-manual_RPAR_--When-are-minimal-weighted-rewards-_LPAR_not_RPAR_-equal-to-least-fixed-points___--Transporting-the-LFP-Property-through-Normalization",
+     "data":
+     {"title": "Transporting the LFP Property through Normalization",
+      "shortTitle": null,
+      "sectionNum": "5.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title":
+        "Countable Nondeterminism in Weighted Programming with an Application to Mechanized Foundations for Probabilistic Program Verification (Lean manual)",
+        "shortTitle":
+        "Countable Nondeterminism in Weighted Programming with an Application to Mechanized Foundations for Probabilistic Program Verification",
+        "number": null},
+       {"title":
+        "When are minimal weighted rewards (not) equal to least fixed points?",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Transporting the LFP Property through Normalization",
+        "shortTitle": null,
+        "number": "3"}]},
+     "address":
+     "/When-are-minimal-weighted-rewards-_LPAR_not_RPAR_-equal-to-least-fixed-points___/"}],
+   "Countable-Nondeterminism-in-Weighted-Programming-with-an-Application-to-Mechanized-Foundations-for-Probabilistic-Program-Verification-_LPAR_Lean-manual_RPAR_--When-are-minimal-weighted-rewards-_LPAR_not_RPAR_-equal-to-least-fixed-points___--Module-Level___-A-Necessary-Condition-for-the-LFP-Property":
+   [{"id":
+     "Countable-Nondeterminism-in-Weighted-Programming-with-an-Application-to-Mechanized-Foundations-for-Probabilistic-Program-Verification-_LPAR_Lean-manual_RPAR_--When-are-minimal-weighted-rewards-_LPAR_not_RPAR_-equal-to-least-fixed-points___--Module-Level___-A-Necessary-Condition-for-the-LFP-Property",
+     "data":
+     {"title": "Module Level: A Necessary Condition for the LFP Property",
+      "shortTitle": null,
+      "sectionNum": "5.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title":
+        "Countable Nondeterminism in Weighted Programming with an Application to Mechanized Foundations for Probabilistic Program Verification (Lean manual)",
+        "shortTitle":
+        "Countable Nondeterminism in Weighted Programming with an Application to Mechanized Foundations for Probabilistic Program Verification",
+        "number": null},
+       {"title":
+        "When are minimal weighted rewards (not) equal to least fixed points?",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Module Level: A Necessary Condition for the LFP Property",
+        "shortTitle": null,
+        "number": "1"}]},
+     "address":
+     "/When-are-minimal-weighted-rewards-_LPAR_not_RPAR_-equal-to-least-fixed-points___/"}],
+   "Countable-Nondeterminism-in-Weighted-Programming-with-an-Application-to-Mechanized-Foundations-for-Probabilistic-Program-Verification-_LPAR_Lean-manual_RPAR_--When-are-minimal-weighted-rewards-_LPAR_not_RPAR_-equal-to-least-fixed-points___--Classes-of-WDPs-with-the-Least-Fixed-Point-Property":
+   [{"id":
+     "Countable-Nondeterminism-in-Weighted-Programming-with-an-Application-to-Mechanized-Foundations-for-Probabilistic-Program-Verification-_LPAR_Lean-manual_RPAR_--When-are-minimal-weighted-rewards-_LPAR_not_RPAR_-equal-to-least-fixed-points___--Classes-of-WDPs-with-the-Least-Fixed-Point-Property",
+     "data":
+     {"title": "Classes of WDPs with the Least Fixed Point Property",
+      "shortTitle": null,
+      "sectionNum": "5.4.",
+      "searchPriority": 50,
+      "context":
+      [{"title":
+        "Countable Nondeterminism in Weighted Programming with an Application to Mechanized Foundations for Probabilistic Program Verification (Lean manual)",
+        "shortTitle":
+        "Countable Nondeterminism in Weighted Programming with an Application to Mechanized Foundations for Probabilistic Program Verification",
+        "number": null},
+       {"title":
+        "When are minimal weighted rewards (not) equal to least fixed points?",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Classes of WDPs with the Least Fixed Point Property",
+        "shortTitle": null,
+        "number": "4"}]},
+     "address":
+     "/When-are-minimal-weighted-rewards-_LPAR_not_RPAR_-equal-to-least-fixed-points___/"}],
+   "Countable-Nondeterminism-in-Weighted-Programming-with-an-Application-to-Mechanized-Foundations-for-Probabilistic-Program-Verification-_LPAR_Lean-manual_RPAR_--When-are-minimal-weighted-rewards-_LPAR_not_RPAR_-equal-to-least-fixed-points___":
+   [{"id":
+     "Countable-Nondeterminism-in-Weighted-Programming-with-an-Application-to-Mechanized-Foundations-for-Probabilistic-Program-Verification-_LPAR_Lean-manual_RPAR_--When-are-minimal-weighted-rewards-_LPAR_not_RPAR_-equal-to-least-fixed-points___",
+     "data":
+     {"title":
+      "When are minimal weighted rewards (not) equal to least fixed points?",
+      "shortTitle": null,
+      "sectionNum": "5.",
+      "searchPriority": 50,
+      "context":
+      [{"title":
+        "Countable Nondeterminism in Weighted Programming with an Application to Mechanized Foundations for Probabilistic Program Verification (Lean manual)",
+        "shortTitle":
+        "Countable Nondeterminism in Weighted Programming with an Application to Mechanized Foundations for Probabilistic Program Verification",
+        "number": null},
+       {"title":
+        "When are minimal weighted rewards (not) equal to least fixed points?",
+        "shortTitle": null,
+        "number": "5"}]},
+     "address":
+     "/When-are-minimal-weighted-rewards-_LPAR_not_RPAR_-equal-to-least-fixed-points___/"}],
+   "Countable-Nondeterminism-in-Weighted-Programming-with-an-Application-to-Mechanized-Foundations-for-Probabilistic-Program-Verification-_LPAR_Lean-manual_RPAR_--Weighted-Programming--Weakest-Precondition-Semantics":
+   [{"id":
+     "Countable-Nondeterminism-in-Weighted-Programming-with-an-Application-to-Mechanized-Foundations-for-Probabilistic-Program-Verification-_LPAR_Lean-manual_RPAR_--Weighted-Programming--Weakest-Precondition-Semantics",
+     "data":
+     {"title": "Weakest Precondition Semantics",
+      "shortTitle": null,
+      "sectionNum": "3.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title":
+        "Countable Nondeterminism in Weighted Programming with an Application to Mechanized Foundations for Probabilistic Program Verification (Lean manual)",
+        "shortTitle":
+        "Countable Nondeterminism in Weighted Programming with an Application to Mechanized Foundations for Probabilistic Program Verification",
+        "number": null},
+       {"title": "Weighted Programming", "shortTitle": null, "number": "3"},
+       {"title": "Weakest Precondition Semantics",
+        "shortTitle": null,
+        "number": "3"}]},
+     "address": "/Weighted-Programming/"}],
+   "Countable-Nondeterminism-in-Weighted-Programming-with-an-Application-to-Mechanized-Foundations-for-Probabilistic-Program-Verification-_LPAR_Lean-manual_RPAR_--Weighted-Programming--Program-Syntax":
+   [{"id":
+     "Countable-Nondeterminism-in-Weighted-Programming-with-an-Application-to-Mechanized-Foundations-for-Probabilistic-Program-Verification-_LPAR_Lean-manual_RPAR_--Weighted-Programming--Program-Syntax",
+     "data":
+     {"title": "Program Syntax",
+      "shortTitle": null,
+      "sectionNum": "3.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title":
+        "Countable Nondeterminism in Weighted Programming with an Application to Mechanized Foundations for Probabilistic Program Verification (Lean manual)",
+        "shortTitle":
+        "Countable Nondeterminism in Weighted Programming with an Application to Mechanized Foundations for Probabilistic Program Verification",
+        "number": null},
+       {"title": "Weighted Programming", "shortTitle": null, "number": "3"},
+       {"title": "Program Syntax", "shortTitle": null, "number": "2"}]},
+     "address": "/Weighted-Programming/"}],
+   "Countable-Nondeterminism-in-Weighted-Programming-with-an-Application-to-Mechanized-Foundations-for-Probabilistic-Program-Verification-_LPAR_Lean-manual_RPAR_--Weighted-Programming--Program-States-and-Expressions":
+   [{"id":
+     "Countable-Nondeterminism-in-Weighted-Programming-with-an-Application-to-Mechanized-Foundations-for-Probabilistic-Program-Verification-_LPAR_Lean-manual_RPAR_--Weighted-Programming--Program-States-and-Expressions",
+     "data":
+     {"title": "Program States and Expressions",
+      "shortTitle": null,
+      "sectionNum": "3.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title":
+        "Countable Nondeterminism in Weighted Programming with an Application to Mechanized Foundations for Probabilistic Program Verification (Lean manual)",
+        "shortTitle":
+        "Countable Nondeterminism in Weighted Programming with an Application to Mechanized Foundations for Probabilistic Program Verification",
+        "number": null},
+       {"title": "Weighted Programming", "shortTitle": null, "number": "3"},
+       {"title": "Program States and Expressions",
+        "shortTitle": null,
+        "number": "1"}]},
+     "address": "/Weighted-Programming/"}],
+   "Countable-Nondeterminism-in-Weighted-Programming-with-an-Application-to-Mechanized-Foundations-for-Probabilistic-Program-Verification-_LPAR_Lean-manual_RPAR_--Weighted-Programming":
+   [{"id":
+     "Countable-Nondeterminism-in-Weighted-Programming-with-an-Application-to-Mechanized-Foundations-for-Probabilistic-Program-Verification-_LPAR_Lean-manual_RPAR_--Weighted-Programming",
+     "data":
+     {"title": "Weighted Programming",
+      "shortTitle": null,
+      "sectionNum": "3.",
+      "searchPriority": 50,
+      "context":
+      [{"title":
+        "Countable Nondeterminism in Weighted Programming with an Application to Mechanized Foundations for Probabilistic Program Verification (Lean manual)",
+        "shortTitle":
+        "Countable Nondeterminism in Weighted Programming with an Application to Mechanized Foundations for Probabilistic Program Verification",
+        "number": null},
+       {"title": "Weighted Programming", "shortTitle": null, "number": "3"}]},
+     "address": "/Weighted-Programming/"}],
+   "Countable-Nondeterminism-in-Weighted-Programming-with-an-Application-to-Mechanized-Foundations-for-Probabilistic-Program-Verification-_LPAR_Lean-manual_RPAR_--Related-Work":
+   [{"id":
+     "Countable-Nondeterminism-in-Weighted-Programming-with-an-Application-to-Mechanized-Foundations-for-Probabilistic-Program-Verification-_LPAR_Lean-manual_RPAR_--Related-Work",
+     "data":
+     {"title": "Related Work",
+      "shortTitle": null,
+      "sectionNum": "7.",
+      "searchPriority": 50,
+      "context":
+      [{"title":
+        "Countable Nondeterminism in Weighted Programming with an Application to Mechanized Foundations for Probabilistic Program Verification (Lean manual)",
+        "shortTitle":
+        "Countable Nondeterminism in Weighted Programming with an Application to Mechanized Foundations for Probabilistic Program Verification",
+        "number": null},
+       {"title": "Related Work", "shortTitle": null, "number": "7"}]},
+     "address": "/Related-Work/"}],
+   "Countable-Nondeterminism-in-Weighted-Programming-with-an-Application-to-Mechanized-Foundations-for-Probabilistic-Program-Verification-_LPAR_Lean-manual_RPAR_--Preliminaries":
+   [{"id":
+     "Countable-Nondeterminism-in-Weighted-Programming-with-an-Application-to-Mechanized-Foundations-for-Probabilistic-Program-Verification-_LPAR_Lean-manual_RPAR_--Preliminaries",
+     "data":
+     {"title": "Preliminaries",
+      "shortTitle": null,
+      "sectionNum": "2.",
+      "searchPriority": 50,
+      "context":
+      [{"title":
+        "Countable Nondeterminism in Weighted Programming with an Application to Mechanized Foundations for Probabilistic Program Verification (Lean manual)",
+        "shortTitle":
+        "Countable Nondeterminism in Weighted Programming with an Application to Mechanized Foundations for Probabilistic Program Verification",
+        "number": null},
+       {"title": "Preliminaries", "shortTitle": null, "number": "2"}]},
+     "address": "/Preliminaries/"}],
+   "Countable-Nondeterminism-in-Weighted-Programming-with-an-Application-to-Mechanized-Foundations-for-Probabilistic-Program-Verification-_LPAR_Lean-manual_RPAR_--Operational-Semantics-via-Weighted-Decision-Processes--The-Operational-Weighted-Decision-Process":
+   [{"id":
+     "Countable-Nondeterminism-in-Weighted-Programming-with-an-Application-to-Mechanized-Foundations-for-Probabilistic-Program-Verification-_LPAR_Lean-manual_RPAR_--Operational-Semantics-via-Weighted-Decision-Processes--The-Operational-Weighted-Decision-Process",
+     "data":
+     {"title": "The Operational Weighted Decision Process",
+      "shortTitle": null,
+      "sectionNum": "4.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title":
+        "Countable Nondeterminism in Weighted Programming with an Application to Mechanized Foundations for Probabilistic Program Verification (Lean manual)",
+        "shortTitle":
+        "Countable Nondeterminism in Weighted Programming with an Application to Mechanized Foundations for Probabilistic Program Verification",
+        "number": null},
+       {"title": "Operational Semantics via Weighted Decision Processes",
+        "shortTitle": null,
+        "number": "4"},
+       {"title": "The Operational Weighted Decision Process",
+        "shortTitle": null,
+        "number": "1"}]},
+     "address": "/Operational-Semantics-via-Weighted-Decision-Processes/"}],
+   "Countable-Nondeterminism-in-Weighted-Programming-with-an-Application-to-Mechanized-Foundations-for-Probabilistic-Program-Verification-_LPAR_Lean-manual_RPAR_--Operational-Semantics-via-Weighted-Decision-Processes--Recursive-Characterization-of-Minimal-Weighted-Rewards":
+   [{"id":
+     "Countable-Nondeterminism-in-Weighted-Programming-with-an-Application-to-Mechanized-Foundations-for-Probabilistic-Program-Verification-_LPAR_Lean-manual_RPAR_--Operational-Semantics-via-Weighted-Decision-Processes--Recursive-Characterization-of-Minimal-Weighted-Rewards",
+     "data":
+     {"title": "Recursive Characterization of Minimal Weighted Rewards",
+      "shortTitle": null,
+      "sectionNum": "4.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title":
+        "Countable Nondeterminism in Weighted Programming with an Application to Mechanized Foundations for Probabilistic Program Verification (Lean manual)",
+        "shortTitle":
+        "Countable Nondeterminism in Weighted Programming with an Application to Mechanized Foundations for Probabilistic Program Verification",
+        "number": null},
+       {"title": "Operational Semantics via Weighted Decision Processes",
+        "shortTitle": null,
+        "number": "4"},
+       {"title": "Recursive Characterization of Minimal Weighted Rewards",
+        "shortTitle": null,
+        "number": "3"}]},
+     "address": "/Operational-Semantics-via-Weighted-Decision-Processes/"}],
+   "Countable-Nondeterminism-in-Weighted-Programming-with-an-Application-to-Mechanized-Foundations-for-Probabilistic-Program-Verification-_LPAR_Lean-manual_RPAR_--Operational-Semantics-via-Weighted-Decision-Processes--Minimal-Weighted-Rewards":
+   [{"id":
+     "Countable-Nondeterminism-in-Weighted-Programming-with-an-Application-to-Mechanized-Foundations-for-Probabilistic-Program-Verification-_LPAR_Lean-manual_RPAR_--Operational-Semantics-via-Weighted-Decision-Processes--Minimal-Weighted-Rewards",
+     "data":
+     {"title": "Minimal Weighted Rewards",
+      "shortTitle": null,
+      "sectionNum": "4.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title":
+        "Countable Nondeterminism in Weighted Programming with an Application to Mechanized Foundations for Probabilistic Program Verification (Lean manual)",
+        "shortTitle":
+        "Countable Nondeterminism in Weighted Programming with an Application to Mechanized Foundations for Probabilistic Program Verification",
+        "number": null},
+       {"title": "Operational Semantics via Weighted Decision Processes",
+        "shortTitle": null,
+        "number": "4"},
+       {"title": "Minimal Weighted Rewards",
+        "shortTitle": null,
+        "number": "2"}]},
+     "address": "/Operational-Semantics-via-Weighted-Decision-Processes/"}],
+   "Countable-Nondeterminism-in-Weighted-Programming-with-an-Application-to-Mechanized-Foundations-for-Probabilistic-Program-Verification-_LPAR_Lean-manual_RPAR_--Operational-Semantics-via-Weighted-Decision-Processes":
+   [{"id":
+     "Countable-Nondeterminism-in-Weighted-Programming-with-an-Application-to-Mechanized-Foundations-for-Probabilistic-Program-Verification-_LPAR_Lean-manual_RPAR_--Operational-Semantics-via-Weighted-Decision-Processes",
+     "data":
+     {"title": "Operational Semantics via Weighted Decision Processes",
+      "shortTitle": null,
+      "sectionNum": "4.",
+      "searchPriority": 50,
+      "context":
+      [{"title":
+        "Countable Nondeterminism in Weighted Programming with an Application to Mechanized Foundations for Probabilistic Program Verification (Lean manual)",
+        "shortTitle":
+        "Countable Nondeterminism in Weighted Programming with an Application to Mechanized Foundations for Probabilistic Program Verification",
+        "number": null},
+       {"title": "Operational Semantics via Weighted Decision Processes",
+        "shortTitle": null,
+        "number": "4"}]},
+     "address": "/Operational-Semantics-via-Weighted-Decision-Processes/"}],
+   "Countable-Nondeterminism-in-Weighted-Programming-with-an-Application-to-Mechanized-Foundations-for-Probabilistic-Program-Verification-_LPAR_Lean-manual_RPAR_--Introduction":
+   [{"id":
+     "Countable-Nondeterminism-in-Weighted-Programming-with-an-Application-to-Mechanized-Foundations-for-Probabilistic-Program-Verification-_LPAR_Lean-manual_RPAR_--Introduction",
+     "data":
+     {"title": "Introduction",
+      "shortTitle": null,
+      "sectionNum": "1.",
+      "searchPriority": 50,
+      "context":
+      [{"title":
+        "Countable Nondeterminism in Weighted Programming with an Application to Mechanized Foundations for Probabilistic Program Verification (Lean manual)",
+        "shortTitle":
+        "Countable Nondeterminism in Weighted Programming with an Application to Mechanized Foundations for Probabilistic Program Verification",
+        "number": null},
+       {"title": "Introduction", "shortTitle": null, "number": "1"}]},
+     "address": "/Introduction/"}],
+   "Countable-Nondeterminism-in-Weighted-Programming-with-an-Application-to-Mechanized-Foundations-for-Probabilistic-Program-Verification-_LPAR_Lean-manual_RPAR_--Case-Studies":
+   [{"id":
+     "Countable-Nondeterminism-in-Weighted-Programming-with-an-Application-to-Mechanized-Foundations-for-Probabilistic-Program-Verification-_LPAR_Lean-manual_RPAR_--Case-Studies",
+     "data":
+     {"title": "Case Studies",
+      "shortTitle": null,
+      "sectionNum": "6.",
+      "searchPriority": 50,
+      "context":
+      [{"title":
+        "Countable Nondeterminism in Weighted Programming with an Application to Mechanized Foundations for Probabilistic Program Verification (Lean manual)",
+        "shortTitle":
+        "Countable Nondeterminism in Weighted Programming with an Application to Mechanized Foundations for Probabilistic Program Verification",
+        "number": null},
+       {"title": "Case Studies", "shortTitle": null, "number": "6"}]},
+     "address": "/Case-Studies/"}],
+   "Countable-Nondeterminism-in-Weighted-Programming-with-an-Application-to-Mechanized-Foundations-for-Probabilistic-Program-Verification-_LPAR_Lean-manual_RPAR_":
+   [{"id":
+     "Countable-Nondeterminism-in-Weighted-Programming-with-an-Application-to-Mechanized-Foundations-for-Probabilistic-Program-Verification-_LPAR_Lean-manual_RPAR_",
+     "data":
+     {"title":
+      "Countable Nondeterminism in Weighted Programming with an Application to Mechanized Foundations for Probabilistic Program Verification (Lean manual)",
+      "shortTitle":
+      "Countable Nondeterminism in Weighted Programming with an Application to Mechanized Foundations for Probabilistic Program Verification",
+      "sectionNum": "",
+      "searchPriority": 50,
+      "context":
+      [{"title":
+        "Countable Nondeterminism in Weighted Programming with an Application to Mechanized Foundations for Probabilistic Program Verification (Lean manual)",
+        "shortTitle":
+        "Countable Nondeterminism in Weighted Programming with an Application to Mechanized Foundations for Probabilistic Program Verification",
+        "number": null}]},
+     "address": "/"}]}},
+ "Verso.Genre.Manual.doc.tech":
+ {"title": "Terminology",
+  "description": "Definitions of technical terms",
+  "contents": {}},
+ "Verso.Genre.Manual.doc.tactic.conv":
+ {"title": "Conversion Tactics",
+  "description": "Tactics for performing targeted rewriting of subterms",
+  "contents": {}},
+ "Verso.Genre.Manual.doc.tactic":
+ {"title": "Tactic Documentation",
+  "description": "Detailed descriptions of tactics",
+  "contents": {}},
+ "Verso.Genre.Manual.doc.suggestion":
+ {"title": "Lean constant suggestions",
+  "description": "Search suggestions for Lean constants",
+  "contents": {}},
+ "Verso.Genre.Manual.doc.option":
+ {"title": "Compiler options", "description": null, "contents": {}},
+ "Verso.Genre.Manual.doc":
+ {"title": "Lean constant reference",
+  "description": "Documentation for Lean constants",
+  "contents":
+  {"wGCL.wp":
+   [{"id": "wGCL___wp", "data": null, "address": "/Weighted-Programming/"}],
+   "wGCL.weight":
+   [{"id": "wGCL___assign", "data": null, "address": "/Weighted-Programming/"}],
+   "wGCL.wchoice":
+   [{"id": "wGCL___assign", "data": null, "address": "/Weighted-Programming/"}],
+   "wGCL.seq":
+   [{"id": "wGCL___assign", "data": null, "address": "/Weighted-Programming/"}],
+   "wGCL.sample":
+   [{"id": "wGCL___assign", "data": null, "address": "/Weighted-Programming/"}],
+   "wGCL.reward":
+   [{"id": "wGCL___assign", "data": null, "address": "/Weighted-Programming/"}],
+   "wGCL.op":
+   [{"id": "wGCL___op",
+     "data": null,
+     "address": "/Operational-Semantics-via-Weighted-Decision-Processes/"}],
+   "wGCL.nchoice":
+   [{"id": "wGCL___assign", "data": null, "address": "/Weighted-Programming/"}],
+   "wGCL.loop":
+   [{"id": "wGCL___assign", "data": null, "address": "/Weighted-Programming/"}],
+   "wGCL.havoc":
+   [{"id": "wGCL___assign", "data": null, "address": "/Weighted-Programming/"}],
+   "wGCL.assign":
+   [{"id": "wGCL___assign", "data": null, "address": "/Weighted-Programming/"}],
+   "wGCL.Step.weight":
+   [{"id": "wGCL___Step___reward",
+     "data": null,
+     "address": "/Operational-Semantics-via-Weighted-Decision-Processes/"}],
+   "wGCL.Step.wchoice₂":
+   [{"id": "wGCL___Step___reward",
+     "data": null,
+     "address": "/Operational-Semantics-via-Weighted-Decision-Processes/"}],
+   "wGCL.Step.wchoice₁":
+   [{"id": "wGCL___Step___reward",
+     "data": null,
+     "address": "/Operational-Semantics-via-Weighted-Decision-Processes/"}],
+   "wGCL.Step.wchoice₀₂":
+   [{"id": "wGCL___Step___reward",
+     "data": null,
+     "address": "/Operational-Semantics-via-Weighted-Decision-Processes/"}],
+   "wGCL.Step.wchoice₀₁":
+   [{"id": "wGCL___Step___reward",
+     "data": null,
+     "address": "/Operational-Semantics-via-Weighted-Decision-Processes/"}],
+   "wGCL.Step.seq₂":
+   [{"id": "wGCL___Step___reward",
+     "data": null,
+     "address": "/Operational-Semantics-via-Weighted-Decision-Processes/"}],
+   "wGCL.Step.seq₁":
+   [{"id": "wGCL___Step___reward",
+     "data": null,
+     "address": "/Operational-Semantics-via-Weighted-Decision-Processes/"}],
+   "wGCL.Step.sample":
+   [{"id": "wGCL___Step___reward",
+     "data": null,
+     "address": "/Operational-Semantics-via-Weighted-Decision-Processes/"}],
+   "wGCL.Step.reward":
+   [{"id": "wGCL___Step___reward",
+     "data": null,
+     "address": "/Operational-Semantics-via-Weighted-Decision-Processes/"}],
+   "wGCL.Step.nchoiceR":
+   [{"id": "wGCL___Step___reward",
+     "data": null,
+     "address": "/Operational-Semantics-via-Weighted-Decision-Processes/"}],
+   "wGCL.Step.nchoiceL":
+   [{"id": "wGCL___Step___reward",
+     "data": null,
+     "address": "/Operational-Semantics-via-Weighted-Decision-Processes/"}],
+   "wGCL.Step.loop₂":
+   [{"id": "wGCL___Step___reward",
+     "data": null,
+     "address": "/Operational-Semantics-via-Weighted-Decision-Processes/"}],
+   "wGCL.Step.loop₁":
+   [{"id": "wGCL___Step___reward",
+     "data": null,
+     "address": "/Operational-Semantics-via-Weighted-Decision-Processes/"}],
+   "wGCL.Step.havoc":
+   [{"id": "wGCL___Step___reward",
+     "data": null,
+     "address": "/Operational-Semantics-via-Weighted-Decision-Processes/"}],
+   "wGCL.Step.assign":
+   [{"id": "wGCL___Step___reward",
+     "data": null,
+     "address": "/Operational-Semantics-via-Weighted-Decision-Processes/"}],
+   "wGCL.Step":
+   [{"id": "wGCL___Step___reward",
+     "data": null,
+     "address": "/Operational-Semantics-via-Weighted-Decision-Processes/"}],
+   "wGCL.Dist.toFun":
+   [{"id": "wGCL___Dist___mk",
+     "data": null,
+     "address": "/Weighted-Programming/"}],
+   "wGCL.Dist.nonempty":
+   [{"id": "wGCL___Dist___mk",
+     "data": null,
+     "address": "/Weighted-Programming/"}],
+   "wGCL.Dist.mk":
+   [{"id": "wGCL___Dist___mk",
+     "data": null,
+     "address": "/Weighted-Programming/"}],
+   "wGCL.Dist.countable":
+   [{"id": "wGCL___Dist___mk",
+     "data": null,
+     "address": "/Weighted-Programming/"}],
+   "wGCL.Dist":
+   [{"id": "wGCL___Dist___mk",
+     "data": null,
+     "address": "/Weighted-Programming/"}],
+   "wGCL.Conf.σ":
+   [{"id": "wGCL___Conf___mk",
+     "data": null,
+     "address": "/Operational-Semantics-via-Weighted-Decision-Processes/"}],
+   "wGCL.Conf.mk":
+   [{"id": "wGCL___Conf___mk",
+     "data": null,
+     "address": "/Operational-Semantics-via-Weighted-Decision-Processes/"}],
+   "wGCL.Conf.C":
+   [{"id": "wGCL___Conf___mk",
+     "data": null,
+     "address": "/Operational-Semantics-via-Weighted-Decision-Processes/"}],
+   "wGCL.Conf":
+   [{"id": "wGCL___Conf___mk",
+     "data": null,
+     "address": "/Operational-Semantics-via-Weighted-Decision-Processes/"}],
+   "wGCL":
+   [{"id": "wGCL___assign", "data": null, "address": "/Weighted-Programming/"}],
+   "[anonymous]":
+   [{"id": "DistribMulAction___mk",
+     "data": null,
+     "address": "/Preliminaries/"}],
+   "WDP.τ_countable":
+   [{"id": "WDP___mk",
+     "data": null,
+     "address": "/Operational-Semantics-via-Weighted-Decision-Processes/"}],
+   "WDP.τ":
+   [{"id": "WDP___mk",
+     "data": null,
+     "address": "/Operational-Semantics-via-Weighted-Decision-Processes/"}],
+   "WDP.mk":
+   [{"id": "WDP___mk",
+     "data": null,
+     "address": "/Operational-Semantics-via-Weighted-Decision-Processes/"}],
+   "WDP.WellBehavedModule.wdp_isWellBehaved":
+   [{"id": "WDP___WellBehavedModule___mk",
+     "data": null,
+     "address":
+     "/When-are-minimal-weighted-rewards-_LPAR_not_RPAR_-equal-to-least-fixed-points___/"}],
+   "WDP.WellBehavedModule.mk":
+   [{"id": "WDP___WellBehavedModule___mk",
+     "data": null,
+     "address":
+     "/When-are-minimal-weighted-rewards-_LPAR_not_RPAR_-equal-to-least-fixed-points___/"}],
+   "WDP.WellBehavedModule":
+   [{"id": "WDP___WellBehavedModule___mk",
+     "data": null,
+     "address":
+     "/When-are-minimal-weighted-rewards-_LPAR_not_RPAR_-equal-to-least-fixed-points___/"}],
+   "WDP.WellBehaved.mk":
+   [{"id": "WDP___WellBehaved___mk",
+     "data": null,
+     "address":
+     "/When-are-minimal-weighted-rewards-_LPAR_not_RPAR_-equal-to-least-fixed-points___/"},
+    {"id": "WDP___WellBehaved___mk-next",
+     "data": null,
+     "address":
+     "/When-are-minimal-weighted-rewards-_LPAR_not_RPAR_-equal-to-least-fixed-points___/"}],
+   "WDP.WellBehaved.iInf_iSup_comp_le":
+   [{"id": "WDP___WellBehaved___mk",
+     "data": null,
+     "address":
+     "/When-are-minimal-weighted-rewards-_LPAR_not_RPAR_-equal-to-least-fixed-points___/"},
+    {"id": "WDP___WellBehaved___mk-next",
+     "data": null,
+     "address":
+     "/When-are-minimal-weighted-rewards-_LPAR_not_RPAR_-equal-to-least-fixed-points___/"}],
+   "WDP.WellBehaved.f_mono":
+   [{"id": "WDP___WellBehaved___mk",
+     "data": null,
+     "address":
+     "/When-are-minimal-weighted-rewards-_LPAR_not_RPAR_-equal-to-least-fixed-points___/"},
+    {"id": "WDP___WellBehaved___mk-next",
+     "data": null,
+     "address":
+     "/When-are-minimal-weighted-rewards-_LPAR_not_RPAR_-equal-to-least-fixed-points___/"}],
+   "WDP.WellBehaved.f":
+   [{"id": "WDP___WellBehaved___mk",
+     "data": null,
+     "address":
+     "/When-are-minimal-weighted-rewards-_LPAR_not_RPAR_-equal-to-least-fixed-points___/"},
+    {"id": "WDP___WellBehaved___mk-next",
+     "data": null,
+     "address":
+     "/When-are-minimal-weighted-rewards-_LPAR_not_RPAR_-equal-to-least-fixed-points___/"}],
+   "WDP.WellBehaved.exists_T'_le":
+   [{"id": "WDP___WellBehaved___mk",
+     "data": null,
+     "address":
+     "/When-are-minimal-weighted-rewards-_LPAR_not_RPAR_-equal-to-least-fixed-points___/"},
+    {"id": "WDP___WellBehaved___mk-next",
+     "data": null,
+     "address":
+     "/When-are-minimal-weighted-rewards-_LPAR_not_RPAR_-equal-to-least-fixed-points___/"}],
+   "WDP.WellBehaved.X":
+   [{"id": "WDP___WellBehaved___mk",
+     "data": null,
+     "address":
+     "/When-are-minimal-weighted-rewards-_LPAR_not_RPAR_-equal-to-least-fixed-points___/"},
+    {"id": "WDP___WellBehaved___mk-next",
+     "data": null,
+     "address":
+     "/When-are-minimal-weighted-rewards-_LPAR_not_RPAR_-equal-to-least-fixed-points___/"}],
+   "WDP.WellBehaved.T'_f_comm":
+   [{"id": "WDP___WellBehaved___mk",
+     "data": null,
+     "address":
+     "/When-are-minimal-weighted-rewards-_LPAR_not_RPAR_-equal-to-least-fixed-points___/"},
+    {"id": "WDP___WellBehaved___mk-next",
+     "data": null,
+     "address":
+     "/When-are-minimal-weighted-rewards-_LPAR_not_RPAR_-equal-to-least-fixed-points___/"}],
+   "WDP.WellBehaved":
+   [{"id": "WDP___WellBehaved___mk",
+     "data": null,
+     "address":
+     "/When-are-minimal-weighted-rewards-_LPAR_not_RPAR_-equal-to-least-fixed-points___/"},
+    {"id": "WDP___WellBehaved___mk-next",
+     "data": null,
+     "address":
+     "/When-are-minimal-weighted-rewards-_LPAR_not_RPAR_-equal-to-least-fixed-points___/"}],
+   "WDP.T_MinWRew_le_MinWRew":
+   [{"id": "WDP___T_MinWRew_le_MinWRew",
+     "data": null,
+     "address":
+     "/When-are-minimal-weighted-rewards-_LPAR_not_RPAR_-equal-to-least-fixed-points___/"}],
+   "WDP.T_MinWRew_eq_MinWRew":
+   [{"id": "WDP___T_MinWRew_eq_MinWRew",
+     "data": null,
+     "address":
+     "/When-are-minimal-weighted-rewards-_LPAR_not_RPAR_-equal-to-least-fixed-points___/"}],
+   "WDP.SMulCocontinuousOn.smul_iInf_on":
+   [{"id": "WDP___SMulCocontinuousOn___mk",
+     "data": null,
+     "address":
+     "/When-are-minimal-weighted-rewards-_LPAR_not_RPAR_-equal-to-least-fixed-points___/"}],
+   "WDP.SMulCocontinuousOn.mk":
+   [{"id": "WDP___SMulCocontinuousOn___mk",
+     "data": null,
+     "address":
+     "/When-are-minimal-weighted-rewards-_LPAR_not_RPAR_-equal-to-least-fixed-points___/"}],
+   "WDP.SMulCocontinuousOn":
+   [{"id": "WDP___SMulCocontinuousOn___mk",
+     "data": null,
+     "address":
+     "/When-are-minimal-weighted-rewards-_LPAR_not_RPAR_-equal-to-least-fixed-points___/"}],
+   "WDP":
+   [{"id": "WDP___mk",
+     "data": null,
+     "address": "/Operational-Semantics-via-Weighted-Decision-Processes/"}],
+   "OmegaCompletePartialOrder.ωSum":
+   [{"id": "OmegaCompletePartialOrder______Sum",
+     "data": null,
+     "address": "/Preliminaries/"}],
+   "DistribMulAction.toMulAction":
+   [{"id": "DistribMulAction___mk",
+     "data": null,
+     "address": "/Preliminaries/"}],
+   "DistribMulAction.mk":
+   [{"id": "DistribMulAction___mk",
+     "data": null,
+     "address": "/Preliminaries/"}],
+   "DistribMulAction":
+   [{"id": "DistribMulAction___mk",
+     "data": null,
+     "address": "/Preliminaries/"}]}}}
