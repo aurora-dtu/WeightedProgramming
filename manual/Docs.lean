@@ -436,8 +436,6 @@ _This section has not been mechanized in Lean._
 
 _No definitions in this section._
 
-{name}`HSched`
-
 # Index
 %%%
 number := false

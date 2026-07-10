@@ -240,11 +240,11 @@ def Path.dropFirst (π : Path S) (_h : π.length ≠ 0) : Path S :=
 def Path.pushFirst (π : Path S) (s : S) : Path S := ⟨π.head, π.tail ++ [s]⟩
 
 @[simp]
-theorem Path.body_foot {π : Path S} (h : π.length ≠ 0) : (π.dropFirst h).pushFirst π.first = π := by
+theorem Path.pushFirst_dropFirst {π : Path S} (h : π.length ≠ 0) : (π.dropFirst h).pushFirst π.first = π := by
   cbv; ext <;> grind [List.append_eq, Path.length]
-theorem Path.exists_body_foot {π : Path S} (h : π.length ≠ 0) :
+theorem Path.exists_pushFirst {π : Path S} (h : π.length ≠ 0) :
     ∃ (π' : Path S) (s₀ : S), π'.pushFirst s₀ = π := by
- conv => enter [1, π', 1, s₀, 2]; rw [← π.body_foot h]
+ conv => enter [1, π', 1, s₀, 2]; rw [← π.pushFirst_dropFirst h]
  grind
 
 @[simp]
@@ -688,7 +688,7 @@ theorem ωSum_of₀_succ_of_HSched [ωScottContinuousAdd ℛ] {𝔖 : M.HSched} 
   · simp
     simp_all [Path.of₀, Path.of, Path.ext_iff]
     rintro π ⟨_⟩ h₀ h₁ h₂
-    obtain ⟨π₀, s₀, ⟨_⟩⟩ := π.exists_body_foot (by grind)
+    obtain ⟨π₀, s₀, ⟨_⟩⟩ := π.exists_pushFirst (by grind)
     simp_all
     use π₀
     simp_all [← smul_assoc]
@@ -737,7 +737,7 @@ theorem ωSum_of₀_succ [ωScottContinuousAdd ℛ] {h : M.MSched} {j : S → _}
   · simp
     simp_all [Path.of₀, Path.of, Path.ext_iff]
     rintro π ⟨_⟩ h₀ h₁ h₂
-    obtain ⟨π₀, s₀, ⟨_⟩⟩ := π.exists_body_foot (by grind)
+    obtain ⟨π₀, s₀, ⟨_⟩⟩ := π.exists_pushFirst (by grind)
     simp_all
     use π₀
     simp_all [← smul_assoc]
@@ -2128,15 +2128,5 @@ theorem lfp_T_eq_MinWRew_of_generateFrom_SubWDP (M : WDP 𝒲 S A) (ρ : S → �
   intros; rfl
 
 end WDP
-
--- # Notes 1
--- Complete lattice necessary because of uncountability of schedulers
--- iSup-continuous is difficult to capture with type classes
--- Topology instantiation is challenging (Scott/Lawson)
--- Type* + countable ≃ Type
-
--- # Notes 2
--- Can we define well-behaved modules over WDP's with _nonempty actions_?
--- WDP's induced from wGCL are _independent_ of programs that we are measuring over
 
 end
